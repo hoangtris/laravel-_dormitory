@@ -8,6 +8,8 @@ use App\Room;
 use App\TypeRoom;
 use App\Area;
 use Str;
+use Auth;
+use App\User;
 
 class PageController extends Controller
 {
@@ -148,4 +150,43 @@ class PageController extends Controller
         return view('pages.room',compact('room','areas','typesRoom'));
     }
 
+    public function login()
+    {
+        # code...
+        return view('pages.login');
+    }
+
+    public function postlogin(Request $request)
+    {
+        # code...
+        $credentials = array('email'=>$request->email, 'password'=>$request->password);
+        if(Auth::attempt($credentials)){
+            //echo 'Thanh cong';
+            return redirect()->back()->with(['flag'=>'success','message'=>'Đăng nhập thành công']);
+        }else{
+            return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng nhập thất bại']);
+            //echo 'thatbai';
+        }
+    }
+
+    public function register()
+    {
+        # code...
+        return view('pages.register');
+    }
+
+    public function postregister(Request $request)
+    {
+        # code...
+        echo('<pre>');
+        $file = $request->file('avatar');
+        $name = Str::random(5).'_'.$file->getClientOriginalName();
+        print_r($request->all());
+        if(User::create($request->all())){
+            //return redirect()->back()->with(['flag'=>'success','message'=>'Đăng kí thành công']);
+        }else{
+            echo 'that bai';
+            //return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng kí thất bại']);
+        }
+    }
 }

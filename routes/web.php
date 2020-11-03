@@ -73,11 +73,21 @@ Route::get('rooms/detail/{id}', [
 //----------------------------------
 Route::get('login', [
 	'as' => 'login',
-	'uses' => 'PageController@index',
+	'uses' => 'PageController@login',
+]);
+
+Route::post('login', [
+	'as' => 'login',
+	'uses' => 'PageController@postlogin',
 ]);
 
 Route::get('register', [
 	'as' => 'register',
-	'uses' => 'PageController@index',
+	'uses' => 'PageController@register',
+]);
+
+Route::post('register', [
+	'as' => 'register',
+	'uses' => 'PageController@postregister',
 ]);
 //----------------------------------
