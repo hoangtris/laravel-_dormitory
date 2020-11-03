@@ -10,7 +10,7 @@
       <div class="col-3 mb-3">
 		    <h2 class="my-4">Tìm kiếm</h2>
   			<form class="example" action="#" method="get">
-  			  <input type="text" placeholder="Nhập giá trị.." name="tukhoa" class="form-control mb-1">
+  			  <input type="text" placeholder="Nhập giá trị.." name="key" class="form-control mb-1">
   			  <button type="submit" class="btn btn-outline-primary"><i class="fa fa-search"></i> Tìm</button>
   			</form>
 		  
@@ -30,11 +30,11 @@
 
         <h2 class="my-4">Mức giá</h2>
         <div class="list-group">
-            <a href="{{-- {{ route('dangkiphong/mucgia', '<1tr') }} --}}" class="list-group-item list-group-item-action">Dưới 1 triệu</a>
-            <a href="{{-- {{ route('dangkiphong/mucgia', '1-2tr') }} --}}" class="list-group-item list-group-item-action">1 triệu ~ 2 triệu</a>
-            <a href="{{-- {{ route('dangkiphong/mucgia', '2-3tr') }} --}}" class="list-group-item list-group-item-action">2 triệu ~ 3 triệu</a>
-            <a href="{{-- {{ route('dangkiphong/mucgia', '3-4tr') }} --}}" class="list-group-item list-group-item-action">3 triệu ~ 4 triệu</a>
-            <a href="{{-- {{ route('dangkiphong/mucgia', '>4tr') }} --}}" class="list-group-item list-group-item-action">Trên 4 triệu</a>
+            <a href="{{ route('rooms.price', '<1tr') }}" class="list-group-item list-group-item-action">Dưới 1 triệu</a>
+            <a href="{{ route('rooms.price', '1-2tr') }}" class="list-group-item list-group-item-action">1 triệu ~ 2 triệu</a>
+            <a href="{{ route('rooms.price', '2-3tr') }}" class="list-group-item list-group-item-action">2 triệu ~ 3 triệu</a>
+            <a href="{{ route('rooms.price', '3-4tr') }}" class="list-group-item list-group-item-action">3 triệu ~ 4 triệu</a>
+            <a href="{{ route('rooms.price', '>4tr') }}" class="list-group-item list-group-item-action">Trên 4 triệu</a>
         </div>
       </div>
       <!-- /.col-lg-3 -->
@@ -44,7 +44,7 @@
   		    @forelse($rooms as $p)
           <div class="col-lg-4 col-md-4 mb-4">
             <div class="card h-100">
-              <a href="{{-- {{ route('xemphong', $p->ID_Phong) }} --}}"><img class="card-img-top"
+              <a href="{{ route('rooms.detail', $p->id) }}"><img class="card-img-top"
                 src="
                   @if(strstr($p->image,'http'))
                     {{ $p->image }}

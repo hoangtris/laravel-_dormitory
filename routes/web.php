@@ -49,6 +49,26 @@ Route::get('rooms/type/{slug}', [
 	'uses' => 'PageController@roomsType',
 ]);
 
+Route::get('rooms/type/{slug}', [
+	'as' => 'rooms.type',
+	'uses' => 'PageController@roomsType',
+]);
+
+Route::get('rooms/price/{slug}', [
+	'as' => 'rooms.price',
+	'uses' => 'PageController@roomsPrice',
+]);
+
+Route::get('rooms/search/{key}', [
+	'as' => 'rooms.search',
+	'uses' => 'PageController@roomsSearch',
+]);
+
+Route::get('rooms/detail/{id}', [
+	'as' => 'rooms.detail',
+	'uses' => 'PageController@roomsDetail',
+]);
+
 
 //----------------------------------
 Route::get('login', [
