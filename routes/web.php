@@ -20,23 +20,33 @@ Route::get('/', [
 
 Route::get('about', [
 	'as' => 'about',
-	'uses' => 'PageController@index',
+	'uses' => 'PageController@about',
 ]);
 
 Route::get('term', [
 	'as' => 'term',
-	'uses' => 'PageController@index',
+	'uses' => 'PageController@term',
 ]);
 
 Route::get('contact', [
 	'as' => 'contact',
-	'uses' => 'PageController@index',
+	'uses' => 'PageController@contact',
 ]);
 
 //----------------------------------
-Route::get('collections/all', [
-	'as' => 'collections',
-	'uses' => 'PageController@index',
+Route::get('rooms/all', [
+	'as' => 'rooms.all',
+	'uses' => 'PageController@roomsAll',
+]);
+
+Route::get('rooms/area/{slug}', [
+	'as' => 'rooms.area',
+	'uses' => 'PageController@roomsArea',
+]);
+
+Route::get('rooms/type/{slug}', [
+	'as' => 'rooms.type',
+	'uses' => 'PageController@roomsType',
 ]);
 
 

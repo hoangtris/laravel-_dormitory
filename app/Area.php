@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Areas extends Model
+class Area extends Model
 {
     //Khu vuc
-    protected $table = "roles";
+    protected $table = "areas";
 }

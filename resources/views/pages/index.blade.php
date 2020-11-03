@@ -128,7 +128,7 @@
 				  <h3 class="font-weight-bold">Gọi ngay cho chúng tôi</h3>
 				  <p class="font-weight-bold">Bạn sẽ thấy kì diệu</p>
 				  <p class="text-black-50">Nếu bạn cảm thấy thích thì hãy đặt ngay một phòng cho riêng mình, nếu bạn vẫn chưa ưng ý thì có thể liên hệ hoặc xem thêm các phòng khác.</p>
-				  <a class="btn btn-primary" href="{{ route('collections') }}" >Xem phòng<i class="fa fa-angle-right ml-2"></i></a>
+				  <a class="btn btn-primary" href="{{ route('rooms.all') }}" >Xem phòng<i class="fa fa-angle-right ml-2"></i></a>
 				</div>
 				<!--Grid column-->
 			  </div>

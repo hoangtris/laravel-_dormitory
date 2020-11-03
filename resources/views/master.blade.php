@@ -49,7 +49,7 @@
           </li>        
           <li class="nav-item"><a href="{{ route('term') }}" class="nav-link">Điều khoản - Dịch vụ</a></li>
           <li class="nav-item" style="margin-right:10px;"><a href="{{ route('contact') }}" class="nav-link">Liên hệ</a></li>
-          <a href="{{ route('collections') }}" class="btn btn-success">ĐĂNG KÍ PHÒNG</a>
+          <a href="{{ route('rooms.all') }}" class="btn btn-success">ĐĂNG KÍ PHÒNG</a>
       </ul>
    </div>
   </nav> {{-- navbar --}}
