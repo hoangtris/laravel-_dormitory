@@ -13,6 +13,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+	'as' => 'index',
+	'uses' => 'PageController@index',
+]);
+
+Route::get('about', [
+	'as' => 'about',
+	'uses' => 'PageController@index',
+]);
+
+Route::get('term', [
+	'as' => 'term',
+	'uses' => 'PageController@index',
+]);
+
+Route::get('contact', [
+	'as' => 'contact',
+	'uses' => 'PageController@index',
+]);
+
+//----------------------------------
+Route::get('collections/all', [
+	'as' => 'collections',
+	'uses' => 'PageController@index',
+]);
+
+
+//----------------------------------
+Route::get('login', [
+	'as' => 'login',
+	'uses' => 'PageController@index',
+]);
+
+Route::get('register', [
+	'as' => 'register',
+	'uses' => 'PageController@index',
+]);
+//----------------------------------
