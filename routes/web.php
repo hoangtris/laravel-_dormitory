@@ -90,4 +90,9 @@ Route::post('register', [
 	'as' => 'register',
 	'uses' => 'PageController@postregister',
 ]);
+
+Route::get('logout' ,[
+	'as' => 'logout',
+	'uses' => 'PageController@logout'
+]);
 //----------------------------------

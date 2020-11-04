@@ -18,15 +18,15 @@ class CreateRoomsTable extends Migration
             $table->unsignedBigInteger('id_area');
             $table->unsignedBigInteger('id_type');
             $table->integer('capacity');
-            $table->float('price');
+            $table->float('price',12,0);
             $table->integer('duration')->default(30);
             $table->integer('wc');
             $table->string('security');
             $table->string('convenient');
             $table->string('image');
-            $table->string('short_description');
-            $table->string('long_description');
-            $table->string('note');           
+            $table->mediumText('short_description');
+            $table->longText('long_description');
+            $table->longText('note');           
             
             $table->timestamps();
 

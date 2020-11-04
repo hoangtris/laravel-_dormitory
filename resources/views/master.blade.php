@@ -38,9 +38,9 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Tài khoản</a>
             <ul class="dropdown-menu text-center">      
                 @if(Auth::check())
-                  <li class="dropdown-item disabled">Xin chào {{ Auth::user()->HoTen }} </li>
+                  <li class="dropdown-item disabled">Xin chào {{ Auth::user()->name }} </li>
                   <li><a href="#" class="dropdown-item">Trang cá nhân</a></li>
-                  <li><a href="#" class="dropdown-item">Đăng xuất</a></li>
+                  <li><a href="{{ route('logout') }}" class="dropdown-item">Đăng xuất</a></li>
                 @else
                   <li><a href="{{ route('register') }}" class="dropdown-item">Đăng kí</a></li>
                   <li><a href="{{ route('login') }}" class="dropdown-item">Đăng nhập</a></li>
@@ -62,6 +62,16 @@
 			</div>
 		</div>	
 	</div> {{-- Thông báo của website --}}
+
+  @if(session()->get('flag'))
+    <div class="container-fluid">
+      <div class="row bg-{{ session()->get('flag') }}">
+        <div class="col-12 text-white h5 p-2 text-center">
+          {{ session()->get('message') }}        
+        </div>
+      </div>  
+    </div> {{-- Thông báo của khi đăng nhập/kí/xuất --}}
+  @endif
 
   @yield('content')
 

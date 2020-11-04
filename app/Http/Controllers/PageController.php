@@ -9,7 +9,9 @@ use App\TypeRoom;
 use App\Area;
 use Str;
 use Auth;
+use Hash;
 use App\User;
+use App\Review;
 
 class PageController extends Controller
 {
@@ -144,10 +146,12 @@ class PageController extends Controller
     public function roomsDetail($id)
     {
         # code...
+        $users = User::all();
+        $reviews = Review::where('room_id',$id)->get();
         $typesRoom = TypeRoom::all();
         $areas = Area::all();
         $room = Room::where('id',$id)->first();
-        return view('pages.room',compact('room','areas','typesRoom'));
+        return view('pages.room',compact('room','areas','typesRoom','users','reviews'));
     }
 
     public function login()
@@ -159,10 +163,11 @@ class PageController extends Controller
     public function postlogin(Request $request)
     {
         # code...
+        $urlRef = $request->url_ref;
         $credentials = array('email'=>$request->email, 'password'=>$request->password);
         if(Auth::attempt($credentials)){
             //echo 'Thanh cong';
-            return redirect()->back()->with(['flag'=>'success','message'=>'Đăng nhập thành công']);
+            return redirect($urlRef)->with(['flag'=>'success','message'=>'Đăng nhập thành công']);
         }else{
             return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng nhập thất bại']);
             //echo 'thatbai';
@@ -181,12 +186,27 @@ class PageController extends Controller
         echo('<pre>');
         $file = $request->file('avatar');
         $name = Str::random(5).'_'.$file->getClientOriginalName();
-        print_r($request->all());
-        if(User::create($request->all())){
-            //return redirect()->back()->with(['flag'=>'success','message'=>'Đăng kí thành công']);
+
+        if($user = User::create($request->all())){
+            $insertedId = $user->id;
+
+            $user = User::find($insertedId);
+            $user->avatar = $name;
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            $file->move('upload/avatar/',$name);
+            return redirect('login')->with(['flag'=>'success','message'=>'Đăng kí thành công, vui lòng đăng nhập lại.']);
         }else{
             echo 'that bai';
-            //return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng kí thất bại']);
+            return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng kí thất bại']);
         }
+    }
+
+    public function logout()
+    {
+        # code...
+        Auth::logout();
+        return redirect()->route('login')->with(['flag'=>'success','message'=>'Đăng xuất thành công.']);
     }
 }

@@ -13,6 +13,7 @@
                 </div>
             @endif
 
+            @if(!Auth::check())
 			<p class="h1 text-center text-primary text-uppercase mb-4">Đăng kí thành viên</p>
 			<form action="{{ route('register') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -198,6 +199,9 @@
  				Đã có tài khoản, <a href="{{ route('login') }}">ấn vào đây để đăng nhập</a>
 					</small>
 			</form>
+            @else
+                <p class="h1 text-center text-primary text-uppercase mb-4">Bạn đã đăng nhập</p>
+            @endif
 		</div>
 		<div class="col-3"></div>
 	</div>

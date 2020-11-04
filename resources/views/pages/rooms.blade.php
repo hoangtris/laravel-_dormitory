@@ -54,7 +54,7 @@
                 " alt="" height="250px"></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="{{-- {{ route('xemphong', $p->ID_Phong) }} --}}">Phòng số #{{ $p->id }}</a>			
+                  <a href="{{ route('rooms.detail', $p->id) }}">Phòng số #{{ $p->id }}</a>			
                 </h4>
 
                 <h5>{{ number_format($p->price) }} VND</h5>
@@ -78,7 +78,7 @@
               </div>
               
               <div class="card-footer">
-                  <a href="{{-- {{ route('xemphong', $p->ID_Phong) }} --}}"><button type="button" class="btn btn-outline-primary" style="width: 100%">Xem phòng</button></a>
+                  <a href="{{ route('rooms.detail', $p->id) }}"><button type="button" class="btn btn-outline-primary" style="width: 100%">Xem phòng</button></a>
               </div>
             </div>
           </div>

@@ -3,9 +3,9 @@
 @section('content')
 <div class="container my-5 py-5 z-depth-1">
       <!--Section: Content-->
-      <section class="text-center">
+      <section class="">
         <!-- Section heading -->
-        <h3 class="font-weight-bold mb-5">Chi tiết phòng #{{ $room->id }}</h3>
+        <h3 class="font-weight-bold mb-5 text-center">Chi tiết phòng #{{ $room->id }}</h3>
         <div class="row">
           <div class="col-lg-6 mr-3">
             <!--Carousel Wrapper-->
@@ -55,6 +55,7 @@
                 @endif
               @endforeach
             </p>
+            <p><strong>Thời hạn: </strong>{{ $room->duration }}</p>
             <p><strong>Số lượng nhà vệ sinh: </strong>{{ $room->wc }}</p>
             <p><strong>An ninh: </strong>{{ $room->security }}</p>
             <p><strong>Tiện nghi: </strong>{{ $room->convenient }}</p>
@@ -97,6 +98,53 @@
                       </div>
                     </div>
                 </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home">Mô tả chi tiết</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">Đánh giá</a>
+              </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div id="home" class="container tab-pane active"><br>
+                <p>{{ $room->long_description }}</p>
+              </div>
+              <div id="menu1" class="container tab-pane fade"><br>
+                  <div class="card-body">
+                    @forelse($reviews as $dg)
+                        <div class="media p-3">
+                          <img src="
+                              @foreach($users as $tk)
+                                @if($dg->user_id == $tk->id)
+                                  {{ $tk->avatar }}
+                                @endif
+                              @endforeach
+                          " alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
+                          <div class="media-body">
+                            <h5>
+                              @foreach($users as $tk)
+                                @if($dg->user_id == $tk->id)
+                                  {{ $tk->name}}
+                                @endif
+                              @endforeach <small><i>Đánh giá vào {{ date_format(date_create($dg->created_at),'d-m-Y H:i:s') }}</i></small></h5>
+                            <p class="text-break">{{ $dg->content }}</p>
+                          </div>
+                        </div>
+                      @empty
+                        <p>Chưa có đánh giá cho căn phòng này</p>
+                      @endforelse
+                  </div>
               </div>
             </div>
           </div>
