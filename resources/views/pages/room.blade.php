@@ -29,7 +29,10 @@
 
           <div class="col-lg-5 text-center text-md-left">
 
-            <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">Phòng số #{{ $room->id }}       
+            <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">Phòng số #{{ $room->id }}  
+            @can('RoomManager')
+              <span class="badge badge-success">Sửa phòng</span>
+            @endcan     
             </h2>
 
             <h4 class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
@@ -55,37 +58,34 @@
                 @endif
               @endforeach
             </p>
-            <p><strong>Thời hạn: </strong>{{ $room->duration }}</p>
-            <p><strong>Số lượng nhà vệ sinh: </strong>{{ $room->wc }}</p>
-            <p><strong>An ninh: </strong>{{ $room->security }}</p>
-            <p><strong>Tiện nghi: </strong>{{ $room->convenient }}</p>
+            <p><strong>Thời hạn: </strong>{{ $room->duration }} ngày</p>
 
               <div class="mt-5">
-                <p class="grey-text"><strong>Thời hạn muốn thuê theo hợp đồng</strong></p>
-                <form action="#" method="post" class="ml-3">  
+                <p class="grey-text"><strong>Thời hạn muốn thuê</strong></p>
+                <form action="{{ route('checkout', $room->id) }}" method="post" class="ml-3">  
                   @csrf
                     <div class="row text-center text-md-left">
                       <div class="col-md-4 ">
                         <div class="form-group">
-                          <input class="form-check-input" name="radio_thoihan" type="radio" checked="checked" value="1">
+                          <input class="form-check-input" name="duration" type="radio" checked="checked" value="1">
                           <label for="radio100" class="form-check-label dark-grey-text">1 tháng</label>
                         </div>
                       </div>
                       <div class="col-md-4 ">
                         <div class="form-group">
-                          <input class="form-check-input" name="radio_thoihan" type="radio" value="3">
+                          <input class="form-check-input" name="duration" type="radio" value="3">
                           <label for="radio100" class="form-check-label dark-grey-text">3 tháng</label>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input class="form-check-input" name="radio_thoihan" type="radio" value="6">
+                          <input class="form-check-input" name="duration" type="radio" value="6">
                           <label for="radio101" class="form-check-label dark-grey-text">6 tháng</label>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input class="form-check-input" name="radio_thoihan" type="radio" value="12">
+                          <input class="form-check-input" name="duration" type="radio" value="12">
                           <label for="radio102" class="form-check-label dark-grey-text">1 năm</label>
                         </div>
                       </div>
@@ -93,8 +93,20 @@
 
                     <div class="row mt-3 mb-4">
                       <div class="col-md-12 text-center text-md-left text-md-right">
-                        <input type="hidden" name="id_phong" value="{{ $room->id }}">
-                        <input type="submit" class="btn btn-primary btn-rounded" value=" Đặt phòng">
+                        @if(Auth::check())
+                          @can('Admin')
+                            <a class="btn btn-warning btn-rounded"> Admin không được đặt phòng</a>
+                          @elsecan('RoomManager')
+                            <a class="btn btn-warning btn-rounded"> Quản lí phòng không được đặt phòng</a>
+                          @elsecan('Cashier')
+                            <a class="btn btn-warning btn-rounded"> Thu ngân không được đặt phòng</a>
+                          @else
+                            <input type="hidden" name="id_phong" value="{{ $room->id }}">
+                            <input type="submit" name="book" value=" Đặt phòng" class="btn btn-outline-primary">
+                          @endcan
+                        @else
+                          <a href="{{ route('login') }}" class="btn btn-secondary btn-rounded">Vui lòng đăng nhập để đặt phòng</a>
+                        @endif
                       </div>
                     </div>
                 </form>
@@ -111,7 +123,13 @@
                 <a class="nav-link active" data-toggle="tab" href="#home">Mô tả chi tiết</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#menu1">Đánh giá</a>
+                <a class="nav-link" data-toggle="tab" href="#menu1">Tiện nghi</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu2">Ghi chú</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu3">Đánh giá</a>
               </li>
             </ul>
 
@@ -121,6 +139,16 @@
                 <p>{{ $room->long_description }}</p>
               </div>
               <div id="menu1" class="container tab-pane fade"><br>
+                @foreach($typesRoom as $kv)
+                  @if($room->id_type == $kv->id)
+                    <p>{!! $kv->description !!}</p>
+                  @endif
+                @endforeach
+              </div>
+              <div id="menu2" class="container tab-pane fade"><br>
+                {{ $room->note }}
+              </div>
+              <div id="menu3" class="container tab-pane fade"><br>
                   <div class="card-body">
                     @forelse($reviews as $dg)
                         <div class="media p-3">

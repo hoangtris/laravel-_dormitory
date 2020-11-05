@@ -73,8 +73,7 @@
         					@endforeach
         				</div>
         				<div class="card-text">Sức chứa: {{ $p->capacity }}</div> 
-        				<div class="card-text">Thời hạn: {{ $p->duration }}</div>
-        				<div class="card-text">An ninh: {{ $p->security }}</div>   
+        				<div class="card-text">Thời hạn: {{ $p->duration }}</div> 
               </div>
               
               <div class="card-footer">

@@ -69,6 +69,21 @@ Route::get('rooms/detail/{id}', [
 	'uses' => 'PageController@roomsDetail',
 ]);
 
+Route::post('checkout/{id}',[
+	'as' =>'checkout',
+	'uses' => 'PageController@checkout',
+]);
+
+Route::post('payment',[
+	'as' =>'payment',
+	'uses' => 'PageController@payment',
+]);
+
+Route::get('total',[
+	'as' =>'total',
+	'uses' => 'AjaxController@total',
+]);
+
 
 //----------------------------------
 Route::get('login', [

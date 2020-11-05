@@ -154,6 +154,70 @@ class PageController extends Controller
         return view('pages.room',compact('room','areas','typesRoom','users','reviews'));
     }
 
+    public function checkout(Request $request, $id)
+    {
+        # code...
+        if(isset($_POST['book'])){
+            $users = User::all();
+            $typesRoom = TypeRoom::all();
+            $areas = Area::all();
+            $room = Room::where('id',$id)->first();
+            return view('pages.checkout',compact('room','areas','typesRoom','users'));   
+            //echo 'co nhan';         
+        }else{
+            abort(404);
+        }
+    }
+
+    public function payment(Request $request)
+    {
+        # code...
+        //dd($request->all());
+
+        $date_move_in = $request->date_move_in;
+        echo $date_move_in;
+        switch($request->duration){
+            case 1:
+                $date=date_create("$date_move_in");
+                date_modify($date, "+1 month");
+                $expiration_date=date_format($date, "Y-m-d");
+                break;
+            case 3:
+                $date=date_create("$date_move_in");
+                date_modify($date, "+3 months");
+                $expiration_date=date_format($date, "Y-m-d");
+                break;
+            case 6:
+                $date=date_create("$date_move_in");
+                date_modify($date, "+6 months");
+                $expiration_date=date_format($date, "Y-m-d");
+                break;
+            case 9:
+                $date=date_create("$date_move_in");
+                date_modify($date, "+9 months");
+                $expiration_date=date_format($date, "Y-m-d");
+                break;
+            case 12:
+                $date=date_create("$date_move_in");
+                date_modify($date, "+1 year");
+                $expiration_date=date_format($date, "Y-m-d");
+                break;
+        }
+        echo '<br>';
+        echo $expiration_date;
+        echo '<br>';
+
+        #xử lý định dạng tiền
+        echo $request->inputTotal;
+        echo '<br>';
+        $inputTotal = str_replace(",","",$request->inputTotal);
+        $inputTotal = str_replace(" VNĐ","",$inputTotal);
+        
+        echo $inputTotal;
+    }
+
+    
+    // Login - Register - Logout
     public function login()
     {
         # code...
@@ -209,4 +273,6 @@ class PageController extends Controller
         Auth::logout();
         return redirect()->route('login')->with(['flag'=>'success','message'=>'Đăng xuất thành công.']);
     }
+    // --------------Login - Register - Logout
 }
+

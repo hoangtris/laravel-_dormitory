@@ -20,9 +20,6 @@ class CreateRoomsTable extends Migration
             $table->integer('capacity');
             $table->float('price',12,0);
             $table->integer('duration')->default(30);
-            $table->integer('wc');
-            $table->string('security');
-            $table->string('convenient');
             $table->string('image');
             $table->mediumText('short_description');
             $table->longText('long_description');
