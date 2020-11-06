@@ -12,6 +12,8 @@ use Auth;
 use Hash;
 use App\User;
 use App\Review;
+use App\Order;
+use App\OrderDetail;
 
 class PageController extends Controller
 {
@@ -43,9 +45,10 @@ class PageController extends Controller
     public function roomsAll() 
     {
         # code...
-        $rooms = Room::orderBy('id','desc')->paginate(15);
+        $rooms = Room::whereBetween('status',[1,2])->orderBy('id','desc')->paginate(15);
         $typesRoom = TypeRoom::all();
         $areas = Area::all();
+
         return view('pages.rooms', compact('rooms','typesRoom','areas'));
     }
 
@@ -136,10 +139,10 @@ class PageController extends Controller
                         ->orWhere('id','like','%'.$request->key.'%')
                         ->orWhere('short_description','like','%'.$request->key.'%')
                         ->orWhere('long_description','like','%'.$request->key.'%')
-                        ->orWhere('security','like','%'.$request->key.'%')
-                        ->orWhere('convenient','like','%'.$request->key.'%')
                         ->orWhere('note','like','%'.$request->key.'%')
                         ->paginate(15);
+        $roomFull = OrderDetail::where('note','like','%Đơn đặt phòng%')
+                                   ->get();
         return view('pages.rooms',compact('rooms','areas','typesRoom'));
     }
 
@@ -151,7 +154,26 @@ class PageController extends Controller
         $typesRoom = TypeRoom::all();
         $areas = Area::all();
         $room = Room::where('id',$id)->first();
-        return view('pages.room',compact('room','areas','typesRoom','users','reviews'));
+
+        if(Auth::check()){
+            $orderOfCustomer = Order::where('user_id',Auth::user()->id)
+                                        ->orderBy('id','desc')
+                                        ->first();
+            if($orderOfCustomer == null){
+                $roomOfCustomer = null;
+                return view('pages.room',compact('room','areas','typesRoom','users','reviews','roomOfCustomer'));                              
+            }else{
+                $orderID = $orderOfCustomer->id;
+                $roomOfCustomer = OrderDetail::where('order_id',$orderID)
+                                               ->where('note','like','%Đơn đặt phòng%')
+                                               ->first();
+                return view('pages.room',compact('room','areas','typesRoom','users','reviews','roomOfCustomer'));  
+            }
+        }else{
+            //dd($roomFull);
+            return view('pages.room',compact('room','areas','typesRoom','users','reviews'));
+        }
+
     }
 
     public function checkout(Request $request, $id)
@@ -172,7 +194,8 @@ class PageController extends Controller
     public function payment(Request $request)
     {
         # code...
-        //dd($request->all());
+        echo '<pre>';
+        print_r($request->all());
 
         $date_move_in = $request->date_move_in;
         echo $date_move_in;
@@ -213,9 +236,43 @@ class PageController extends Controller
         $inputTotal = str_replace(",","",$request->inputTotal);
         $inputTotal = str_replace(" VNĐ","",$inputTotal);
         
-        echo $inputTotal;
+        echo $inputTotal.'<br>';
+
+        $order = new Order;
+        $order->user_id = Auth::user()->id;
+        $order->payment_method = $request->radioPayment;
+        $order->total = $inputTotal;
+        if($request->radioPayment == 'COD'){
+            $order->status = 0;
+            $order->note = 'Hóa đơn chưa thanh toán, vui lòng đến quầy thu ngân thanh toán';
+        }else{
+            $order->status = 1;
+            $order->note = 'Đã thanh toán qua VNPAY';
+        }
+
+        $order->save();
+
+        $order_detail = new OrderDetail;
+        $order_detail->order_id = $order->id;
+        $order_detail->room_id = $request->idRoom;
+        $order_detail->date_move_in = $request->date_move_in;
+        $order_detail->expiration_date = $expiration_date;
+        $order_detail->note = "Đơn đặt phòng";
+        $order_detail->status = 0;
+        $order_detail->save();
+
+        $room = Room::find($request->idRoom);
+        $room->status = 2;
+        $room->save();
+
+        return redirect()->route('checkout.success');
     }
 
+    public function checkoutsuccess()
+    {
+        # code...
+        return view('pages.checkoutsuccess');
+    }
     
     // Login - Register - Logout
     public function login()

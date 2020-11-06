@@ -79,6 +79,11 @@ Route::post('payment',[
 	'uses' => 'PageController@payment',
 ]);
 
+Route::get('checkoutsucess',[
+	'as' =>'checkout.success',
+	'uses' => 'PageController@checkoutsuccess',
+]);
+
 Route::get('total',[
 	'as' =>'total',
 	'uses' => 'AjaxController@total',

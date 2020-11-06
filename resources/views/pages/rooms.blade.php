@@ -54,7 +54,10 @@
                 " alt="" height="250px"></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="{{ route('rooms.detail', $p->id) }}">Phòng số #{{ $p->id }}</a>			
+                  <a href="{{ route('rooms.detail', $p->id) }}">Phòng số #{{ $p->id }}</a>		
+                  @if($p->status == 2)
+                    <span class="badge badge-danger">Phòng này đã được thuê</span>
+                  @endif
                 </h4>
 
                 <h5>{{ number_format($p->price) }} VND</h5>

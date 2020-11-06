@@ -5,7 +5,11 @@
       <!--Section: Content-->
       <section class="">
         <!-- Section heading -->
-        <h3 class="font-weight-bold mb-5 text-center">Chi tiết phòng #{{ $room->id }}</h3>
+        <h3 class="font-weight-bold mb-5 text-center">Chi tiết phòng #{{ $room->id }}
+          @if($room->status == 2)
+            <span class="badge badge-danger">Phòng này đã được thuê</span>
+          @endif
+        </h3>
         <div class="row">
           <div class="col-lg-6 mr-3">
             <!--Carousel Wrapper-->
@@ -93,20 +97,30 @@
 
                     <div class="row mt-3 mb-4">
                       <div class="col-md-12 text-center text-md-left text-md-right">
-                        @if(Auth::check())
-                          @can('Admin')
-                            <a class="btn btn-warning btn-rounded"> Admin không được đặt phòng</a>
-                          @elsecan('RoomManager')
-                            <a class="btn btn-warning btn-rounded"> Quản lí phòng không được đặt phòng</a>
-                          @elsecan('Cashier')
-                            <a class="btn btn-warning btn-rounded"> Thu ngân không được đặt phòng</a>
+                          @if(Auth::check())
+                              @if($roomOfCustomer != null)
+                                  <a class="btn btn-warning btn-rounded mb-2"> Bạn đã có phòng</a>
+                                  <br>
+                                  <small>Nếu bạn thích phòng này, vui lòng hủy phòng để tiếp tục</small>
+                              @elseif($room->status == 2)
+                                  <a class="btn btn-danger btn-rounded"> Phòng này đã được thuê</a>
+                              @else
+                                  @can('Admin')
+                                    <a class="btn btn-warning btn-rounded"> Admin không được đặt phòng</a>
+                                  @elsecan('RoomManager')
+                                    <a class="btn btn-warning btn-rounded"> Quản lí phòng không được đặt phòng</a>
+                                  @elsecan('Cashier')
+                                    <a class="btn btn-warning btn-rounded"> Thu ngân không được đặt phòng</a>
+                                  @else
+                                    <input type="hidden" name="id_phong" value="{{ $room->id }}">
+                                    <input type="submit" name="book" value=" Đặt phòng" class="btn btn-outline-primary">
+                                  @endcan
+                              @endif
+                          @elseif($room->status == 2)
+                              <a class="btn btn-danger btn-rounded"> Phòng này đã được thuê</a>
                           @else
-                            <input type="hidden" name="id_phong" value="{{ $room->id }}">
-                            <input type="submit" name="book" value=" Đặt phòng" class="btn btn-outline-primary">
-                          @endcan
-                        @else
-                          <a href="{{ route('login') }}" class="btn btn-secondary btn-rounded">Vui lòng đăng nhập để đặt phòng</a>
-                        @endif
+                              <a href="{{ route('login') }}" class="btn btn-secondary btn-rounded">Vui lòng đăng nhập để đặt phòng</a>
+                          @endif
                       </div>
                     </div>
                 </form>
