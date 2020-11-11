@@ -41,7 +41,7 @@ class PageController extends Controller
     	# code...
     	return view('pages.term');
     }
-
+    
     public function roomsAll() 
     {
         # code...

@@ -69,6 +69,7 @@ Route::get('rooms/detail/{id}', [
 	'uses' => 'PageController@roomsDetail',
 ]);
 
+
 Route::post('checkout/{id}',[
 	'as' =>'checkout',
 	'uses' => 'PageController@checkout',
@@ -116,3 +117,27 @@ Route::get('logout' ,[
 	'uses' => 'PageController@logout'
 ]);
 //----------------------------------
+
+//-------------Admin
+Route::prefix('admin')->group(function () {
+	Route::get('/', [
+    	'as' => 'admin.dashboard',
+    	'uses' => 'AdminController@dashboard',
+    ]);
+    Route::get('dashboard', [
+		// Matches The "/admin/dashboard" URL
+    	'as' => 'admin.dashboard',
+    	'uses' => 'AdminController@dashboard',
+    ]);
+
+    Route::get('permission', [
+		// Matches The "/admin/dashboard" URL
+    	'as' => 'admin.permission',
+    	'uses' => 'AdminController@permission',
+    ]);
+
+    Route::resource('areas', 'AreaController');
+    Route::resource('typesroom', 'TypeRoomController');
+    Route::resource('rooms', 'RoomController');
+    Route::resource('users', 'UserController');
+});

@@ -8,4 +8,5 @@ class Area extends Model
 {
     //Khu vuc
     protected $table = "areas";
+
 }

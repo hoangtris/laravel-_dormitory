@@ -15,7 +15,7 @@ class AlterTypeRoom extends Migration
     {
         Schema::table('type_rooms', function (Blueprint $table) {
             //
-            $table->longText('description')->after('slug');
+            $table->longText('description')->after('slug')->nullable();
         });
     }
 

@@ -49,7 +49,7 @@
                   @if(strstr($p->image,'http'))
                     {{ $p->image }}
                   @else
-                    {{ asset('image/'.$p->image) }}
+                    {{ asset('upload/room/'.$p->image) }}
                   @endif
                 " alt="" height="250px"></a>
               <div class="card-body">
