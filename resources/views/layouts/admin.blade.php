@@ -11,6 +11,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>Quản lý KTX | AdminLTE 3</title>
 
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
   <!-- Font Awesome Icons -->
@@ -24,6 +27,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.css') }}">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -231,9 +235,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('admin.permission') }}" class="nav-link">
+                <a href="{{ route('admin.role') }}" class="nav-link">
                   <i class="fas fa-id-badge nav-icon"></i>
-                  <p>Phân quyền</p>
+                  <p>Vai trò</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -256,7 +260,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('booking.index') }}" class="nav-link">
                   <i class="fas fa-house-user nav-icon"></i>
                   <p>Đơn đặt phòng</p>
                 </a>
@@ -278,7 +282,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.review.index') }}" class="nav-link">
               <i class="nav-icon fas fa-comment"></i>
               <p>
                 Đánh giá phòng
@@ -447,6 +451,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Toast.fire({
         icon: 'success',
         title: '&nbsp &nbsp Xóa tài khoản thành công.'
+      })
+    }); 
+    @elseif(Session::has('add_role_success_flash_message'))
+    $('.swalDefaultSuccess').ready(function() {
+      Toast.fire({
+        icon: 'success',
+        title: '&nbsp &nbsp Thêm vai trò thành công.'
+      })
+    }); 
+    @elseif(Session::has('change_role_for_user_success_flash_message'))
+    $('.swalDefaultSuccess').ready(function() {
+      Toast.fire({
+        icon: 'success',
+        title: '&nbsp &nbsp Thay đổi vai trò cho người dùng thành công.'
+      })
+    }); 
+    @elseif(Session::has('update_status_booking_success_flash_message'))
+    $('.swalDefaultSuccess').ready(function() {
+      Toast.fire({
+        icon: 'success',
+        title: '&nbsp &nbsp Thay đổi trạng thái thành công.'
+      })
+    }); 
+    @elseif(Session::has('delete_review_success_flash_message'))
+    $('.swalDefaultSuccess').ready(function() {
+      Toast.fire({
+        icon: 'success',
+        title: '&nbsp &nbsp Xóa đánh giá thành công.'
       })
     }); 
     @endif

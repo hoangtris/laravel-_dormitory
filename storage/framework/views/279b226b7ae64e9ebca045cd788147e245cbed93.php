@@ -18,25 +18,25 @@
 	<div class="content">
 		<div class="container-fluid">
 		  <div class="row">
-		    <div class="col-lg-6">
+		    <div class="col-xl-6 col-12">
 
 		      <div class="card card-primary card-outline">
 		        <div class="card-header">
 		          <h5 class="m-0">Danh sách khu vực</h5>
 		        </div>
 		        <div class="px-2">
-		        	<table class="table table-hover">
+		        	<table class="table table-hover table-responsive-xl">
 		        		<?php $__currentLoopData = $areas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kv): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		        		<tr>
-		        			<td width="35%">
+		        			<td>
 		        				<?php echo e($kv->name); ?>	        				
 		        			</td>
-		        			<td width="37%">
+		        			<td>
 		        				<?php echo e($kv->slug); ?>	 
 		        			</td>
 		        			<td>
 		        				<form action="<?php echo e(route('areas.edit', $kv->id)); ?>" method="get">
-									<button type="submit" class="btn btn-outline-success float-left mr-2">
+									<button type="submit" class="btn btn-outline-success float-left mr-1">
 										<i class="fas fa-pen"></i>
 									</button>            
 								</form>
@@ -57,7 +57,7 @@
 		      </div>
 		    </div>
 		    <!-- /.col-md-6 -->
-		    <div class="col-lg-6">
+		    <div class="col-xl-6 col-12">
 	            <div class="card card-outline card-warning">
 	              <div class="card-header">
 	                <h3 class="card-title">Mô tả</h3>
@@ -93,7 +93,7 @@
 		          	<?php echo csrf_field(); ?>
 		          	<div class="row mb-3">
 		          		<label for="">Tên khu vực</label>
-		          		<input type="text" name="name" placeholder="Cu Chi district" class="form-control">
+		          		<input type="text" name="name" placeholder="Củ Chi" class="form-control">
 		          	</div>
 		          	<div class="row mb-3">
 		          		<label for="">Mô tả</label>

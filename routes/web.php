@@ -130,14 +130,59 @@ Route::prefix('admin')->group(function () {
     	'uses' => 'AdminController@dashboard',
     ]);
 
-    Route::get('permission', [
-		// Matches The "/admin/dashboard" URL
-    	'as' => 'admin.permission',
-    	'uses' => 'AdminController@permission',
-    ]);
-
+    //-----------Room
     Route::resource('areas', 'AreaController');
     Route::resource('typesroom', 'TypeRoomController');
     Route::resource('rooms', 'RoomController');
+
+    //-----------Account
     Route::resource('users', 'UserController');
+
+    Route::get('role', [
+		// Matches The "/admin/role" URL
+    	'as' => 'admin.role',
+    	'uses' => 'AdminController@role',
+    ]);
+    Route::post('role/store', [
+		// Matches The "/admin/role/store" URL
+    	'as' => 'admin.role.store',
+    	'uses' => 'AdminController@roleStore',
+    ]);
+    
+    Route::post('role/destroy/{id}', [
+		// Matches The "/admin/role/store" URL
+    	'as' => 'admin.role.destroy',
+    	'uses' => 'AdminController@roleDestroy',
+    ]);
+    Route::post('changeRole', [
+		// Matches The "/admin/role/store" URL
+    	'as' => 'changeRole',
+    	'uses' => 'AjaxController@changeRole',
+    ]);
+    Route::post('changeRoleUser', [
+		// Matches The "/admin/role/store" URL
+    	'as' => 'changeRoleUser',
+    	'uses' => 'AdminController@changeRoleUser',
+    ]);
+
+    Route::get('user/request', [
+		// Matches The "/admin/request" URL
+    	'as' => 'admin.users.request',
+    	'uses' => 'AdminController@requestPage',
+    ]);
+
+    //---------
+    Route::resource('booking', 'BookingController');
+
+    //-----review - rate 
+    Route::get('review', [
+		// Matches The "/admin/request" URL
+    	'as' => 'admin.review.index',
+    	'uses' => 'AdminController@reviewIndex',
+    ]);
+    Route::get('review/destroy/{id}', [
+		// Matches The "/admin/request" URL
+    	'as' => 'admin.review.destroy',
+    	'uses' => 'AdminController@reviewDestroy',
+    ]);
 });

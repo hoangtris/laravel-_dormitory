@@ -39,17 +39,19 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         //
-        $area = new Area;
-        $area->name = $request->name;
-        $area->slug = Str::slug($request->name, '-');
-        $area->description = $request->description;
-        
-        $areas = Area::where('slug',$area->slug)->first();
+        $slug = Str::slug($request->name, '-');
+        $areas = Area::where('slug', $slug)->first();
 
-        if($areas != null){
+        if ($areas != null) {
             \Session::flash('error_flash_message', 'Thêm khu vực thất bại'); 
             return redirect()->route('areas.index');
-        }else{
+        } else {
+            $area = new Area;
+
+            $area->name = $request->name;
+            $area->slug = $slug;
+            $area->description = $request->description;
+
             $area->save();
             \Session::flash('success_flash_message', 'Thêm khu vực thành công'); 
             return redirect()->route('areas.index');
@@ -101,6 +103,9 @@ class AreaController extends Controller
 
         \Session::flash('update_success_flash_message', 'Sửa khu vực thành công.');
         return redirect()->route('areas.index');
+
+        //sua lai
+        
     }
 
     /**

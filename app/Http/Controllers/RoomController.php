@@ -117,6 +117,7 @@ class RoomController extends Controller
 
         if($request->hasFile('image')) {
             //
+            //UUID Laravel
             $file = $request->file('image');
             $name = Str::random(5).'_'.$file->getClientOriginalName();
             $room->image = $name;
@@ -141,7 +142,7 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //them xoa hinh
         Room::where('id',$id)->delete();
         \Session::flash('delete_room_success_flash_message', 'Xóa phòng thành công.');
         return redirect()->route('rooms.index');

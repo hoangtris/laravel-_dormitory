@@ -55,6 +55,7 @@ class PageController extends Controller
     public function roomsArea() 
     {
         # code...
+        //sua lai la slug
         $url = request()->path();
         $slug = Str::of($url)->explode('/');
         //echo $slug[2];
@@ -70,7 +71,7 @@ class PageController extends Controller
 
     public function roomsType() 
     {
-        # code...
+        # code...//sua lai la slug
         $url = request()->path();
         $slug = Str::of($url)->explode('/');
         //echo $slug[2];
@@ -141,6 +142,7 @@ class PageController extends Controller
                         ->orWhere('long_description','like','%'.$request->key.'%')
                         ->orWhere('note','like','%'.$request->key.'%')
                         ->paginate(15);
+        //sua note lai thanh status
         $roomFull = OrderDetail::where('note','like','%Đơn đặt phòng%')
                                    ->get();
         return view('pages.rooms',compact('rooms','areas','typesRoom'));
@@ -179,6 +181,7 @@ class PageController extends Controller
     public function checkout(Request $request, $id)
     {
         # code...
+        //sua lai
         if(isset($_POST['book'])){
             $users = User::all();
             $typesRoom = TypeRoom::all();
@@ -201,17 +204,17 @@ class PageController extends Controller
         echo $date_move_in;
         switch($request->duration){
             case 1:
-                $date=date_create("$date_move_in");
+                $date = date_create("$date_move_in");
                 date_modify($date, "+1 month");
-                $expiration_date=date_format($date, "Y-m-d");
+                $expiration_date = date_format($date, "Y-m-d");
                 break;
             case 3:
-                $date=date_create("$date_move_in");
+                $date = date_create("$date_move_in");
                 date_modify($date, "+3 months");
-                $expiration_date=date_format($date, "Y-m-d");
+                $expiration_date = date_format($date, "Y-m-d");
                 break;
             case 6:
-                $date=date_create("$date_move_in");
+                $date = date_create("$date_move_in");
                 date_modify($date, "+6 months");
                 $expiration_date=date_format($date, "Y-m-d");
                 break;
@@ -226,18 +229,9 @@ class PageController extends Controller
                 $expiration_date=date_format($date, "Y-m-d");
                 break;
         }
-        echo '<br>';
-        echo $expiration_date;
-        echo '<br>';
-
-        #xử lý định dạng tiền
-        echo $request->inputTotal;
-        echo '<br>';
         $inputTotal = str_replace(",","",$request->inputTotal);
         $inputTotal = str_replace(" VNĐ","",$inputTotal);
-        
-        echo $inputTotal.'<br>';
-
+        //sau dau , nho cach ra
         $order = new Order;
         $order->user_id = Auth::user()->id;
         $order->payment_method = $request->radioPayment;
@@ -257,13 +251,15 @@ class PageController extends Controller
         $order_detail->room_id = $request->idRoom;
         $order_detail->date_move_in = $request->date_move_in;
         $order_detail->expiration_date = $expiration_date;
-        $order_detail->note = "Đơn đặt phòng";
+        $order_detail->note = "Đơn đặt phòng"; //sua lai
         $order_detail->status = 0;
         $order_detail->save();
 
         $room = Room::find($request->idRoom);
         $room->status = 2;
         $room->save();
+
+        //transaction Laravel
 
         return redirect()->route('checkout.success');
     }
@@ -304,7 +300,6 @@ class PageController extends Controller
     public function postregister(Request $request)
     {
         # code...
-        echo('<pre>');
         $file = $request->file('avatar');
         $name = Str::random(5).'_'.$file->getClientOriginalName();
 

@@ -87,7 +87,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //them xoa hinh, them status de an du lieu
         User::where('id',$id)->delete();
         \Session::flash('delete_user_success_flash_message', 'Xóa tài khoản thành công.');
         return redirect()->route('users.index');

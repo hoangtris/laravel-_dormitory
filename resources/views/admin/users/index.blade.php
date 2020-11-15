@@ -37,7 +37,7 @@
 							<h5 class="m-0">Danh sách tài khoản</h5>
 						</div>
 						<div class="px-2">
-							<table class="table table-hover table-responsive">
+							<table class="table table-hover table-responsive-xl">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -86,7 +86,7 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus, turpis eget hendrerit semper, eros nunc gravida sapien, nec feugiat diam arcu eu massa.
+							Lưu trữ thông tin người dùng, chỉ có Admin mới được phép xem/xóa thông tin tài khoản.
 						</div>
 						<!-- /.card-body -->
 					</div>
