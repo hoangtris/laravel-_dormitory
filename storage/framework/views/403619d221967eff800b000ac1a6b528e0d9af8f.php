@@ -22,7 +22,6 @@
 			<form action="<?php echo e(route('rooms.update', $room->id)); ?>" method="post" enctype='multipart/form-data'>           
 				<div class="row">
 					<?php echo csrf_field(); ?>
-					<?php echo method_field('PUT'); ?>
 					<!-- /.col-md-6 -->
 					<div class="col-lg-8">
 						<div class="card card-outline card-info">
@@ -190,7 +189,6 @@
 
 			<form action="<?php echo e(route('rooms.destroy', $room->id)); ?>" method="post" accept-charset="utf-8">
 				<?php echo csrf_field(); ?>
-				<?php echo method_field('DELETE'); ?>
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="callout callout-danger">

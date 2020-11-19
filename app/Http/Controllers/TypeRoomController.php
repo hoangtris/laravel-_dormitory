@@ -8,11 +8,6 @@ use Illuminate\Support\Str;
 
 class TypeRoomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
@@ -20,59 +15,25 @@ class TypeRoomController extends Controller
         return view('admin.typesroom.index',compact('typesRoom'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
-        $type = new TypeRoom;
-        $type->name = $request->name;
-        $type->slug = Str::slug($request->name, '-');
-        $type->description = $request->description;
-
-        $typeExist = TypeRoom::where('slug',$type->slug)->first();
+        $slug = Str::slug($request->name, '-');
+        $typeExist = TypeRoom::where('slug',$slug)->first();
 
         if($typeExist == null){
+            $type = new TypeRoom;
+            $type->name = $request->name;
+            $type->slug = $slug;
+            $type->description = $request->description;
             $type->save();
-            \Session::flash('add_typeroom_success_flash_message', 'Thêm loại phòng thành công'); 
-            return redirect()->route('typesroom.index');
+
+            return redirect()->route('typesroom.index')->with(['flag'=>'success','message'=>'Thêm loại phòng '.$type->name.' thành công.']);
         }else{
-            \Session::flash('add_typeroom_error_flash_message', 'Thêm loại phòng thất bại'); 
-            return redirect()->route('typesroom.index');
+            return redirect()->route('typesroom.index')->with(['flag'=>'error','message'=>'Thêm loại phòng '.$type->name.' thất bại.']);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
@@ -80,39 +41,29 @@ class TypeRoomController extends Controller
         return view('admin.typesroom.edit', compact('type'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
+        $slug = Str::slug($request->name, '-');
+        $typeExist = TypeRoom::where('slug',$slug)->first();
         $type = TypeRoom::find($id);
 
-        $type->name = $request->name;
-        $type->slug = Str::slug($request->name, '-');
-        $type->description = $request->description;
+        if($typeExist == null){
+            $type->name = $request->name;
+            $type->slug = $slug;
+            $type->description = $request->description;
+            $type->save();
 
-        $type->save();
-
-        \Session::flash('update_typeroom_success_flash_message', 'Sửa loại phòng thành công.');
-        return redirect()->route('typesroom.index');
+            return redirect()->route('typesroom.index')->with(['flag'=>'success','message'=>'Sửa loại phòng '.$type->name.' thành công.']);
+        }else{
+            return redirect()->route('typesroom.index')->with(['flag'=>'error','message'=>'Sửa loại phòng '.$type->name.' thất bại.']);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
         TypeRoom::where('id',$id)->delete();
-        \Session::flash('delete_typeroom_success_flash_message', 'Xóa loại phòng thành công.');
-        return redirect()->route('typesroom.index');
+        return redirect()->route('typesroom.index')->with(['flag'=>'success','message'=>'Xóa loại phòng thành công.']);
     }
 }

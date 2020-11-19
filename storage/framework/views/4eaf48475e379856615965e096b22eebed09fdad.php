@@ -42,7 +42,6 @@
 								</form>
 
 		        				<form action="<?php echo e(route('typesroom.destroy', $kv->id)); ?>" method="post">
-		        					<?php echo method_field('DELETE'); ?>
 									<?php echo csrf_field(); ?>
 									<button type="submit" class="btn btn-outline-danger">
 										<i class="fas fa-trash-alt"></i>

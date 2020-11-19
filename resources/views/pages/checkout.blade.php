@@ -5,10 +5,6 @@
 	<form action="{{ route('payment') }}" method="post" accept-charset="utf-8">
 		@csrf
 		<div class="text-center">
-			{{-- Câu thông báo đăng kí phòng thành công --}}
-		    @if (Session::has('flash_message'))
-	          <div class="alert alert-success">{{ Session::get('flash_message') }}</div>
-	        @endif
 	        <br>
 			<p class=" col-12 h1 text-center text-primary text-uppercase mb-4 ml-2">Đơn xác nhận đặt phòng</p>
 		</div>
@@ -143,9 +139,9 @@
 						Hình thức thanh toán
 					</div>
 					<div class="card-body">
-						<input type="radio" class="mb-4" name="radioPayment" value="COD" data-toggle="collapse" href="#collapseExample" checked> Thanh toán tại quầy<br>
+						<input type="radio" class="mb-4" name="radioPayment" value="COD"  checked> Thanh toán tại quầy<br>
 
-						<div class="collapse mb-4 show" id="collapseExample">
+						<div class="mb-4">
 						  <div class="card card-body">
 						    Địa chỉ quầy thanh toán: Trường Đại học Công nghiệp TP. Hồ Chí Minh<br>
 						    Tòa nhà E, tầng trệt, quầy số 1-2-3<br>
@@ -154,7 +150,7 @@
 						  </div>
 						</div>
 
-						<input type="radio" name="radioPayment" value="VNPAY" placeholder="" data-toggle="collapse" href="#vnpay"> Thanh toán qua VNPay
+						<input type="radio" name="radioPayment" value="NL" placeholder="" data-toggle="collapse" href="#nl"> Thanh toán qua Ngân Lượng
 						</form>	
 					</div>
 				</div>
@@ -190,7 +186,11 @@
 							</div>
 							<div class="col text-right">
 								<label for="" id="labelTotal" class="h5">0 VNĐ</label>
+								{{-- dung de insert vao hoa don --}}
+								<input type="hidden" name="inputPrice" id="inputPrice" value="">
+								<input type="hidden" name="inputVAT" id="inputVAT" value="">
 								<input type="hidden" name="inputTotal" id="inputTotal" value="">
+								{{-- dung de insert vao hoa don --}}
 							</div>
 						</div>
 					</div>
@@ -209,26 +209,26 @@
 		$("#duration").change(function(){
             var duration = $(this).val(); //lấy gía trị ng dùng gõ
             var idRoom = {{ $room->id }};
+            
+            $.ajax({
+                url:"{{ route('total') }}", 
+                method:"get", // phương thức gửi dữ liệu.
+			    dataType: 'json',
+			    cache: false,
+                data:{
+                    duration:duration,
+                    idRoom:idRoom,
+                },
+                success:function(data){ //dữ liệu nhận về 
+                    $('#labelProvisionalMoney').html(data.ProvisionalMoney);
+                    $('#labelVAT').html(data.VAT);
+                    $('#labelTotal').html(data.Total);
 
-            ///alert(idRoom);
-            
-                $.ajax({
-                    url:"{{ route('total') }}", 
-                    method:"get", // phương thức gửi dữ liệu.
-				    dataType: 'json',
-				    cache: false,
-                    data:{
-                        duration:duration,
-                        idRoom:idRoom,
-                    },
-                    success:function(data){ //dữ liệu nhận về 
-                        $('#labelProvisionalMoney').html(data.ProvisionalMoney);
-                        $('#labelVAT').html(data.VAT);
-                        $('#labelTotal').html(data.Total);
-                        $('#inputTotal').val(data.Total);
-                    }
-                });
-            
+                    $('#inputPrice').val(data.ProvisionalMoney);
+                    $('#inputVAT').val(data.VAT);
+                    $('#inputTotal').val(data.Total);
+                }
+            });
         });
 	});
 </script>

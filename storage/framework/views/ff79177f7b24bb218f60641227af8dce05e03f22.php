@@ -21,7 +21,7 @@
 				<div class="col-xl-7 col-12">
 					<div class="card card-primary card-outline">
 						<div class="card-header">
-							<h5 class="m-0 float-left">Danh sách tài khoản - vai trò</h5>
+							<h5 class="m-0 float-left py-2">Danh sách tài khoản - vai trò</h5>
 
 							<form action="<?php echo e(route('admin.role')); ?>" method="get" accept-charset="utf-8" class="form-inline float-right">
 								<select name="slRole" class="custom-select mr-2">
@@ -49,10 +49,10 @@
 										<td><?php echo e($user->email); ?></td>
 										<td>
 											<?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-												<?php if($role->id == $user->id_role): ?>
-													<?php echo e($role->name); ?>
+											<?php if($role->id == $user->id_role): ?>
+											<?php echo e($role->name); ?>
 
-												<?php endif; ?>
+											<?php endif; ?>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</td>
 									</tr>
@@ -100,7 +100,7 @@
 								</div>
 								<div class="row mb-4">
 									<label for="">Mô tả vai trò</label>
-									<textarea rows="3" class="form-control" name="description" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus, turpis eget hendrerit semper, eros nunc gravida sapien, nec feugiat diam arcu eu massa." required></textarea>
+									<textarea rows="3" class="form-control" name="description" placeholder="Có vai trò quản lý ..." required></textarea>
 								</div>
 								<div class="row">
 									<input type="submit" name="addRole" class="btn btn-outline-success" value="Thêm vai trò">
@@ -164,14 +164,9 @@
 							Trang này mô tả các vai trò của người dùng trong hệ thống. Hiện tại có <?php echo e(count($roles)); ?> vai trò trong hệ thống:
 							<ul class="list-group list-group-flush">
 								<?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-								<?php $__currentLoopData = $count_user_of_role; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $count): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-								<?php if($role->id == $count->id_role): ?>
 								<li class="list-group-item d-flex justify-content-between align-items-center">
 									#<?php echo e($role->id); ?> - <?php echo e($role->name); ?>
 
-									<span class="badge badge-primary badge-pill"><?php echo e($count->total); ?></span>
-									<?php endif; ?>
-									<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 									<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 								</ul>
 								<br>
@@ -193,29 +188,29 @@
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
-<script>
-    $(document).ready(function(){
-        $("#selectUser").change(function(){
-            var query = $(this).val(); //lấy gía trị ng dùng gõ
+	<script>
+		$(document).ready(function(){
+			$("#selectUser").change(function(){
+            var idRole = $(this).val(); //lấy gía trị ng dùng gõ
             //alert(query);
-            if(query != '') //kiểm tra khác rỗng thì thực hiện đoạn lệnh bên dưới
+            if(idRole != '') //kiểm tra khác rỗng thì thực hiện đoạn lệnh bên dưới
             {
                 var _token = $('input[name="_token"]').val(); // token để mã hóa dữ liệu
                 //alert(_token);
                 $.ajax({
-                    url:"<?php echo e(route('changeRole')); ?>", 
+                	url:"<?php echo e(route('changeRole')); ?>", 
                     method:"POST", // phương thức gửi dữ liệu.
                     data:{
-                        query:query,
-                         _token:_token
+                    	idRole:idRole,
+                    	_token:_token
                     },
                     success:function(data){ //dữ liệu nhận về 
                         $('#selectRole').html(data); //nhận dữ liệu dạng html và gán vào cặp thẻ có id là labelcmnd
-                    }
-                });
-            }
-        });
-    });
-</script>
+                     }
+                  });
+             }
+          });
+		});
+	</script>
 	<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /mnt/c/xampp/htdocs/laravel_dormitory/resources/views/admin/users/permission.blade.php ENDPATH**/ ?>

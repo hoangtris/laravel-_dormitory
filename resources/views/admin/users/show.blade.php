@@ -18,20 +18,11 @@
 	<!-- Main content -->
 	<div class="content">
 		<div class="container-fluid">
+			<div class="callout callout-info">
+            	<h5 class="text-info">Tính năng này vẫn còn đang trong quá trình xây dựng</h5>
+            	<p>Một vài chức năng sẽ bị vô hiệu quá do chưa hoàn thiện.</p>
+            </div>
 			<div class="row">
-{{-- 				<div class="col-xl-3 col-md-4 col-sm-6 col-12">
-					1
-				</div>
-				<div class="col-xl-3 col-md-4 col-sm-6 col-12">
-					2
-				</div>
-				<div class="col-xl-3 col-md-4 col-sm-6 col-12">
-					3
-				</div>
-				<div class="col-xl-3 col-md-4 col-sm-6 col-12">
-					4
-				</div> --}}
-
 				<div class="col-xl-3 col-12">
 					<!-- Profile Image -->
 					<div class="card card-primary card-outline">
@@ -78,8 +69,7 @@
 
 							<form action="{{ route('users.destroy', $user->id) }}" method="post" accept-charset="utf-8">
 								@csrf
-								@method('delete')
-								<input type="submit" name="deleteUser" value="Xóa tài khoản" class="btn btn-outline-danger btn-block" onclick="return confirm('Bạn chắc chưa?')">
+								<input type="submit" name="deleteUser" value="Xóa tài khoản" class="btn btn-outline-danger btn-block" onclick="return confirmDestroy()" disabled="">
 							</form>
 							
 						</div>
@@ -93,19 +83,25 @@
 						<div class="card-header p-0 border-bottom-0">
 							<ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
 								<li class="nav-item">
-									<a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Thông tin chung</a>
+									<a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#information" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Thông tin chung</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Địa chỉ</a>
+									<a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#address" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Địa chỉ</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill" href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Khác</a>
+									<a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#room" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Thông tin phòng</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#review" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Đánh giá</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill" href="#none" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Khác</a>
 								</li>
 							</ul>
 						</div>
 						<div class="card-body">
 							<div class="tab-content" id="custom-tabs-four-tabContent">
-								<div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+								<div class="tab-pane fade show active" id="information" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
 									<div class="row" style="line-height: 35px">
 										<div class="col-xl-6">
 											<b>Họ tên</b>
@@ -174,7 +170,7 @@
 									</div>
 
 								</div>
-								<div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+								<div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
 									<div class="row" style="line-height: 35px">
 										<div class="col-xl-6">
 											<b>Địa chỉ</b>
@@ -201,7 +197,21 @@
 										</div>									
 									</div>
 								</div>
-								<div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+								<div class="tab-pane fade" id="room" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+									<div class="row">
+										<div class="col-xl-12">
+											Phong
+										</div>	
+									</div>
+								</div>
+								<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+									<div class="row">
+										<div class="col-xl-12">
+											Danh gia
+										</div>	
+									</div>
+								</div>
+								<div class="tab-pane fade" id="none" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
 									<div class="row">
 										<div class="col-xl-12">
 											<b>Ngày tạo</b>

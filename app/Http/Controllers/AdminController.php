@@ -20,44 +20,20 @@ class AdminController extends Controller
     public function role(Request $request)
     {
     	# code...
+        $roles = Role::all();
+        $userAll = User::all();
+
         if($request->has('slRole')){
             if($request->slRole == 0){
                 $users = User::paginate(20);
-                $roles = Role::all();
-                $userAll = User::all();
-
-                $count_user_of_role = DB::table('users')
-                                        ->select('id_role', DB::raw('count(*) as total'))
-                                        ->groupBy('id_role')
-                                        ->get();
-
-                //dd($count_user_of_role);
-                return view('admin.users.permission', compact('users','roles','count_user_of_role','userAll'));
+                return view('admin.users.permission', compact('users','roles','userAll'));
             }else{
                 $users = User::where('id_role',$request->slRole)->paginate(20);
-                $roles = Role::all();
-                $userAll = User::all();
-
-                $count_user_of_role = DB::table('users')
-                                        ->select('id_role',DB::raw('count(*) as total'))
-                                        ->groupBy('id_role')
-                                        ->get();
-
-                //dd($count_user_of_role);
-                return view('admin.users.permission', compact('users','roles','count_user_of_role','userAll'));
+                return view('admin.users.permission', compact('users','roles','userAll'));
             }
         }else{
         	$users = User::paginate(20);
-        	$roles = Role::all();
-            $userAll = User::all();
-
-            $count_user_of_role = DB::table('users')
-                                    ->select('id_role',DB::raw('count(*) as total'))
-                                    ->groupBy('id_role')
-                                    ->get();
-
-            //dd($count_user_of_role);
-        	return view('admin.users.permission', compact('users','roles','count_user_of_role','userAll'));
+        	return view('admin.users.permission', compact('users','roles','userAll'));
         }
     }
 
@@ -68,15 +44,14 @@ class AdminController extends Controller
         $role->name = $request->name;
         $role->description = $request->description;
         $role->save();
-
-        \Session::flash('add_role_success_flash_message', 'Thêm vai trò thành công.');
-        return redirect()->route('admin.role');
+        return redirect()->route('admin.role')
+               ->with(['flag'=>'success','message'=>'Xóa vai trò '.$role->name.' thành công.']);
     }
 
     public function roleDestroy($id)
     {
         # code...
-        echo $id;
+        echo $id; //Dang xay dung
     }
 
     public function changeRoleUser(Request $request)
@@ -85,9 +60,7 @@ class AdminController extends Controller
         $user = User::find($request->selectUser);
         $user->id_role = $request->selectRole;
         $user->save();
-
-        \Session::flash('change_role_for_user_success_flash_message', 'Thay đổi vai trò cho người dùng thành công.');
-        return redirect()->route('admin.role');
+        return redirect()->route('admin.role')->with(['flag'=>'success','message'=>'Thay đổi vai trò #'.$user->id.' - '.$user->name.' thành công.']);;
     }
 
     public function requestPage()
@@ -108,7 +81,7 @@ class AdminController extends Controller
     {
         # code...
         Review::find($id)->delete();
-        \Session::flash('delete_review_success_flash_message', 'Xóa đánh giá thành công.');
-        return redirect()->route('admin.review.index');
+        # \Session::flash('delete_review_success_flash_message', 'Xóa đánh giá thành công.');
+        return redirect()->route('admin.review.index')->with(['flag'=>'success','message'=>'Xóa đánh giá thành công.']);
     }
 }

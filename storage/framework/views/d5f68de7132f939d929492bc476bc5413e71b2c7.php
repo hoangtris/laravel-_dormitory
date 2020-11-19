@@ -34,7 +34,7 @@
 							</div>
 						</div>
 
-						<div class="card-body">
+						<div class="card-body py-0 px-0">
 							<table class="table table-hover table-head-fixed text-nowrap">
 								<thead>
 									<tr>
@@ -45,6 +45,7 @@
 										<th>Sức chứa</th>
 										<th>Giá</th>
 										<th>Tình trạng</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -58,54 +59,59 @@
 											<?php echo e(asset('upload/room/'.$room->image)); ?>
 
 											<?php endif; ?>
-											" alt="" width="50px" height="50px"></td>
-											<td>
-												<a href="<?php echo e(route('rooms.edit', $room->id)); ?>">#<?php echo e($room->id); ?>
+											" alt="" width="50px" height="50px">
+										</td>
+										<td>
+											<a href="<?php echo e(route('rooms.edit', $room->id)); ?>">#<?php echo e($room->id); ?>
 
-												</a>
-											</td>
-											<td>
-												<?php $__currentLoopData = $areas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $area): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-												<?php if($area->id == $room->id_area): ?>
-												<?php echo e($area->name); ?>
+											</a>
+										</td>
+										<td>
+											<?php $__currentLoopData = $areas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $area): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+											<?php if($area->id == $room->id_area): ?>
+											<?php echo e($area->name); ?>
 
-												<?php endif; ?>
-												<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-											</td>
-											<td>
-												<?php $__currentLoopData = $types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $area): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-												<?php if($area->id == $room->id_type): ?>
-												<?php echo e($area->name); ?>
+											<?php endif; ?>
+											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+										</td>
+										<td>
+											<?php $__currentLoopData = $types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $area): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+											<?php if($area->id == $room->id_type): ?>
+											<?php echo e($area->name); ?>
 
-												<?php endif; ?>
-												<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-											</td>
-											<td><?php echo e($room->capacity); ?></td>
-											<td><?php echo e(number_format($room->price)); ?> VND</td>
-											<td class="text-left">
-												<?php if($room->status == 0): ?>
-												<span class="badge badge-secondary">Ẩn</span>
-												<?php elseif($room->status == 1): ?>
-												<span class="badge badge-success">Hiện</span>
-												<?php else: ?>
-												<span class="badge badge-warning">Phòng đầy</span>
-												<?php endif; ?>
-											</td>
-										</tr>
-										<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+											<?php endif; ?>
+											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+										</td>
+										<td><?php echo e($room->capacity); ?></td>
+										<td><?php echo e(number_format($room->price)); ?> VND</td>
+										<td class="text-left">
+											<?php if($room->status == 0): ?>
+											<span class="badge badge-secondary">Ẩn</span>
+											<?php elseif($room->status == 1): ?>
+											<span class="badge badge-success">Hiện</span>
+											<?php else: ?>
+											<span class="badge badge-warning">Phòng đầy</span>
+											<?php endif; ?>
+										</td>
+										<td>
+											<a href="<?php echo e(route('rooms.detail', $room->id)); ?>"><span class="badge badge-info">Xem</span></a>
+											<a href="<?php echo e(route('rooms.edit', $room->id)); ?>"><span class="badge badge-danger">Sửa</span></a>
+										</td>
+									</tr>
+									<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 									</tbody>
-								</table>
-								<?php echo e($rooms->links()); ?>
+							</table>
+							<?php echo e($rooms->links()); ?>
 
-							</div>
 						</div>
 					</div>
 				</div>
-				<!-- /.row -->
-			</div><!-- /.container-fluid -->
-		</div>
-		<!-- /.content -->
+			</div>
+			<!-- /.row -->
+		</div><!-- /.container-fluid -->
 	</div>
-	<!-- /.content-wrapper -->
-	<?php $__env->stopSection(); ?>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /mnt/c/xampp/htdocs/laravel_dormitory/resources/views/admin/rooms/index.blade.php ENDPATH**/ ?>

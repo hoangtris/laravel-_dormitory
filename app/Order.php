@@ -8,4 +8,15 @@ class Order extends Model
 {
     //
     protected $table = 'orders';
+
+    public function user()
+    {
+    	# code...
+    	return $this->belongsTo('App\User','user_id');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany('App\OrderDetail');
+    }
 }

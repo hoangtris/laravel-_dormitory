@@ -32,7 +32,6 @@
 
 					<form action="{{ route('areas.update', $area->id) }}" method="post" accept-charset="utf-8" class="px-2 py-2">
 						@csrf
-						@method('PUT')
 						<div class="row mb-3">
 							<label for="">Tên khu vực</label>
 							<input type="text" name="name" value="{{ $area->name }}" class="form-control">

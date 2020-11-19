@@ -32,7 +32,6 @@
 
 					<form action="<?php echo e(route('areas.update', $area->id)); ?>" method="post" accept-charset="utf-8" class="px-2 py-2">
 						<?php echo csrf_field(); ?>
-						<?php echo method_field('PUT'); ?>
 						<div class="row mb-3">
 							<label for="">Tên khu vực</label>
 							<input type="text" name="name" value="<?php echo e($area->name); ?>" class="form-control">

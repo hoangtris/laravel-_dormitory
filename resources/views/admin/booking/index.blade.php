@@ -31,15 +31,23 @@
 				<div class="col-xl-9">
 					<div class="card card-primary card-outline">
 						<div class="card-header">
-							<h5 class="m-0 float-left">Danh sách đơn đặt phòng</h5>
-							<form action="{{ route('booking.index') }}" method="get" accept-charset="utf-8" class="form-inline float-right">
-								<select name="slStatus" class="custom-select mr-2">
-									<option value="0">Tất cả</option>
-									<option value="1">Chưa chấp nhận</option>
-									<option value="2">Đã chấp nhận</option>
-								</select>
-								<input type="submit" name="" value="Lọc" class="btn btn-outline-primary" >
-							</form>
+							<div class="row">
+								<div class="col-xl-8 col-md-6 col-12">
+									<h5 class="m-0 float-left py-2">Danh sách đơn đặt phòng</h5>
+								</div>
+								<div class="col-xl-4 col-md-6 col-12">
+									<form action="{{ route('booking.index') }}" method="get" accept-charset="utf-8" class="form-inline float-right">
+										<select name="slStatus" class="custom-select mr-2">
+											<option value="0">Tất cả</option>
+											<option value="1">Chưa chấp nhận</option>
+											<option value="2">Đã chấp nhận</option>
+										</select>
+										<input type="submit" name="" value="Lọc" class="btn btn-outline-primary" >
+									</form>								
+								</div>	
+							</div>
+							
+
 						</div>
 						<div class="card-body p-2">
 							<table class="table">
@@ -53,22 +61,22 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($orderDetail as $od)
+									@forelse($orderDetail as $od)
 									<tr class="align">
 										<td class="align-middle">
-											<a href="{{ route('booking.show', $od->id) }}">{{ $od->room_id }}</a>
+											<a href="{{ route('booking.show', $od->id) }}">#{{ $od->room_id }}</a>
 										</td>
 										<td class="align-middle">
-											@foreach($order as $o)
+											@foreach($orders as $o)
 												@foreach($users as $user)
 													@if($od->order_id == $o->id && $o->user_id == $user->id)
-													{{ $user->name }}
+													#{{ $user->id }} - {{ $user->name }}
 													@endif
 												@endforeach
 											@endforeach
 										</td>
 										<td class="align-middle">
-											@foreach($order as $o)
+											@foreach($orders as $o)
 												@if($od->order_id == $o->id)
 													{{ date('d-m-Y H:i:s',strtotime($o->created_at)) }}
 												@endif
@@ -78,19 +86,21 @@
 											{{ date('d-m-Y',strtotime($od->date_move_in)) }}
 										</td>
 										<td>
-											@if($od->status == 0)
-											<form action="{{ route('booking.update', $od->id) }}" method="post" accept-charset="utf-8">
-												@method('PUT')
-												@csrf
-												<button type="" class="btn btn-block btn-danger" onclick="return confirm('Bạn có muốn chuyển sang trạng thái ĐÃ CHẤP NHẬN')">Chờ chấp nhận</button>
-											</form>
-											
+											@if($od->status == 1)
+												<form action="{{ route('booking.update', $od->id) }}" method="post" accept-charset="utf-8">
+													@csrf
+													<button type="" class="btn btn-block btn-danger" onclick="return confirm('Bạn có muốn chuyển sang trạng thái ĐÃ CHẤP NHẬN')">Chờ chấp nhận</button>
+												</form>
 											@else
-											<button type="button" class="btn btn-block btn-success" disabled="">Đã chấp nhận</button>
+												<button type="button" class="btn btn-block btn-success" disabled="">Đã chấp nhận</button>
 											@endif
 										</td>
 									</tr>
-									@endforeach
+									@empty
+										<tr>
+											<td colspan="5" class="text-center">Ohhhh! Không có đơn đặt phòng nào cả.</td>
+										</tr>
+									@endforelse
 								</tbody>
 							</table>
 						</div>

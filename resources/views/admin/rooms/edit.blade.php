@@ -21,7 +21,6 @@
 			<form action="{{ route('rooms.update', $room->id) }}" method="post" enctype='multipart/form-data'>           
 				<div class="row">
 					@csrf
-					@method('PUT')
 					<!-- /.col-md-6 -->
 					<div class="col-lg-8">
 						<div class="card card-outline card-info">
@@ -187,7 +186,6 @@
 
 			<form action="{{ route('rooms.destroy', $room->id) }}" method="post" accept-charset="utf-8">
 				@csrf
-				@method('DELETE')
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="callout callout-danger">

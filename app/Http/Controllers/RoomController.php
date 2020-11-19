@@ -11,11 +11,6 @@ use Str;
 
 class RoomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
@@ -26,11 +21,6 @@ class RoomController extends Controller
         return view('admin.rooms.index', compact('rooms','types','areas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -39,60 +29,35 @@ class RoomController extends Controller
         return view('admin.rooms.add', compact('areas', 'types'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
-        $file = $request->file('image');
-        $name = Str::random(5).'_'.$file->getClientOriginalName();
-
+        if($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name = Str::random(5).'_'.$file->getClientOriginalName();
+            $file->move('upload/room/',$name);
+        }else{
+            $name = "https://www.mandlpaints.com/wp-content/uploads/2018/09/Ash-Grey.jpg";
+        }
+        
         if($room = Room::create($request->except('_token'))){
             $insertedId = $room->id;
-
             $room = Room::find($insertedId);
             $room->image = $name;
-
             if($request->has('addRoomTemp')) {
                 //
                 $room->status = 0;
             }else{
                 $room->status = 1;
-            } 
-                       
+            }  
             $room->save();
 
-            $file->move('upload/room/',$name);
-            \Session::flash('add_room_success_flash_message', 'Thêm phòng thành công.');
-            return redirect()->route('rooms.index');
+            return redirect()->route('rooms.index')->with(['flag'=>'success','message'=>'Thêm phòng '.$room->id.' thành công.']);
         }else{
-            \Session::flash('add_room_error_flash_message', 'Thêm phòng thất bại.');
-            return redirect()->route('rooms.index');
+            return redirect()->route('rooms.index')->with(['flag'=>'success','message'=>'Thêm loại phòng thất bại.']);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
@@ -102,13 +67,6 @@ class RoomController extends Controller
         return view('admin.rooms.edit', compact('areas', 'types', 'room'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
@@ -116,8 +74,6 @@ class RoomController extends Controller
         $room->update($request->all());
 
         if($request->hasFile('image')) {
-            //
-            //UUID Laravel
             $file = $request->file('image');
             $name = Str::random(5).'_'.$file->getClientOriginalName();
             $room->image = $name;
@@ -129,9 +85,7 @@ class RoomController extends Controller
             $room->save();
         }
 
-        \Session::flash('update_room_success_flash_message', 'Sửa phòng thành công.');
-        return redirect()->route('rooms.index');
-
+        return redirect()->route('rooms.index')->with(['flag'=>'success','message'=>'Sửa phòng '.$room->id.' thành công.']);
     }
 
     /**
@@ -144,7 +98,6 @@ class RoomController extends Controller
     {
         //them xoa hinh
         Room::where('id',$id)->delete();
-        \Session::flash('delete_room_success_flash_message', 'Xóa phòng thành công.');
-        return redirect()->route('rooms.index');
+        return redirect()->route('rooms.index')->with(['flag'=>'success','message'=>'Xóa phòng thành công.']);
     }
 }

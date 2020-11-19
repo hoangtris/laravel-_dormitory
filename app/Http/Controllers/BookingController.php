@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\OrderDetail;
 use App\User;
+use App\Area;
+use App\Room;
 
 class BookingController extends Controller
 {
@@ -18,111 +20,56 @@ class BookingController extends Controller
     {
         //sua lai, khoang cach ra, group by Model
         // status them cac trang thai: don dat phong, don huy phong
+        /*
+        1 - chua chap nhan - don dat phong
+        2 - da chap nhan - don dat phong
+        3 - don huy phong - chua chap nhan
+        4 - don huy phong - da chap nhan
+        5 -
+        6 -
+        */
+        $orders = Order::all();
+        $users = User::all();
+        $in = [1,2];
+
         if($request->has('slStatus')){
-            if($request->slStatus == 0){
-                $orderDetail = OrderDetail::where('note','like','%Đơn đặt phòng%')
-                                            ->orderBy('id','desc','status','asc')
-                                            ->get();
-                $order = Order::all();
-                $users = User::all();
-                return view('admin.booking.index', compact('order','orderDetail','users')); 
-            }elseif($request->slStatus == 1){
-                $orderDetail = OrderDetail::where('note','like','%Đơn đặt phòng%')->where('status',0)
-                                            ->orderBy('id','desc','status','asc')
-                                            ->get();
-                $order = Order::all();
-                $users = User::all();
-                return view('admin.booking.index', compact('order','orderDetail','users')); 
-            }else{
-                $orderDetail = OrderDetail::where('note','like','%Đơn đặt phòng%')                       ->where('status',1)
-                                            ->orderBy('id','desc','status','asc')
-                                            ->get();
-                $order = Order::all();
-                $users = User::all();
-                return view('admin.booking.index', compact('order','orderDetail','users')); 
+            $status = $request->slStatus;
+            if($status != 0){
+                $in = [$status];
             }
-        }else{
-            $orderDetail = OrderDetail::where('note','like','%Đơn đặt phòng%')
-                                        ->orderBy('id','desc','status','asc')
-                                        ->get();
-            $order = Order::all();
-            $users = User::all();
-            return view('admin.booking.index', compact('order','orderDetail','users'));            
         }
 
+        $orderDetail = OrderDetail::whereIn('status',$in)
+                                    ->orderBy('status', 'asc')
+                                    ->orderBy('id', 'desc')
+                                    ->get(); 
+
+        return view('admin.booking.index', compact('orders','orderDetail','users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
-        echo "string";
+        $orderDetail = OrderDetail::find($id);
+        $order = Order::find($orderDetail->order_id);
+        $user = User::find($order->user_id);
+        $room = Room::find($orderDetail->room_id);
+        return view('admin.booking.showbooking', compact('orderDetail', 'order', 'user', 'room'));    
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
         $orderDetail = OrderDetail::find($id);
-
-        $orderDetail->status = 1;
+        $orderDetail->status = 2;
         $orderDetail->save();
 
-        \Session::flash('update_status_booking_success_flash_message', 'Thay đỏi trạng thái thành công.');
-        return redirect()->route('booking.index');
-    }
+        $order = Order::find($orderDetail->order_id);
+        if($order->status == 1){
+            $order->status = 2;
+            $order->note   = 'Đã thanh toán - QLPHONG xác nhận';
+            $order->save();
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->back()->with(['flag'=>'success','message'=>'Thay trạng thái thành công.']);
     }
 }

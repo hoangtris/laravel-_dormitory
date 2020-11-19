@@ -32,10 +32,9 @@
 
 					<form action="{{ route('typesroom.update', $type->id) }}" method="post" accept-charset="utf-8" class="px-2 py-2">
 						@csrf
-						@method('PUT')
 						<div class="row mb-3">
 							<label for="">Tên loại phòng</label>
-							<input type="text" name="name" value="{{ $type->name }}" class="form-control">
+							<input type="text" name="name" value="{{ $type->name }}" class="form-control" disabled="">
 						</div>
 						<div class="row mb-3">
 							<label for="">Mô tả</label>

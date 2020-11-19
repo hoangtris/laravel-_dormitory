@@ -34,7 +34,7 @@
 							</div>
 						</div>
 
-						<div class="card-body">
+						<div class="card-body py-0 px-0">
 							<table class="table table-hover table-head-fixed text-nowrap">
 								<thead>
 									<tr>
@@ -45,6 +45,7 @@
 										<th>Sức chứa</th>
 										<th>Giá</th>
 										<th>Tình trạng</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -56,49 +57,54 @@
 											@else
 											{{ asset('upload/room/'.$room->image) }}
 											@endif
-											" alt="" width="50px" height="50px"></td>
-											<td>
-												<a href="{{ route('rooms.edit', $room->id) }}">#{{ $room->id }}
-												</a>
-											</td>
-											<td>
-												@foreach($areas as $area)
-												@if($area->id == $room->id_area)
-												{{ $area->name }}
-												@endif
-												@endforeach
-											</td>
-											<td>
-												@foreach($types as $area)
-												@if($area->id == $room->id_type)
-												{{ $area->name }}
-												@endif
-												@endforeach
-											</td>
-											<td>{{ $room->capacity }}</td>
-											<td>{{ number_format($room->price) }} VND</td>
-											<td class="text-left">
-												@if($room->status == 0)
-												<span class="badge badge-secondary">Ẩn</span>
-												@elseif($room->status == 1)
-												<span class="badge badge-success">Hiện</span>
-												@else
-												<span class="badge badge-warning">Phòng đầy</span>
-												@endif
-											</td>
-										</tr>
-										@endforeach
+											" alt="" width="50px" height="50px">
+										</td>
+										<td>
+											<a href="{{ route('rooms.edit', $room->id) }}">#{{ $room->id }}
+											</a>
+										</td>
+										<td>
+											@foreach($areas as $area)
+											@if($area->id == $room->id_area)
+											{{ $area->name }}
+											@endif
+											@endforeach
+										</td>
+										<td>
+											@foreach($types as $area)
+											@if($area->id == $room->id_type)
+											{{ $area->name }}
+											@endif
+											@endforeach
+										</td>
+										<td>{{ $room->capacity }}</td>
+										<td>{{ number_format($room->price) }} VND</td>
+										<td class="text-left">
+											@if($room->status == 0)
+											<span class="badge badge-secondary">Ẩn</span>
+											@elseif($room->status == 1)
+											<span class="badge badge-success">Hiện</span>
+											@else
+											<span class="badge badge-warning">Phòng đầy</span>
+											@endif
+										</td>
+										<td>
+											<a href="{{ route('rooms.detail', $room->id) }}"><span class="badge badge-info">Xem</span></a>
+											<a href="{{ route('rooms.edit', $room->id) }}"><span class="badge badge-danger">Sửa</span></a>
+										</td>
+									</tr>
+									@endforeach
 									</tbody>
-								</table>
-								{{ $rooms->links() }}
-							</div>
+							</table>
+							{{ $rooms->links() }}
 						</div>
 					</div>
 				</div>
-				<!-- /.row -->
-			</div><!-- /.container-fluid -->
-		</div>
-		<!-- /.content -->
+			</div>
+			<!-- /.row -->
+		</div><!-- /.container-fluid -->
 	</div>
-	<!-- /.content-wrapper -->
-	@endsection
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+@endsection

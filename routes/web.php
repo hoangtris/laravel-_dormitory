@@ -69,7 +69,6 @@ Route::get('rooms/detail/{id}', [
 	'uses' => 'PageController@roomsDetail',
 ]);
 
-
 Route::post('checkout/{id}',[
 	'as' =>'checkout',
 	'uses' => 'PageController@checkout',
@@ -80,7 +79,7 @@ Route::post('payment',[
 	'uses' => 'PageController@payment',
 ]);
 
-Route::get('checkoutsucess',[
+Route::get('checkoutsuccess',[
 	'as' =>'checkout.success',
 	'uses' => 'PageController@checkoutsuccess',
 ]);
@@ -130,13 +129,89 @@ Route::prefix('admin')->group(function () {
     	'uses' => 'AdminController@dashboard',
     ]);
 
-    //-----------Room
-    Route::resource('areas', 'AreaController');
-    Route::resource('typesroom', 'TypeRoomController');
-    Route::resource('rooms', 'RoomController');
+    //-----------areas
+    Route::get('areas', [
+    	'as' => 'areas.index',
+    	'uses' => 'AreaController@index',
+    ]);
+    Route::post('areas', [
+    	'as' => 'areas.store',
+    	'uses' => 'AreaController@store',
+    ]);
+    Route::get('areas/{area}/edit', [
+    	'as' => 'areas.edit',
+    	'uses' => 'AreaController@edit',
+    ]);
+    Route::post('areas/{area}', [
+    	'as' => 'areas.update',
+    	'uses' => 'AreaController@update',
+    ]);
+    Route::post('areas/{area}/delete', [
+    	'as' => 'areas.destroy',
+    	'uses' => 'AreaController@destroy',
+    ]);
+
+    //-----------types room
+    Route::get('typesroom', [
+    	'as' => 'typesroom.index',
+    	'uses' => 'TypeRoomController@index',
+    ]);
+    Route::post('typesroom', [
+    	'as' => 'typesroom.store',
+    	'uses' => 'TypeRoomController@store',
+    ]);
+    Route::get('typesroom/{typesroom}/edit', [
+    	'as' => 'typesroom.edit',
+    	'uses' => 'TypeRoomController@edit',
+    ]);
+    Route::post('typesroom/{typesroom}', [
+    	'as' => 'typesroom.update',
+    	'uses' => 'TypeRoomController@update',
+    ]);
+    Route::post('typesroom/{typesroom}/delete', [
+    	'as' => 'typesroom.destroy',
+    	'uses' => 'TypeRoomController@destroy',
+    ]);
+    
+    //-----------room
+    Route::get('rooms', [
+    	'as' => 'rooms.index',
+    	'uses' => 'RoomController@index',
+    ]);
+    Route::get('rooms/create', [
+    	'as' => 'rooms.create',
+    	'uses' => 'RoomController@create',
+    ]);
+    Route::post('rooms', [
+    	'as' => 'rooms.store',
+    	'uses' => 'RoomController@store',
+    ]);
+    Route::get('rooms/{rooms}/edit', [
+    	'as' => 'rooms.edit',
+    	'uses' => 'RoomController@edit',
+    ]);
+    Route::post('rooms/{rooms}', [
+    	'as' => 'rooms.update',
+    	'uses' => 'RoomController@update',
+    ]);
+    Route::post('rooms/{rooms}/delete', [
+    	'as' => 'rooms.destroy',
+    	'uses' => 'RoomController@destroy',
+    ]);
 
     //-----------Account
-    Route::resource('users', 'UserController');
+    Route::get('users', [
+    	'as' => 'users.index',
+    	'uses' => 'UserController@index',
+    ]);
+    Route::get('users/{user}', [
+    	'as' => 'users.show',
+    	'uses' => 'UserController@show',
+    ]);
+    Route::post('users/{users}/delete', [
+    	'as' => 'users.destroy',
+    	'uses' => 'UserController@destroy',
+    ]);
 
     Route::get('role', [
 		// Matches The "/admin/role" URL
@@ -171,9 +246,20 @@ Route::prefix('admin')->group(function () {
     	'uses' => 'AdminController@requestPage',
     ]);
 
-    //---------
-    Route::resource('booking', 'BookingController');
-
+    //---------booking
+    Route::get('booking', [
+    	'as' => 'booking.index',
+    	'uses' => 'BookingController@index',
+    ]);
+    Route::get('booking/{booking}', [
+    	'as' => 'booking.show',
+    	'uses' => 'BookingController@show',
+    ]);
+    Route::post('booking/{booking}', [
+    	'as' => 'booking.update',
+    	'uses' => 'BookingController@update',
+    ]);
+    
     //-----review - rate 
     Route::get('review', [
 		// Matches The "/admin/request" URL

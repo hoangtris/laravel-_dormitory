@@ -18,7 +18,7 @@
 	<div class="content">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xl-8 col-12">
+				<div class="col-xl-9 col-12">
 					<div class="card card-primary card-outline">
 						<div class="card-header">
 							<h5 class="m-0">Danh sách đánh giá</h5>
@@ -47,10 +47,10 @@
 											@endforeach
 										</td>
 										<td><a href="{{ route('rooms.detail', $review->room_id) }}">{{ $review->room_id }}</a></td>
-										<td>{{ $review->content }}</td>
+										<td  class="d-inline-block text-truncate" style="max-width: 150px;">{{ $review->content }}</td>
 										<td>{{ date('d-m-Y H:i:s',strtotime($review->created_at)) }}</td>
 										<td>
-											<a onclick="return confirm('Bạn chắc chưa?')" href="{{ route('admin.review.destroy', $review->id) }}"><span class="badge badge-danger">Xoa</span></a>
+											<a onclick="return confirm('Bạn chắc chưa?')" href="{{ route('admin.review.destroy', $review->id) }}"><span class="badge badge-danger">Xóa</span></a>
 										</td>
 									</tr>
 									@endforeach
@@ -60,8 +60,8 @@
 						</div>
 					</div>
 				</div>
-				<!-- /.col-md-6 -->
-				<div class="col-xl-4 col-12">
+				
+				<div class="col-xl-3 col-12">
 					<div class="card card-outline card-warning">
 						<div class="card-header">
 							<h3 class="card-title">Mô tả</h3>
@@ -74,7 +74,12 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-							Losjsjsjjsjs
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 						</div>
 						<!-- /.card-body -->
 					</div>

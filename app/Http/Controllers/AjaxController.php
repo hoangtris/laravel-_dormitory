@@ -34,11 +34,11 @@ class AjaxController extends Controller
     public function changeRole(Request $request)
     {
         # code...
-        if($request->get('query'))
+        if($request->get('idRole'))
         {
-            $query = $request->get('query');
+            $idRole = $request->get('idRole');
             $roles = Role::all();
-            $user = User::where('id',$query)->first();   
+            $user = User::where('id',$idRole)->first();   
             
             foreach ($roles as $role) {
                 $selected = '';
