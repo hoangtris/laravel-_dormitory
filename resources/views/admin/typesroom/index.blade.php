@@ -28,13 +28,13 @@
 		        	<table class="table table-hover">
 		        		@foreach($typesRoom as $kv)
 		        		<tr>
-		        			<td width="35%">
+		        			<td width="35%" class="align-middle">
 		        				{{ $kv->name }}	        				
 		        			</td>
-		        			<td width="37%">
+		        			<td width="37%" class="align-middle">
 		        				{{ $kv->slug }}	 
 		        			</td>
-		        			<td>
+		        			<td class="align-middle">
 		        				<form action="{{ route('typesroom.edit', $kv->id) }}" method="get">
 									<button type="submit" class="btn btn-outline-success float-left mr-2">
 										<i class="fas fa-pen"></i>
@@ -43,7 +43,7 @@
 
 		        				<form action="{{ route('typesroom.destroy', $kv->id) }}" method="post">
 									@csrf
-									<button type="submit" class="btn btn-outline-danger">
+									<button disabled="" type="submit" class="btn btn-outline-danger">
 										<i class="fas fa-trash-alt"></i>
 									</button>            
 								</form>

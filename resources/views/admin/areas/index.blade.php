@@ -25,16 +25,16 @@
 		          <h5 class="m-0">Danh sách khu vực</h5>
 		        </div>
 		        <div class="px-2">
-		        	<table class="table table-hover table-responsive-xl">
+		        	<table class="table table-hover">
 		        		@foreach($areas as $kv)
 		        		<tr>
-		        			<td>
+		        			<td class="align-middle">
 		        				{{ $kv->name }}	        				
 		        			</td>
-		        			<td>
+		        			<td class="align-middle">
 		        				{{ $kv->slug }}	 
 		        			</td>
-		        			<td>
+		        			<td class="align-middle">
 		        				<form action="{{ route('areas.edit', $kv->id) }}" method="get">
 									<button type="submit" class="btn btn-outline-success float-left mr-1">
 										<i class="fas fa-pen"></i>
@@ -43,7 +43,7 @@
 
 		        				<form action="{{ route('areas.destroy', $kv->id) }}" method="post">
 									@csrf
-									<button type="submit" class="btn btn-outline-danger" onclick="return confirmDestroy()">
+									<button type="submit" class="btn btn-outline-danger" onclick="return confirmDestroy()" disabled="">
 										<i class="fas fa-trash-alt"></i>
 									</button>            
 								</form>

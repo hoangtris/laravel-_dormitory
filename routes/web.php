@@ -272,3 +272,22 @@ Route::prefix('admin')->group(function () {
     	'uses' => 'AdminController@reviewDestroy',
     ]);
 });
+
+//-------------Admin
+Route::prefix('client')->group(function () {
+    Route::get('/', [
+        'as' => 'client.dashboard',
+        'uses' => 'ClientController@dashboard',
+    ]);
+    Route::get('dashboard', [
+        // Matches The "/client/dashboard" URL
+        'as' => 'client.dashboard',
+        'uses' => 'ClientController@dashboard',
+    ]);
+
+    Route::get('information', [
+        // Matches The "/client/dashboard" URL
+        'as' => 'client.information',
+        'uses' => 'ClientController@information',
+    ]);
+});

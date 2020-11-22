@@ -35,7 +35,7 @@
 						</div>
 
 						<div class="card-body py-0 px-0">
-							<table class="table table-hover table-head-fixed text-nowrap">
+							<table class="table table-responsive table-hover table-head-fixed text-nowrap">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -51,7 +51,7 @@
 								<tbody>
 									@foreach($rooms as $room)
 									<tr>
-										<td width="50px"><img src="
+										<td width="50px" class="align-middle"><img src="
 											@if(strstr($room->image,'http'))
 											{{ $room->image }}
 											@else
@@ -59,27 +59,27 @@
 											@endif
 											" alt="" width="50px" height="50px">
 										</td>
-										<td>
+										<td class="align-middle">
 											<a href="{{ route('rooms.edit', $room->id) }}">#{{ $room->id }}
 											</a>
 										</td>
-										<td>
+										<td class="align-middle">
 											@foreach($areas as $area)
 											@if($area->id == $room->id_area)
 											{{ $area->name }}
 											@endif
 											@endforeach
 										</td>
-										<td>
+										<td class="align-middle">
 											@foreach($types as $area)
 											@if($area->id == $room->id_type)
 											{{ $area->name }}
 											@endif
 											@endforeach
 										</td>
-										<td>{{ $room->capacity }}</td>
-										<td>{{ number_format($room->price) }} VND</td>
-										<td class="text-left">
+										<td class="align-middle">{{ $room->capacity }}</td>
+										<td class="align-middle">{{ number_format($room->price) }} VND</td>
+										<td class="text-left align-middle">
 											@if($room->status == 0)
 											<span class="badge badge-secondary">Ẩn</span>
 											@elseif($room->status == 1)
@@ -88,7 +88,7 @@
 											<span class="badge badge-warning">Phòng đầy</span>
 											@endif
 										</td>
-										<td>
+										<td class="align-middle">
 											<a href="{{ route('rooms.detail', $room->id) }}"><span class="badge badge-info">Xem</span></a>
 											<a href="{{ route('rooms.edit', $room->id) }}"><span class="badge badge-danger">Sửa</span></a>
 										</td>

@@ -82,6 +82,6 @@ class AdminController extends Controller
         # code...
         Review::find($id)->delete();
         # \Session::flash('delete_review_success_flash_message', 'Xóa đánh giá thành công.');
-        return redirect()->route('admin.review.index')->with(['flag'=>'success','message'=>'Xóa đánh giá thành công.']);
+        return redirect()->back()->with(['flag'=>'success','message'=>'Xóa đánh giá thành công.']);
     }
 }

@@ -25,16 +25,16 @@
 		          <h5 class="m-0">Danh sách khu vực</h5>
 		        </div>
 		        <div class="px-2">
-		        	<table class="table table-hover table-responsive-xl">
+		        	<table class="table table-hover">
 		        		<?php $__currentLoopData = $areas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kv): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		        		<tr>
-		        			<td>
+		        			<td class="align-middle">
 		        				<?php echo e($kv->name); ?>	        				
 		        			</td>
-		        			<td>
+		        			<td class="align-middle">
 		        				<?php echo e($kv->slug); ?>	 
 		        			</td>
-		        			<td>
+		        			<td class="align-middle">
 		        				<form action="<?php echo e(route('areas.edit', $kv->id)); ?>" method="get">
 									<button type="submit" class="btn btn-outline-success float-left mr-1">
 										<i class="fas fa-pen"></i>
@@ -43,7 +43,7 @@
 
 		        				<form action="<?php echo e(route('areas.destroy', $kv->id)); ?>" method="post">
 									<?php echo csrf_field(); ?>
-									<button type="submit" class="btn btn-outline-danger" onclick="return confirmDestroy()">
+									<button type="submit" class="btn btn-outline-danger" onclick="return confirmDestroy()" disabled="">
 										<i class="fas fa-trash-alt"></i>
 									</button>            
 								</form>

@@ -35,7 +35,7 @@
 						</div>
 
 						<div class="card-body py-0 px-0">
-							<table class="table table-hover table-head-fixed text-nowrap">
+							<table class="table table-responsive table-hover table-head-fixed text-nowrap">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -51,7 +51,7 @@
 								<tbody>
 									<?php $__currentLoopData = $rooms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $room): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 									<tr>
-										<td width="50px"><img src="
+										<td width="50px" class="align-middle"><img src="
 											<?php if(strstr($room->image,'http')): ?>
 											<?php echo e($room->image); ?>
 
@@ -61,12 +61,12 @@
 											<?php endif; ?>
 											" alt="" width="50px" height="50px">
 										</td>
-										<td>
+										<td class="align-middle">
 											<a href="<?php echo e(route('rooms.edit', $room->id)); ?>">#<?php echo e($room->id); ?>
 
 											</a>
 										</td>
-										<td>
+										<td class="align-middle">
 											<?php $__currentLoopData = $areas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $area): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 											<?php if($area->id == $room->id_area): ?>
 											<?php echo e($area->name); ?>
@@ -74,7 +74,7 @@
 											<?php endif; ?>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</td>
-										<td>
+										<td class="align-middle">
 											<?php $__currentLoopData = $types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $area): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 											<?php if($area->id == $room->id_type): ?>
 											<?php echo e($area->name); ?>
@@ -82,9 +82,9 @@
 											<?php endif; ?>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</td>
-										<td><?php echo e($room->capacity); ?></td>
-										<td><?php echo e(number_format($room->price)); ?> VND</td>
-										<td class="text-left">
+										<td class="align-middle"><?php echo e($room->capacity); ?></td>
+										<td class="align-middle"><?php echo e(number_format($room->price)); ?> VND</td>
+										<td class="text-left align-middle">
 											<?php if($room->status == 0): ?>
 											<span class="badge badge-secondary">Ẩn</span>
 											<?php elseif($room->status == 1): ?>
@@ -93,7 +93,7 @@
 											<span class="badge badge-warning">Phòng đầy</span>
 											<?php endif; ?>
 										</td>
-										<td>
+										<td class="align-middle">
 											<a href="<?php echo e(route('rooms.detail', $room->id)); ?>"><span class="badge badge-info">Xem</span></a>
 											<a href="<?php echo e(route('rooms.edit', $room->id)); ?>"><span class="badge badge-danger">Sửa</span></a>
 										</td>

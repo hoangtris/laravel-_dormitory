@@ -8,4 +8,9 @@ class Role extends Model
 {
     //Phan quyen
     protected $table = "roles";
+
+    public function users()
+    {
+    	return $this->hasMany('App\User');
+    }
 }
