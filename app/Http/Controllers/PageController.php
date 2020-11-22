@@ -43,118 +43,113 @@ class PageController extends Controller
     	# code...
     	return view('pages.term');
     }
+
+    public function pageNotFound()
+    {
+        # code...
+        return view('pages.404');
+    }
     
     public function roomsAll() 
     {
-        # code...
+        $areas = Area::all();
+        $types = TypeRoom::all();
         $rooms = Room::where('status',1)->orderBy('id','desc')->paginate(15);
-        $typesRoom = TypeRoom::all();
-        $areas = Area::all();
-
-        return view('pages.rooms', compact('rooms','typesRoom','areas'));
+        return view('pages.rooms', compact('rooms', 'types', 'areas'));
     }
 
-    public function roomsArea() 
+    public function roomsArea($slug) 
     {
-        # code...
-        //sua lai la slug
-        $url = request()->path();
-        $slug = Str::of($url)->explode('/');
-        //echo $slug[2];
-        
-        $idArea = Area::where('slug',$slug[2])->first(); #lấy ID Khu vực
-
-        $rooms = Room::where('id_area',$idArea->id)->orderBy('id','desc')->paginate(15);
-        $typesRoom = TypeRoom::all();
         $areas = Area::all();
-        //dd($rooms);
-        return view('pages.rooms', compact('rooms','typesRoom','areas'));
+        $types = TypeRoom::all();
+
+        $area = Area::where('slug',$slug)->first(); 
+
+        if($area == null){
+            return view('pages.404');
+        }else{
+            $rooms = Room::where('status',1)
+                     ->where('id_area',$area->id)
+                     ->orderBy('id','desc')
+                     ->paginate(15);
+            return view('pages.rooms', compact('rooms', 'types', 'areas'));
+        }
     }
 
-    public function roomsType() 
+    public function roomsType($slug) 
     {
-        # code...//sua lai la slug
-        $url = request()->path();
-        $slug = Str::of($url)->explode('/');
-        //echo $slug[2];
-        
-        $idType = TypeRoom::where('slug',$slug[2])->first(); #lấy ID Khu vực
-
-        $rooms = Room::where('id_type',$idType->id)->orderBy('id','desc')->paginate(15);
-        $typesRoom = TypeRoom::all();
         $areas = Area::all();
-        //dd($rooms);
-        return view('pages.rooms', compact('rooms','typesRoom','areas'));
+        $types = TypeRoom::all();
+
+        $type = TypeRoom::where('slug',$slug)->first(); 
+
+        if($type == null){
+            return view('pages.404');
+        }else{
+            $rooms = Room::where('status',1)
+                     ->where('id_type',$type->id)
+                     ->orderBy('id','desc')
+                     ->paginate(15);
+            return view('pages.rooms', compact('rooms', 'types', 'areas'));
+        }
     }
 
-    public function roomsPrice() 
+    public function roomsPrice($price) 
     {
-        # code...
-        $url = request()->path();
-        $slug = Str::of($url)->explode('/');
-        $slug = urldecode($slug[2]);
+        $areas = Area::all();
+        $types = TypeRoom::all();
 
-        switch ($slug) {
+        switch ($price) {
             case '<1tr':
-                # code...
-                $typesRoom = TypeRoom::all();
-                $areas = Area::all();
-                $rooms = Room::where('price','<','1000000')->orderBy('id','desc')->paginate(15);
-                return view('pages.rooms',compact('rooms','areas','typesRoom'));
+                $in = [0,999999];
                 break;
             case '1-2tr':
-                # code...
-                $typesRoom = TypeRoom::all();
-                $areas = Area::all();
-                $rooms = Room::whereBetween('price',[1000000,2000000])->orderBy('id','desc')->paginate(15);
-                return view('pages.rooms',compact('rooms','areas','typesRoom'));
+                $in = [1000000,1999999];
                 break;
             case '2-3tr':
-                # code...
-                $typesRoom = TypeRoom::all();
-                $areas = Area::all();
-                $rooms = Room::whereBetween('price',[2000000,3000000])->orderBy('id','desc')->paginate(15);
-                return view('pages.rooms',compact('rooms','areas','typesRoom'));
+                $in = [2000000,2999999];
                 break;
             case '3-4tr':
-                # code...
-                $typesRoom = TypeRoom::all();
-                $areas = Area::all();
-                $rooms = Room::whereBetween('price',[3000000,4000000])->orderBy('id','desc')->paginate(15);
-                return view('pages.rooms',compact('rooms','areas','typesRoom'));
+                $in = [3000000,3999999];
+                break;
+            case '>4tr':
+                $in = [4000000,999999999];
                 break;
             default:
-                # code...
-                $typesRoom = TypeRoom::all();
-                $areas = Area::all();
-                $rooms = Room::where('price','>','4000000')->orderBy('id','desc')->paginate(15);
-                return view('pages.rooms',compact('rooms','areas','typesRoom'));
+                $in = null;
                 break;
+        }
+        if($in == null){
+            return view('pages.404');
+        }else{
+            $rooms = Room::where('status',1)
+                           ->whereBetween('price',$in)
+                           ->orderBy('id','desc')
+                           ->paginate(15);
+            return view('pages.rooms', compact('rooms', 'types', 'areas'));
         }
     }
 
     public function roomsSearch(Request $request)
     {
-        # code...
-        $typesRoom = TypeRoom::all();
+        $key = $request->key;
         $areas = Area::all();
-        $rooms = Room::where('price','like','%'.$request->key.'%')
-                        ->orWhere('id','like','%'.$request->key.'%')
-                        ->orWhere('short_description','like','%'.$request->key.'%')
-                        ->orWhere('long_description','like','%'.$request->key.'%')
-                        ->orWhere('note','like','%'.$request->key.'%')
-                        ->paginate(15);
-        //sua note lai thanh status
-        $roomFull = OrderDetail::where('note','like','%Đơn đặt phòng%')
-                                   ->get();
-        return view('pages.rooms',compact('rooms','areas','typesRoom'));
+        $types = TypeRoom::all();
+        $rooms = Room::where('price','like','%'.$key.'%')
+                       ->orWhere('short_description','like','%'.$key.'%')
+                       ->orWhere('long_description','like','%'.$key.'%')
+                       ->orWhere('note','like','%'.$key.'%')
+                       ->orWhere('id','like','%'.$key.'%')
+                       ->where('status',1)
+                       ->orderBy('id','desc')
+                       ->paginate(15);
+        return view('pages.rooms', compact('rooms', 'types', 'areas'));
     }
 
     public function roomsDetail($id)
     {
         # code...
         $room    = Room::find($id);
-        
         $reviews = $room->reviews;
 
         return view('pages.room', compact('room', 'reviews'));
@@ -162,18 +157,8 @@ class PageController extends Controller
 
     public function checkout(Request $request, $id)
     {
-        # code...
-        //sua lai
-        if(isset($_POST['book'])){
-            $users = User::all();
-            $typesRoom = TypeRoom::all();
-            $areas = Area::all();
-            $room = Room::where('id',$id)->first();
-            return view('pages.checkout',compact('room','areas','typesRoom','users'));   
-            //echo 'co nhan';         
-        }else{
-            abort(404);
-        }
+        $room = Room::where('id',$id)->first();
+        return view('pages.checkout',compact('room')); 
     }
 
     public function payment(Request $request)

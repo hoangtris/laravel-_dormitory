@@ -102,28 +102,29 @@
 
 					</div>
 					<div id="menu3" class="container tab-pane fade"><br>
-						<div class="card-body">
-							<?php $__empty_1 = true; $__currentLoopData = $reviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dg): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-							<div class="media">
-								<img src="<?php echo e($dg->user->avatar); ?>" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
-								<div class="media-body">
-									<h5>
-										<?php echo e($dg->user->name); ?>
+						<?php $__empty_1 = true; $__currentLoopData = $reviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dg): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+						<div class="media my-2">
+							<img src="<?php echo e($dg->user->avatar); ?>" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
+							<div class="media-body">
+								<h5>
+									<?php echo e($dg->user->name); ?>
 
-										<small><i>Đánh giá vào <?php echo e(date_format(date_create($dg->created_at),'d-m-Y H:i:s')); ?></i></small></h5>
-										<p class="text-break"><?php echo e($dg->content); ?></p>
-									</div>
-								</div>
-								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-								<p>Chưa có đánh giá cho căn phòng này</p>
-								<?php endif; ?>
+									<small>
+										<i>Đánh giá vào <?php echo e(date_format(date_create($dg->created_at),'d-m-Y H:i:s')); ?></i>
+									</small>
+								</h5>
+								<p class="text-break"><?php echo e($dg->content); ?></p>
 							</div>
 						</div>
+						<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+						<p>Chưa có đánh giá cho căn phòng này</p>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>
-		</section>
-		<!--Section: Content-->
-	</div>
-	<?php $__env->stopSection(); ?>
+		</div>
+	</section>
+	<!--Section: Content-->
+</div>
+<?php $__env->stopSection(); ?>
 <?php echo $__env->make('master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /mnt/c/xampp/htdocs/laravel_dormitory/resources/views/pages/room.blade.php ENDPATH**/ ?>

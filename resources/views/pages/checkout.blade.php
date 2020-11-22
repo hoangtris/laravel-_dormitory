@@ -28,20 +28,8 @@
 					    		<input type="hidden" name="idRoom" value="{{ $room->id }}">
 					    		<h5><a href="{{ route('rooms.detail', $room->id) }}">Phòng số #{{ $room->id }}</a></h5>
 					    		<label>Giá: {{ number_format($room->price) }} VNĐ</label><br>
-					    		<label>Khu vực: 
-		        					@foreach($areas as $kv)
-		        						@if($room->id_area == $kv->id)
-		        							{{ $kv->name }}
-		        						@endif
-		        					@endforeach
-					    		</label><br>	
-					    		<label>Loại phòng:
-		        					@foreach($typesRoom as $lp)
-		        						@if($room->id_type == $lp->id)
-		        							{{ $lp->name }}
-		        						@endif
-		        					@endforeach
-					    		</label>
+					    		<label>Khu vực: {{ $room->area->name }}</label><br>	
+					    		<label>Loại phòng: {{ $room->typeRoom->name }}</label>
 					    	</div>
 					    	<div class="col-3">
 					    		<select name="duration" id="duration" class="form-control" required>
@@ -195,7 +183,12 @@
 						</div>
 					</div>
 					<div class="card-footer">
-						<input type="submit" name="checkout" class="btn btn-warning btn-block" value="Đặt phòng">
+						<div class="row">
+							<div class="col-5"><a href="{{ url()->previous() }}" class="btn btn-outline-light">Hủy đơn hàng</a></div>
+							<div class="col"><input type="submit" name="checkout" class="btn btn-block btn-warning" value="Đặt phòng"></div>
+						</div>
+						
+						
 					</div>
 				</div>
 			</div>

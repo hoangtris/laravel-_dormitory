@@ -22,7 +22,7 @@
                 	<div class="col-6">
                         <!-- name -->
                         <label for="">Họ tên</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Hoàng Trí" required>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Hoàng Trí">
                     </div>
                     <div class="col-3">
                         <!-- gender -->
@@ -213,9 +213,6 @@
       var fileName = $(this).val().split("\\").pop();
       $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
-
-    // AJAX kiểm tra thông tin
-    
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /mnt/c/xampp/htdocs/laravel_dormitory/resources/views/pages/register.blade.php ENDPATH**/ ?>

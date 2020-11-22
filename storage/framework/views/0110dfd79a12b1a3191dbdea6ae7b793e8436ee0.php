@@ -28,22 +28,8 @@
 					    		<input type="hidden" name="idRoom" value="<?php echo e($room->id); ?>">
 					    		<h5><a href="<?php echo e(route('rooms.detail', $room->id)); ?>">Phòng số #<?php echo e($room->id); ?></a></h5>
 					    		<label>Giá: <?php echo e(number_format($room->price)); ?> VNĐ</label><br>
-					    		<label>Khu vực: 
-		        					<?php $__currentLoopData = $areas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kv): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-		        						<?php if($room->id_area == $kv->id): ?>
-		        							<?php echo e($kv->name); ?>
-
-		        						<?php endif; ?>
-		        					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-					    		</label><br>	
-					    		<label>Loại phòng:
-		        					<?php $__currentLoopData = $typesRoom; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-		        						<?php if($room->id_type == $lp->id): ?>
-		        							<?php echo e($lp->name); ?>
-
-		        						<?php endif; ?>
-		        					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-					    		</label>
+					    		<label>Khu vực: <?php echo e($room->area->name); ?></label><br>	
+					    		<label>Loại phòng: <?php echo e($room->typeRoom->name); ?></label>
 					    	</div>
 					    	<div class="col-3">
 					    		<select name="duration" id="duration" class="form-control" required>
@@ -197,7 +183,12 @@
 						</div>
 					</div>
 					<div class="card-footer">
-						<input type="submit" name="checkout" class="btn btn-warning btn-block" value="Đặt phòng">
+						<div class="row">
+							<div class="col-5"><a href="<?php echo e(url()->previous()); ?>" class="btn btn-outline-light">Hủy đơn hàng</a></div>
+							<div class="col"><input type="submit" name="checkout" class="btn btn-block btn-warning" value="Đặt phòng"></div>
+						</div>
+						
+						
 					</div>
 				</div>
 			</div>

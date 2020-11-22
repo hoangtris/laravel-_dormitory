@@ -98,26 +98,27 @@
 						{!! $room->note !!}
 					</div>
 					<div id="menu3" class="container tab-pane fade"><br>
-						<div class="card-body">
-							@forelse($reviews as $dg)
-							<div class="media">
-								<img src="{{ $dg->user->avatar }}" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
-								<div class="media-body">
-									<h5>
-										{{ $dg->user->name }}
-										<small><i>Đánh giá vào {{ date_format(date_create($dg->created_at),'d-m-Y H:i:s') }}</i></small></h5>
-										<p class="text-break">{{ $dg->content }}</p>
-									</div>
-								</div>
-								@empty
-								<p>Chưa có đánh giá cho căn phòng này</p>
-								@endforelse
+						@forelse($reviews as $dg)
+						<div class="media my-2">
+							<img src="{{ $dg->user->avatar }}" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
+							<div class="media-body">
+								<h5>
+									{{ $dg->user->name }}
+									<small>
+										<i>Đánh giá vào {{ date_format(date_create($dg->created_at),'d-m-Y H:i:s') }}</i>
+									</small>
+								</h5>
+								<p class="text-break">{{ $dg->content }}</p>
 							</div>
 						</div>
+						@empty
+						<p>Chưa có đánh giá cho căn phòng này</p>
+						@endforelse
 					</div>
 				</div>
 			</div>
-		</section>
-		<!--Section: Content-->
-	</div>
-	@endsection
+		</div>
+	</section>
+	<!--Section: Content-->
+</div>
+@endsection

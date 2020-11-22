@@ -49,17 +49,12 @@ Route::get('rooms/type/{slug}', [
 	'uses' => 'PageController@roomsType',
 ]);
 
-Route::get('rooms/type/{slug}', [
-	'as' => 'rooms.type',
-	'uses' => 'PageController@roomsType',
-]);
-
 Route::get('rooms/price/{slug}', [
 	'as' => 'rooms.price',
 	'uses' => 'PageController@roomsPrice',
 ]);
 
-Route::get('rooms/search/{key}', [
+Route::get('rooms/search', [
 	'as' => 'rooms.search',
 	'uses' => 'PageController@roomsSearch',
 ]);
@@ -114,6 +109,11 @@ Route::post('register', [
 Route::get('logout' ,[
 	'as' => 'logout',
 	'uses' => 'PageController@logout'
+]);
+
+Route::get('404' ,[
+    'as' => '404',
+    'uses' => 'PageController@pageNotFound'
 ]);
 //----------------------------------
 
