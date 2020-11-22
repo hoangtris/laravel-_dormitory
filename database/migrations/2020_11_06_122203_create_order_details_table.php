@@ -23,7 +23,7 @@ class CreateOrderDetailsTable extends Migration
             $table->datetime('early_checkout_date')->nullable();
 
             $table->mediumText('note');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             
             
             $table->foreign('order_id')->references('id')->on('orders');

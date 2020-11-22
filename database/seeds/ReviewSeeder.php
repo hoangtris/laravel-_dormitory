@@ -17,9 +17,9 @@ class ReviewSeeder extends Seeder
         for ($i=0; $i <1000 ; $i++) { 
         	# code...
 	        DB::table('reviews')->insert([
-	            'user_id' => rand(1,50),
-	            'room_id' => rand(1,150),
-	            'content' => Str::random(150),
+	            'user_id' => rand(1,60),
+	            'room_id' => rand(1,450),
+	            'content' => 'Phong dep lam nha cac ban',
                 'created_at' => date("Y-m-d H:i:s"),
             ]);
         };

@@ -487,6 +487,7 @@ class ComposerStaticInitfdbc1d7603606b94027190829848bd2e
         'App\\Http\\Controllers\\AreaController' => __DIR__ . '/../..' . '/app/Http/Controllers/AreaController.php',
         'App\\Http\\Controllers\\BookingController' => __DIR__ . '/../..' . '/app/Http/Controllers/BookingController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\NL_Checkout' => __DIR__ . '/../..' . '/app/Http/Controllers/NL_Checkout.php',
         'App\\Http\\Controllers\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/PageController.php',
         'App\\Http\\Controllers\\RoomController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoomController.php',
         'App\\Http\\Controllers\\TypeRoomController' => __DIR__ . '/../..' . '/app/Http/Controllers/TypeRoomController.php',

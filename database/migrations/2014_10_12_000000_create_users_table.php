@@ -43,14 +43,13 @@ class CreateUsersTable extends Migration
 
             $table->string('username'); #username 
             
-            
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
 
             $table->timestamps();
 
-            //$table->foreign('id_role')->references('id')->on('roles')->onDelete('cascade');
+            /*$table->foreign('id_role')->references('id')->on('roles')->onDelete('cascade');*/
         });
     }
 

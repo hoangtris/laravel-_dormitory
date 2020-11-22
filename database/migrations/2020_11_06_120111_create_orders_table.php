@@ -18,9 +18,9 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
 
             $table->string('payment_method');         #phương thức thanh toán
-            $table->float('total', 12, 0);            #tổng tiền 
-            $table->integer('status')->default(0);    #tinh trang : 0 - chưa thanh toán 
-                                                      #             1 - đãthanh toán
+            $table->float('total', 9, 0);             #tổng tiền 
+            $table->integer('status')->default(1);    #tinh trang : 1 - chưa thanh toán 
+                                                      #             2 - đã thanh toán
             $table->mediumText('note');               #ghi chu
             $table->timestamps();                     #ngày tạo
 

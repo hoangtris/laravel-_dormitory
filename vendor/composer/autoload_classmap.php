@@ -14,6 +14,7 @@ return array(
     'App\\Http\\Controllers\\AreaController' => $baseDir . '/app/Http/Controllers/AreaController.php',
     'App\\Http\\Controllers\\BookingController' => $baseDir . '/app/Http/Controllers/BookingController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\NL_Checkout' => $baseDir . '/app/Http/Controllers/NL_Checkout.php',
     'App\\Http\\Controllers\\PageController' => $baseDir . '/app/Http/Controllers/PageController.php',
     'App\\Http\\Controllers\\RoomController' => $baseDir . '/app/Http/Controllers/RoomController.php',
     'App\\Http\\Controllers\\TypeRoomController' => $baseDir . '/app/Http/Controllers/TypeRoomController.php',
