@@ -19,9 +19,6 @@ class CreateReviewsTable extends Migration
             $table->unsignedBigInteger('room_id');
             $table->longText('content');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('room_id')->references('id')->on('rooms');
         });
     }
 

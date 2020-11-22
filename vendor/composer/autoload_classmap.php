@@ -840,6 +840,7 @@ return array(
     'Faker\\Provider\\sr_RS\\Person' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/sr_RS/Person.php',
     'Faker\\Provider\\sv_SE\\Address' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/sv_SE/Address.php',
     'Faker\\Provider\\sv_SE\\Company' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/sv_SE/Company.php',
+    'Faker\\Provider\\sv_SE\\Municipality' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/sv_SE/Municipality.php',
     'Faker\\Provider\\sv_SE\\Payment' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/sv_SE/Payment.php',
     'Faker\\Provider\\sv_SE\\Person' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/sv_SE/Person.php',
     'Faker\\Provider\\sv_SE\\PhoneNumber' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/sv_SE/PhoneNumber.php',

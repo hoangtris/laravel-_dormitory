@@ -26,9 +26,6 @@ class CreateRoomsTable extends Migration
             $table->longText('note');         
             
             $table->timestamps();
-
-            $table->foreign('id_area')->references('id')->on('areas');
-            $table->foreign('id_type')->references('id')->on('type_rooms');
         });
     }
 

@@ -24,7 +24,6 @@ class CreateOrdersTable extends Migration
             $table->mediumText('note');               #ghi chu
             $table->timestamps();                     #ngày tạo
 
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

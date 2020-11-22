@@ -24,10 +24,6 @@ class CreateOrderDetailsTable extends Migration
 
             $table->mediumText('note');
             $table->integer('status')->default(1);
-            
-            
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('room_id')->references('id')->on('rooms');
         });
     }
 

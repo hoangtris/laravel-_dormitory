@@ -1313,6 +1313,7 @@ class ComposerStaticInitfdbc1d7603606b94027190829848bd2e
         'Faker\\Provider\\sr_RS\\Person' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/sr_RS/Person.php',
         'Faker\\Provider\\sv_SE\\Address' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/sv_SE/Address.php',
         'Faker\\Provider\\sv_SE\\Company' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/sv_SE/Company.php',
+        'Faker\\Provider\\sv_SE\\Municipality' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/sv_SE/Municipality.php',
         'Faker\\Provider\\sv_SE\\Payment' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/sv_SE/Payment.php',
         'Faker\\Provider\\sv_SE\\Person' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/sv_SE/Person.php',
         'Faker\\Provider\\sv_SE\\PhoneNumber' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/sv_SE/PhoneNumber.php',
