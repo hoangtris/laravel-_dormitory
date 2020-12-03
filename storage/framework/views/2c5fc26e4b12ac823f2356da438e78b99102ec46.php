@@ -18,7 +18,7 @@
 	<!-- Main content -->
 	<div class="content">
 		<div class="container-fluid">
-			<form action="<?php echo e(route('rooms.store')); ?>" method="post" enctype='multipart/form-data'>           
+			<form action="<?php echo e(route('rooms.store')); ?>" method="post" enctype='multipart/form-data'> 
 				<div class="row">
 					<?php echo csrf_field(); ?>
 					<!-- /.col-md-6 -->

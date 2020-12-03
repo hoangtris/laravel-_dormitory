@@ -28,4 +28,9 @@ class Room extends Model
     	# code...
     	return $this->belongsTo('App\Area','id_area');
     }
+
+    public function orderDetails()
+    {
+        return $this->hasMany('App\OrderDetail');
+    }
 }

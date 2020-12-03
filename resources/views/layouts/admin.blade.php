@@ -35,113 +35,35 @@
 				<li class="nav-item">
 					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 				</li>
-				<li class="nav-item d-none d-sm-inline-block">
-					<a href="index3.html" class="nav-link">Home</a>
-				</li>
-				<li class="nav-item d-none d-sm-inline-block">
-					<a href="#" class="nav-link">Contact</a>
-				</li>
 			</ul>
-
-			<!-- SEARCH FORM -->
-			<form class="form-inline ml-3">
-				<div class="input-group input-group-sm">
-					<input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-					<div class="input-group-append">
-						<button class="btn btn-navbar" type="submit">
-							<i class="fas fa-search"></i>
-						</button>
-					</div>
-				</div>
-			</form>
 
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
-				<!-- Messages Dropdown Menu -->
-				<li class="nav-item dropdown">
-					<a class="nav-link" data-toggle="dropdown" href="#">
-						<i class="far fa-comments"></i>
-						<span class="badge badge-danger navbar-badge">3</span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<a href="#" class="dropdown-item">
-							<!-- Message Start -->
-							<div class="media">
-								<img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-								<div class="media-body">
-									<h3 class="dropdown-item-title">
-										Brad Diesel
-										<span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-									</h3>
-									<p class="text-sm">Call me whenever you can...</p>
-									<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-								</div>
-							</div>
-							<!-- Message End -->
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<!-- Message Start -->
-							<div class="media">
-								<img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-								<div class="media-body">
-									<h3 class="dropdown-item-title">
-										John Pierce
-										<span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-									</h3>
-									<p class="text-sm">I got your message bro</p>
-									<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-								</div>
-							</div>
-							<!-- Message End -->
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<!-- Message Start -->
-							<div class="media">
-								<img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-								<div class="media-body">
-									<h3 class="dropdown-item-title">
-										Nora Silvester
-										<span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-									</h3>
-									<p class="text-sm">The subject goes here</p>
-									<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-								</div>
-							</div>
-							<!-- Message End -->
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-					</div>
-				</li>
 				<!-- Notifications Dropdown Menu -->
+				@if(Gate::any(['Admin', 'RoomManager']))
 				<li class="nav-item dropdown">
 					<a class="nav-link" data-toggle="dropdown" href="#">
 						<i class="far fa-bell"></i>
-						<span class="badge badge-warning navbar-badge">15</span>
+						<span class="badge badge-warning navbar-badge">{{ count($notifyTotal) }}</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<span class="dropdown-header">15 Notifications</span>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item">
-							<i class="fas fa-envelope mr-2"></i> 4 new messages
-							<span class="float-right text-muted text-sm">3 mins</span>
+							<i class="fas fa-hands-helping mr-2"></i>{{ count($notifyBooking) }} đơn đặt phòng
 						</a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item">
-							<i class="fas fa-users mr-2"></i> 8 friend requests
-							<span class="float-right text-muted text-sm">12 hours</span>
+							<i class="fas fa-handshake-slash mr-2"></i>{{ count($notifyCancel) }} đơn trả phòng sớm
 						</a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item">
-							<i class="fas fa-file mr-2"></i> 3 new reports
-							<span class="float-right text-muted text-sm">2 days</span>
+							<i class="fas fa-american-sign-language-interpreting mr-2"></i>{{ count($notifyRequest) }} đơn yêu cầu
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+						<a href="{{ route('admin.notification.index') }}" class="dropdown-item dropdown-footer">Xem tất cả</a>
 					</div>
 				</li>
+				@endif
 				<li class="nav-item">
 					<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
 						class="fas fa-th-large"></i></a>
@@ -151,7 +73,7 @@
 			<!-- /.navbar -->
 
 			<!-- Main Sidebar Container -->
-			<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<aside class="main-sidebar sidebar-dark-danger elevation-4">
 				<!-- Brand Logo -->
 				<a href="{{ route('admin.dashboard') }}" class="brand-link">
 					<img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -164,13 +86,13 @@
 					<!-- Sidebar user panel (optional) -->
 					<div class="user-panel mt-3 pb-3 d-flex">
 						<div class="image">
-							<img src="{{ asset('adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+							<img src="{{ asset('adminlte/dist/img/boxed-bg.png') }}" class="img-circle elevation-2" alt="User Image">
 						</div>
 						<div class="info">
-							<a href="#" class="d-block">Admin</a>
+							<a href="" class="d-block">{{ $user->name }}</a>
 						</div>
 					</div>
-
+ 
 					<!-- Sidebar Menu -->
 					<nav class="mt-2">
 						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -194,6 +116,7 @@
 			 			</a>
 			 		</li>
 
+			 		@if(Gate::any(['Admin', 'RoomManager']))
 			 		<li class="nav-item has-treeview">
 			 			<a href="#" class="nav-link">
 			 				<i class="nav-icon fas fa-home"></i>
@@ -223,7 +146,9 @@
 			 				</li>
 			 			</ul>
 			 		</li>
+			 		@endif
 
+			 		@if(Gate::any(['Admin']))
 			 		<li class="nav-item has-treeview">
 			 			<a href="#" class="nav-link">
 			 				<i class="nav-icon fas fa-user"></i>
@@ -246,7 +171,7 @@
 			 					</a>
 			 				</li>
 			 				<li class="nav-item">
-			 					<a href="#" class="nav-link">
+			 					<a href="{{ route('admin.users.request') }}" class="nav-link">
 			 						<i class="fas fa-tasks nav-icon"></i>
 			 						<p>Yêu cầu</p>
 			 						<span class="right badge badge-danger">New</span>
@@ -254,7 +179,9 @@
 			 				</li>
 			 			</ul>
 			 		</li>
+			 		@endif
 
+			 		@if(Gate::any(['Admin', 'RoomManager']))
 			 		<li class="nav-item has-treeview">
 			 			<a href="#" class="nav-link">
 			 				<i class="nav-icon fas fa-file-invoice-dollar"></i>
@@ -271,13 +198,13 @@
 			 					</a>
 			 				</li>
 			 				<li class="nav-item">
-			 					<a href="#" class="nav-link">
+			 					<a href="{{ route('cancel.index') }}" class="nav-link">
 			 						<i class="fas fa-house-damage nav-icon"></i>
 			 						<p>Đơn hủy phòng</p>
 			 					</a>
 			 				</li>
 			 				<li class="nav-item">
-			 					<a href="#" class="nav-link">
+			 					<a href="{{ route('request.index') }}" class="nav-link">
 			 						<i class="fas fa-coffee nav-icon"></i>
 			 						<p>Đơn yêu cầu</p>
 			 						<span class="right badge badge-danger">New</span>
@@ -285,6 +212,19 @@
 			 				</li>
 			 			</ul>
 			 		</li>
+			 		@endif
+
+			 		@if(Gate::any(['Admin', 'RoomManager']))
+			 		<li class="nav-item">
+			 			<a href="{{ route('admin.notification.index') }}" class="nav-link">
+			 				<i class="nav-icon fas fa-bell"></i>
+			 				<p>Thông báo</p>
+			 				@if(count($notifyTotal) != 0)
+			 				<span class="right badge badge-warning">{{ count($notifyTotal) }}</span>
+			 				@endif
+			 			</a>
+			 		</li>
+			 		@endif
 
 			 		<li class="nav-item">
 			 			<a href="{{ route('admin.review.index') }}" class="nav-link">
@@ -296,7 +236,7 @@
 			 		</li>
 
 			 		<li class="nav-item">
-			 			<a href="#" class="nav-link">
+			 			<a href="{{ route('logout') }}" class="nav-link">
 			 				<i class="nav-icon fas fa-sign-out-alt"></i>
 			 				<p>
 			 					Đăng xuất

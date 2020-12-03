@@ -17,6 +17,11 @@
 	<!-- Main content -->
 	<div class="content">
 		<div class="container-fluid">
+			<div class="callout callout-warning">
+				<h5>Tính năng đang xây dựng!</h5>
+
+				<p>Xin chào bạn, hiện tại tính năng này vẫn còn trong giai đoạn phát triển nên chúng tôi sẽ ẩn đi. Xin lỗi vì sự bất tiện này.</p>
+			</div>
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="card card-primary card-outline">

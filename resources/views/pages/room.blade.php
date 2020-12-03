@@ -98,9 +98,27 @@
 						{!! $room->note !!}
 					</div>
 					<div id="menu3" class="container tab-pane fade"><br>
+						@if(Auth::check())
+						<form action="{{ route('review.store') }}" method="post">
+							@csrf
+							<label for="addReview">Nhập đánh giá</label>
+							<textarea class="form-control" rows="5" name="content" required=""></textarea>
+							<input type="hidden" name="room_id" value="{{ $room->id }}">
+							<input type="submit" name="addReview" value="Gửi đánh giá" class="btn btn-success mt-2">
+						</form>
+						@else
+							<p class="alert alert-warning">Vui lòng <a href="{{ route('login') }}" class="font-weight-bold alert-warning">đăng nhập</a> để đánh giá căn phòng này</p>
+						@endif
+
 						@forelse($reviews as $dg)
 						<div class="media my-2">
-							<img src="{{ $dg->user->avatar }}" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
+							<img src="
+							@if(strstr($dg->user->avatar,'https'))
+								{{ $dg->user->avatar }}
+							@else
+								{{ asset('upload/avatar/'.$dg->user->avatar) }}
+							@endif
+							" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
 							<div class="media-body">
 								<h5>
 									{{ $dg->user->name }}

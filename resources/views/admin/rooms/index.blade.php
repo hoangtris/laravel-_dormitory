@@ -35,7 +35,7 @@
 						</div>
 
 						<div class="card-body py-0 px-0">
-							<table class="table table-responsive table-hover table-head-fixed text-nowrap">
+							<table class="table table-responsive-xl table-hover table-head-fixed text-nowrap mb-2">
 								<thead>
 									<tr>
 										<th>#</th>

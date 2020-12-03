@@ -34,7 +34,7 @@
 						@csrf
 						<div class="row mb-3">
 							<label for="">Tên loại phòng</label>
-							<input type="text" name="name" value="{{ $type->name }}" class="form-control" disabled="">
+							<input type="text" name="name" value="{{ $type->name }}" class="form-control">
 						</div>
 						<div class="row mb-3">
 							<label for="">Mô tả</label>

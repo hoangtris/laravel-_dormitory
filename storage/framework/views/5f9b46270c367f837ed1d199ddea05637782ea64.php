@@ -39,7 +39,7 @@
             <ul class="dropdown-menu text-center">      
                 <?php if(Auth::check()): ?>
                   <li class="dropdown-item disabled">Xin chào <?php echo e(Auth::user()->name); ?> </li>
-                  <li><a href="#" class="dropdown-item">Trang cá nhân</a></li>
+                  <li><a href="<?php echo e(route('client.dashboard')); ?>" class="dropdown-item">Trang cá nhân</a></li>
                   <li><a href="<?php echo e(route('logout')); ?>" class="dropdown-item">Đăng xuất</a></li>
                 <?php else: ?>
                   <li><a href="<?php echo e(route('register')); ?>" class="dropdown-item">Đăng kí</a></li>

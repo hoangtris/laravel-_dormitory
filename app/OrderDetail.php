@@ -21,4 +21,10 @@ class OrderDetail extends Model
     	# code...
     	return $this->belongsTo('App\Order','order_id');
     }
+
+    public function room()
+    {
+        # code...
+        return $this->belongsTo('App\Room');
+    }
 }

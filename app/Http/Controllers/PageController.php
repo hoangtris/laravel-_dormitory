@@ -14,6 +14,7 @@ use App\User;
 use App\Review;
 use App\Order;
 use App\OrderDetail;
+use App\Notification;
 
 use App\Http\Controllers\NL_Checkout;
 
@@ -150,7 +151,7 @@ class PageController extends Controller
     {
         # code...
         $room    = Room::find($id);
-        $reviews = $room->reviews;
+        $reviews = $room->reviews->sortByDesc('id');
 
         return view('pages.room', compact('room', 'reviews'));
     }
@@ -267,7 +268,7 @@ class PageController extends Controller
         $order_detail->room_id = $request->idRoom;
         $order_detail->date_move_in = $request->date_move_in;
         $order_detail->expiration_date = $expiration_date;
-        $order_detail->note = "note note note note note"; //sua lai
+        $order_detail->note = "dat phong"; //sua lai
         $order_detail->status = 1;
         $order_detail->save();
 
@@ -275,6 +276,13 @@ class PageController extends Controller
         $room->status = 2;
         $room->save();
 
+        $notify = new Notification;
+        $notify->user_id = Auth::user()->id;
+        $notify->type    = 'Đặt phòng';
+        $notify->content = 'đặt phòng '.$request->idRoom;
+        $notify->status  = 1;
+        $notify->order_id= $order->id;
+        $notify->save();
         //transaction Laravel
 
         if($request->radioPayment == 'COD'){

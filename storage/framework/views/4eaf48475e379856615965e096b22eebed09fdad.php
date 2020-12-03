@@ -43,7 +43,7 @@
 
 		        				<form action="<?php echo e(route('typesroom.destroy', $kv->id)); ?>" method="post">
 									<?php echo csrf_field(); ?>
-									<button disabled="" type="submit" class="btn btn-outline-danger">
+									<button type="submit" class="btn btn-outline-danger" onclick="return confirm('Bạn chắc chứ?')">
 										<i class="fas fa-trash-alt"></i>
 									</button>            
 								</form>

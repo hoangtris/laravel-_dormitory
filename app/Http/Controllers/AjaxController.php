@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Room;
 use App\User;
 use App\Role;
+use App\Province;
+use App\District;
+use App\Ward;
 
 class AjaxController extends Controller
 {
@@ -47,6 +50,28 @@ class AjaxController extends Controller
                 }
                 echo "<option {$selected} value='{$role->id}'>{$role->name}</option>";
             }
+        }
+    }
+
+    public function province(Request $request){
+        if($request->get('province')){
+            $idProvince = $request->get('province');
+            $districts = District::where('province_id',$idProvince)->get();
+
+            //echo json_encode($districts);
+            return response()
+                    ->json($districts);
+        }
+    }
+
+    public function district(Request $request){
+        if($request->get('district')){
+            $idDistrict = $request->get('district');
+            $wards = Ward::where('district_id',$idDistrict)->get();
+            
+            return response()
+                    ->json($wards);
+            //return respond json;
         }
     }
 }

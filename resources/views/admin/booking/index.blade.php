@@ -114,9 +114,9 @@
 						</div>
 						<div class="card-body p-0">
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item bg-info">Đơn đặt phòng</li>
-								<li class="list-group-item">Đơn hủy phòng</li>
-								<li class="list-group-item">Đơn yêu cầu khác</li>
+								<a href="{{ route('booking.index') }}" class="list-group-item list-group-item-action list-group-item-info">Đơn đặt phòng</a>
+								<a href="{{ route('cancel.index') }}" class="list-group-item list-group-item-action">Đơn hủy phòng</a>
+								<a href="{{ route('request.index') }}" class="list-group-item list-group-item-action">Đơn yêu cầu khác</a>
 							</ul>
 						</div>
 					</div>

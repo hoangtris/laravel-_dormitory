@@ -28,25 +28,21 @@
 					<div class="card card-primary card-outline">
 						<div class="card-body box-profile">
 							<div class="text-center">
-								<img class="profile-user-img img-fluid img-circle"
+								<img class="profile-user-img img-circle"
 								src="
 								@if(strstr($user->avatar,'https'))
 								{{ $user->avatar }}
-								@else
+								@else	
 								{{ asset('upload/avatar/'.$user->avatar) }}
 								@endif
 								"
-								alt="User profile picture">
+								alt="User profile picture" width="100px" height="100px" style="object-fit: cover;">
 							</div>
 
 							<h3 class="profile-username text-center">{{ $user->name }}</h3>
 
 							<p class="text-muted text-center">
-								@foreach($roles as $role)
-								@if($role->id == $user->id_role)
-								<p class="text-muted text-center">{{ $role->name }}</p>
-								@endif
-								@endforeach
+								<p class="text-muted text-center">{{ $user->role->name }}</p>
 							</p>
 
 							<ul class="list-group list-group-unbordered mb-3">
@@ -148,22 +144,38 @@
 											<br>
 											<b>Nơi cấp</b>
 											<a class="float-right">
-												{{ $user->issued_at }}
+												@if($user->issuedAt == null)
+													Chưa cập nhật
+												@else
+													{{ $user->issuedAt->name }}
+												@endif
 											</a>
 											<br>
 											<b>Dân tộc</b>
 											<a class="float-right">
-												{{ $user->nation }}
+												@if($user->nation == null)
+													Chưa cập nhật
+												@else
+													{{ $user->nation->name }}
+												@endif	
 											</a>
 											<br>
 											<b>Tôn giáo</b>
 											<a class="float-right">
-												{{ $user->religious }}
+												@if($user->religious == null)
+													Chưa cập nhật
+												@else
+													{{ $user->religious->name }}
+												@endif	
 											</a>
 											<br>
 											<b>Quốc tịch</b>
 											<a class="float-right">
-												{{ $user->nationality }}
+												@if($user->nationality == null)
+													Chưa cập nhật
+												@else
+													{{ $user->nationality->name }}
+												@endif	
 											</a>
 											<br>
 										</div>										
@@ -181,33 +193,77 @@
 											<br>
 											<b>Tỉnh thành</b>
 											<a class="float-right">
-												{{ $user->province }}
+												@if($user->province == null)
+													Chưa cập nhật
+												@else
+													{{ $user->province->name }}
+												@endif	
 											</a>
 											<br>
 											<b>Quận huyện</b>
 											<a class="float-right">
-												{{ $user->district }}
+												@if($user->district == null)
+													Chưa cập nhật
+												@else
+													{{ $user->district->name }}
+												@endif	
 											</a>
 											<br>
 											<b>Phường xã</b>
 											<a class="float-right">
-												{{ $user->ward }}
+												@if($user->ward == null)
+													Chưa cập nhật
+												@else
+													{{ $user->ward->name }}
+												@endif	
 											</a>
 											<br>
-										</div>									
+										</div> 								
 									</div>
 								</div>
 								<div class="tab-pane fade" id="room" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
 									<div class="row">
 										<div class="col-xl-12">
-											Phong
+											@if($od == null)
+												Trước đây khách hàng {{ $user->name }} chưa đặt phòng nào cả
+											@else
+												@if($od->status == 1)
+												{{ $user->name }} vừa đặt phòng số <a href="{{ route('rooms.detail', $od->room_id) }}">#{{ $od->room_id }}</a>,
+												mời quản lý phòng xác nhận
+												@elseif($od->status == 2)
+												{{ $user->name }} đang ở phòng số <a href="{{ route('rooms.detail', $od->room_id) }}">#{{ $od->room_id }}</a><br>
+												@elseif($od->status == 3)
+												{{ $user->name }} vừa hủy phòng số <a href="{{ route('rooms.detail', $od->room_id) }}">#{{ $od->room_id }}</a>, quản lý phòng vui lòng xác nhận<br>
+												@else
+												Bạn chưa có phòng
+												@endif
+											@endif
 										</div>	
 									</div>
 								</div>
 								<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
 									<div class="row">
 										<div class="col-xl-12">
-											Danh gia
+											<table class="table table-responsive-xl table-striped table-head-fixed text-wrap">
+												<thead>
+													<tr>
+														<th width="12%">Mã phòng</th>
+														<th>Nội dung</th>
+														<th width="20%">Thời gian</th>
+													</tr>
+												</thead>
+												<tbody>
+													@forelse($reviews as $r)
+													<tr>
+														<td class="text-center">{{ $r->room_id }}</td>
+														<td class="text-justify">{{ $r->content }}</td>
+														<td>{{ date('d-m-Y H:i:s', strtotime($r->created_at)) }}</td>
+													</tr>
+													@empty
+														<p>{{ $user->name }} không có đánh giá phòng nào cả.</p>
+													@endforelse
+												</tbody>
+											</table>
 										</div>	
 									</div>
 								</div>

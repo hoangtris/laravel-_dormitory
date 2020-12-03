@@ -39,7 +39,7 @@
             <ul class="dropdown-menu text-center">      
                 @if(Auth::check())
                   <li class="dropdown-item disabled">Xin chào {{ Auth::user()->name }} </li>
-                  <li><a href="#" class="dropdown-item">Trang cá nhân</a></li>
+                  <li><a href="{{ route('client.dashboard') }}" class="dropdown-item">Trang cá nhân</a></li>
                   <li><a href="{{ route('logout') }}" class="dropdown-item">Đăng xuất</a></li>
                 @else
                   <li><a href="{{ route('register') }}" class="dropdown-item">Đăng kí</a></li>

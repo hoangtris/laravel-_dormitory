@@ -1,0 +1,1 @@
+ban la admin<?php /**PATH /mnt/c/xampp/htdocs/laravel_dormitory/resources/views/admin/testRole.blade.php ENDPATH**/ ?>

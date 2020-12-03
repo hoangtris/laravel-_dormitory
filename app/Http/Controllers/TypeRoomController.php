@@ -46,18 +46,16 @@ class TypeRoomController extends Controller
         //
         $slug = Str::slug($request->name, '-');
         $typeExist = TypeRoom::where('slug',$slug)->first();
+
         $type = TypeRoom::find($id);
 
         if($typeExist == null){
             $type->name = $request->name;
             $type->slug = $slug;
-            $type->description = $request->description;
-            $type->save();
-
-            return redirect()->route('typesroom.index')->with(['flag'=>'success','message'=>'Sửa loại phòng '.$type->name.' thành công.']);
-        }else{
-            return redirect()->route('typesroom.index')->with(['flag'=>'error','message'=>'Sửa loại phòng '.$type->name.' thất bại.']);
         }
+        $type->description = $request->description;
+        $type->save();
+        return redirect()->route('typesroom.index')->with(['flag'=>'success','message'=>'Sửa loại phòng '.$type->name.' thành công.']);
     }
 
     public function destroy($id)

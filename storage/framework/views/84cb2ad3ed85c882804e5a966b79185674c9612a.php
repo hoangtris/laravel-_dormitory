@@ -22,7 +22,7 @@
                 	<div class="col-6">
                         <!-- name -->
                         <label for="">Họ tên</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Hoàng Trí">
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Hoàng Trí" required>
                     </div>
                     <div class="col-3">
                         <!-- gender -->

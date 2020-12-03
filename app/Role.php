@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    //Phan quyen
+    //Phan quyen - Vai trò
     protected $table = "roles";
 
     public function users()

@@ -11,12 +11,6 @@
                   <a href="{{ route('booking.index') }}" class="btn btn-outline-secondary ml-3"><i class="fas fa-reply"></i>&nbsp&nbsp Quay về</a>
                </h1>
             </div>
-            <div class="col-sm-6">
-               <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">Invoice</li>
-               </ol>
-            </div>
          </div>
       </div><!-- /.container-fluid -->
    </section>
@@ -173,19 +167,6 @@
                      <!-- /.col -->
                   </div>
                   <!-- /.row -->
-
-                  <!-- this row will not appear when printing -->
-                  <div class="row no-print">
-                     <div class="col-12">
-                        <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                           Payment
-                        </button>
-                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                           <i class="fas fa-download"></i> Generate PDF
-                        </button>
-                        <a href="invoice-print.html" target="_blank" class="btn btn-default float-right" style="margin-right: 5px;"><i class="fas fa-print"></i> Print</a>
-                     </div>
-                  </div>
                </div>
                <!-- /.invoice -->
             </div><!-- /.col -->

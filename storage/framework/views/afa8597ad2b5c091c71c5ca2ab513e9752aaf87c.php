@@ -34,7 +34,7 @@
 						<?php echo csrf_field(); ?>
 						<div class="row mb-3">
 							<label for="">Tên loại phòng</label>
-							<input type="text" name="name" value="<?php echo e($type->name); ?>" class="form-control" disabled="">
+							<input type="text" name="name" value="<?php echo e($type->name); ?>" class="form-control">
 						</div>
 						<div class="row mb-3">
 							<label for="">Mô tả</label>

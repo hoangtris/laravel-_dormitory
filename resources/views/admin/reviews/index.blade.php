@@ -18,13 +18,13 @@
 	<div class="content">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xl-9 col-12">
+				<div class="col-12">
 					<div class="card card-primary card-outline">
 						<div class="card-header">
 							<h5 class="m-0">Danh sách đánh giá</h5>
 						</div>
 						<div class="px-2">
-							<table class="table header table-hover table-responsive-xl table-head-fixed text-nowrap">
+							<table class="table header table-hover table-responsive-xl table-head-fixed">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -38,17 +38,17 @@
 								<tbody>
 									@foreach($reviews as $review)
 									<tr>
-										<td>{{ $review->id }}</td>
-										<td>
+										<td width="5%">{{ $review->id }}</td>
+										<td width="20%">
 											@foreach($users as $user)
 												@if($user->id == $review->user_id)
 													#{{ $user->id }} - {{ $user->name }}
 												@endif
 											@endforeach
 										</td>
-										<td><a href="{{ route('rooms.detail', $review->room_id) }}">{{ $review->room_id }}</a></td>
-										<td  class="d-inline-block text-truncate" style="max-width: 150px;">{{ $review->content }}</td>
-										<td>{{ date('d-m-Y H:i:s',strtotime($review->created_at)) }}</td>
+										<td width="8%" class="text-center"><a href="{{ route('rooms.detail', $review->room_id) }}">{{ $review->room_id }}</a></td>
+										<td>{{ $review->content }}</td>
+										<td width="11%">{{ date('d-m-Y H:i:s',strtotime($review->created_at)) }}</td>
 										<td>
 											<a onclick="return confirm('Bạn chắc chưa?')" href="{{ route('admin.review.destroy', $review->id) }}"><span class="badge badge-danger">Xóa</span></a>
 										</td>
@@ -60,32 +60,6 @@
 						</div>
 					</div>
 				</div>
-				
-				<div class="col-xl-3 col-12">
-					<div class="card card-outline card-warning">
-						<div class="card-header">
-							<h3 class="card-title">Mô tả</h3>
-
-							<div class="card-tools">
-								<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-								</button>
-							</div>
-							<!-- /.card-tools -->
-						</div>
-						<!-- /.card-header -->
-						<div class="card-body">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</div>
-						<!-- /.card-body -->
-					</div>
-					<!-- /.card -->
-				</div>
-				<!-- /.col-md-6 -->
 			</div>
 			<!-- /.row -->
 		</div><!-- /.container-fluid -->

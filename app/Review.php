@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    //
+    //Đánh giá
     protected $table = "reviews";
 
     public function user()

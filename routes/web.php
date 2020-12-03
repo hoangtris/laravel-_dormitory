@@ -115,131 +115,154 @@ Route::get('404' ,[
     'as' => '404',
     'uses' => 'PageController@pageNotFound'
 ]);
+
+Route::get('404a' ,function(){
+    return view('admin.404');
+})->name('404a');
 //----------------------------------
 
 //-------------Admin
-Route::prefix('admin')->group(function () {
-	Route::get('/', [
-    	'as' => 'admin.dashboard',
-    	'uses' => 'AdminController@dashboard',
+Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
+    Route::get('/', [
+        // Matches The "/admin/" URL --------vao trang dashboard
+        'as' => 'admin.dashboard',
+        'uses' => 'AdminController@dashboard',
     ]);
-    Route::get('dashboard', [
-		// Matches The "/admin/dashboard" URL
-    	'as' => 'admin.dashboard',
-    	'uses' => 'AdminController@dashboard',
-    ]);
+
+    Route::prefix('dashboard')->group(function(){
+        Route::get('/', [
+            // Matches The "/admin/dashboard/" URL
+            'as' => 'admin.dashboard',
+            'uses' => 'AdminController@dashboard',
+        ]);
+        Route::get('index', [
+            // Matches The "/admin/dashboard/index" URL
+            'as' => 'admin.dashboard',
+            'uses' => 'AdminController@dashboard',
+        ]);        
+    });
 
     //-----------areas
-    Route::get('areas', [
-    	'as' => 'areas.index',
-    	'uses' => 'AreaController@index',
-    ]);
-    Route::post('areas', [
-    	'as' => 'areas.store',
-    	'uses' => 'AreaController@store',
-    ]);
-    Route::get('areas/{area}/edit', [
-    	'as' => 'areas.edit',
-    	'uses' => 'AreaController@edit',
-    ]);
-    Route::post('areas/{area}', [
-    	'as' => 'areas.update',
-    	'uses' => 'AreaController@update',
-    ]);
-    Route::post('areas/{area}/delete', [
-    	'as' => 'areas.destroy',
-    	'uses' => 'AreaController@destroy',
-    ]);
+    Route::middleware(['roommanager'])->prefix('areas')->group(function(){
+        Route::get('/', [
+            'as' => 'areas.index',
+            'uses' => 'AreaController@index',
+        ]);
+        Route::post('/', [
+            'as' => 'areas.store',
+            'uses' => 'AreaController@store',
+        ]);
+        Route::get('{area}/edit', [
+            'as' => 'areas.edit',
+            'uses' => 'AreaController@edit',
+        ]);
+        Route::post('{area}', [
+            'as' => 'areas.update',
+            'uses' => 'AreaController@update',
+        ]);
+        Route::post('{area}/delete', [
+            'as' => 'areas.destroy',
+            'uses' => 'AreaController@destroy',
+        ]);   
+    });
+
 
     //-----------types room
-    Route::get('typesroom', [
-    	'as' => 'typesroom.index',
-    	'uses' => 'TypeRoomController@index',
-    ]);
-    Route::post('typesroom', [
-    	'as' => 'typesroom.store',
-    	'uses' => 'TypeRoomController@store',
-    ]);
-    Route::get('typesroom/{typesroom}/edit', [
-    	'as' => 'typesroom.edit',
-    	'uses' => 'TypeRoomController@edit',
-    ]);
-    Route::post('typesroom/{typesroom}', [
-    	'as' => 'typesroom.update',
-    	'uses' => 'TypeRoomController@update',
-    ]);
-    Route::post('typesroom/{typesroom}/delete', [
-    	'as' => 'typesroom.destroy',
-    	'uses' => 'TypeRoomController@destroy',
-    ]);
+    Route::middleware(['roommanager'])->prefix('typesroom')->group(function(){
+        Route::get('/', [
+            'as' => 'typesroom.index',
+            'uses' => 'TypeRoomController@index',
+        ]);
+        Route::post('typesroom', [
+            'as' => 'typesroom.store',
+            'uses' => 'TypeRoomController@store',
+        ]);
+        Route::get('typesroom/{typesroom}/edit', [
+            'as' => 'typesroom.edit',
+            'uses' => 'TypeRoomController@edit',
+        ]);
+        Route::post('typesroom/{typesroom}', [
+            'as' => 'typesroom.update',
+            'uses' => 'TypeRoomController@update',
+        ]);
+        Route::post('typesroom/{typesroom}/delete', [
+            'as' => 'typesroom.destroy',
+            'uses' => 'TypeRoomController@destroy',
+        ]);
+    });
+
     
     //-----------room
-    Route::get('rooms', [
-    	'as' => 'rooms.index',
-    	'uses' => 'RoomController@index',
-    ]);
-    Route::get('rooms/create', [
-    	'as' => 'rooms.create',
-    	'uses' => 'RoomController@create',
-    ]);
-    Route::post('rooms', [
-    	'as' => 'rooms.store',
-    	'uses' => 'RoomController@store',
-    ]);
-    Route::get('rooms/{rooms}/edit', [
-    	'as' => 'rooms.edit',
-    	'uses' => 'RoomController@edit',
-    ]);
-    Route::post('rooms/{rooms}', [
-    	'as' => 'rooms.update',
-    	'uses' => 'RoomController@update',
-    ]);
-    Route::post('rooms/{rooms}/delete', [
-    	'as' => 'rooms.destroy',
-    	'uses' => 'RoomController@destroy',
-    ]);
+    Route::middleware(['roommanager'])->prefix('rooms')->group(function(){
+        Route::get('/', [
+            'as' => 'rooms.index',
+            'uses' => 'RoomController@index',
+        ]);
+        Route::get('create', [
+            'as' => 'rooms.create',
+            'uses' => 'RoomController@create',
+        ]);
+        Route::post('rooms', [
+            'as' => 'rooms.store',
+            'uses' => 'RoomController@store',
+        ]);
+        Route::get('{rooms}/edit', [
+            'as' => 'rooms.edit',
+            'uses' => 'RoomController@edit',
+        ]);
+        Route::post('{rooms}', [
+            'as' => 'rooms.update',
+            'uses' => 'RoomController@update',
+        ]);
+        Route::post('{rooms}/delete', [
+            'as' => 'rooms.destroy',
+            'uses' => 'RoomController@destroy',
+        ]);
+    });
+
 
     //-----------Account
-    Route::get('users', [
-    	'as' => 'users.index',
-    	'uses' => 'UserController@index',
-    ]);
-    Route::get('users/{user}', [
-    	'as' => 'users.show',
-    	'uses' => 'UserController@show',
-    ]);
-    Route::post('users/{users}/delete', [
-    	'as' => 'users.destroy',
-    	'uses' => 'UserController@destroy',
-    ]);
+    Route::middleware(['admin'])->prefix('users')->group(function(){
+        Route::get('/', [
+            'as' => 'users.index',
+            'uses' => 'UserController@index',
+        ]);
+        Route::get('{user}', [
+            'as' => 'users.show',
+            'uses' => 'UserController@show',
+        ]);
+        Route::post('{users}/delete', [
+            'as' => 'users.destroy',
+            'uses' => 'UserController@destroy',
+        ]);
+    });
 
-    Route::get('role', [
-		// Matches The "/admin/role" URL
-    	'as' => 'admin.role',
-    	'uses' => 'AdminController@role',
-    ]);
-    Route::post('role/store', [
-		// Matches The "/admin/role/store" URL
-    	'as' => 'admin.role.store',
-    	'uses' => 'AdminController@roleStore',
-    ]);
-    
-    Route::post('role/destroy/{id}', [
-		// Matches The "/admin/role/store" URL
-    	'as' => 'admin.role.destroy',
-    	'uses' => 'AdminController@roleDestroy',
-    ]);
+    //-------Role
+    Route::middleware(['admin'])->prefix('role')->group(function(){
+        Route::get('/', [
+            'as' => 'admin.role',
+            'uses' => 'AdminController@role',
+        ]);
+        Route::post('store', [
+            'as' => 'admin.role.store',
+            'uses' => 'AdminController@roleStore',
+        ]);
+        Route::post('role/destroy/{id}', [
+            'as' => 'admin.role.destroy',
+            'uses' => 'AdminController@roleDestroy',
+        ]);
+    });
+
     Route::post('changeRole', [
-		// Matches The "/admin/role/store" URL
     	'as' => 'changeRole',
     	'uses' => 'AjaxController@changeRole',
     ]);
     Route::post('changeRoleUser', [
-		// Matches The "/admin/role/store" URL
     	'as' => 'changeRoleUser',
     	'uses' => 'AdminController@changeRoleUser',
     ]);
 
+    //-----------request from user
     Route::get('user/request', [
 		// Matches The "/admin/request" URL
     	'as' => 'admin.users.request',
@@ -247,34 +270,80 @@ Route::prefix('admin')->group(function () {
     ]);
 
     //---------booking
-    Route::get('booking', [
-    	'as' => 'booking.index',
-    	'uses' => 'BookingController@index',
-    ]);
-    Route::get('booking/{booking}', [
-    	'as' => 'booking.show',
-    	'uses' => 'BookingController@show',
-    ]);
-    Route::post('booking/{booking}', [
-    	'as' => 'booking.update',
-    	'uses' => 'BookingController@update',
-    ]);
+    Route::middleware(['roommanager'])->prefix('booking')->group(function(){
+        Route::get('/', [
+            'as' => 'booking.index',
+            'uses' => 'BookingController@index',
+        ]);
+        Route::get('{booking}', [
+            'as' => 'booking.show',
+            'uses' => 'BookingController@show',
+        ]);
+        Route::post('{booking}', [
+            'as' => 'booking.update',
+            'uses' => 'BookingController@update',
+        ]);
+    });
+
+
+    //-----cancel room
+    Route::middleware(['roommanager'])->prefix('cancel')->group(function(){
+        Route::get('/', [
+            'as' => 'cancel.index',
+            'uses' => 'BookingController@indexCancel',
+        ]);
+        Route::post('{booking}', [
+            'as' => 'cancel.update',
+            'uses' => 'BookingController@updateCancel',
+        ]);
+    });
+
+
+    //-----request from user
+    Route::middleware(['roommanager'])->prefix('request')->group(function(){
+        Route::get('/', [
+            'as' => 'request.index',
+            'uses' => 'BookingController@indexRequest',
+        ]);
+        Route::get('{request}', [
+            'as' => 'request.show',
+            'uses' => 'BookingController@showRequest',
+        ]);
+        Route::post('{request}', [
+            'as' => 'request.update',
+            'uses' => 'BookingController@updateRequest',
+        ]);
+    });
+
     
     //-----review - rate 
-    Route::get('review', [
-		// Matches The "/admin/request" URL
-    	'as' => 'admin.review.index',
-    	'uses' => 'AdminController@reviewIndex',
-    ]);
-    Route::get('review/destroy/{id}', [
-		// Matches The "/admin/request" URL
-    	'as' => 'admin.review.destroy',
-    	'uses' => 'AdminController@reviewDestroy',
-    ]);
+    Route::prefix('review')->group(function(){
+        Route::get('/', [
+            'as' => 'admin.review.index',
+            'uses' => 'AdminController@reviewIndex',
+        ]);
+        Route::get('{id}/destroy', [
+            'as' => 'admin.review.destroy',
+            'uses' => 'AdminController@reviewDestroy',
+        ]);
+    });
+
+
+    //-------------notification
+    Route::middleware(['roommanager'])->prefix('notification')->group(function () {
+        Route::get('/', [
+            'as' => 'admin.notification.index',
+            'uses' => 'AdminController@indexNotification',
+        ]);
+        Route::get('update', [
+            'as' => 'admin.notification.update',
+            'uses' => 'AdminController@updateNotification',
+        ]);
+    });
 });
 
-//-------------Admin
-Route::prefix('client')->group(function () {
+//-------------Client
+Route::middleware('auth')->prefix('client')->group(function () {
     Route::get('/', [
         'as' => 'client.dashboard',
         'uses' => 'ClientController@dashboard',
@@ -289,5 +358,76 @@ Route::prefix('client')->group(function () {
         // Matches The "/client/dashboard" URL
         'as' => 'client.information',
         'uses' => 'ClientController@information',
+    ]);
+
+    Route::get('information/{id}/edit', [
+        // Matches The "/client/dashboard" URL
+        'as' => 'client.information.edit',
+        'uses' => 'ClientController@edit',
+    ]);
+
+    Route::post('information/{id}', [
+        // Matches The "/client/dashboard" URL
+        'as' => 'client.information.update',
+        'uses' => 'ClientController@update',
+    ]);
+
+    Route::get('information/changepassword', [
+        // Matches The "/client/dashboard" URL
+        'as' => 'client.password.edit',
+        'uses' => 'ClientController@editPassword',
+    ]);
+
+    Route::post('information/{id}/changepassword', [
+        // Matches The "/client/dashboard" URL
+        'as' => 'client.password.update',
+        'uses' => 'ClientController@updatePassword',
+    ]);
+    //--------------phòng--------------
+    Route::get('room', [
+        'as' => 'client.room',
+        'uses' => 'ClientController@room',
+    ]);
+
+    Route::post('room/cancel/{id}', [
+        'as' => 'client.room.cancel',
+        'uses' => 'ClientController@roomCancel',
+    ]);
+
+    Route::post('request', [
+        'as' => 'client.request',
+        'uses' => 'ClientController@storeRequest',
+    ]);
+
+    /////////ajax tinh thanh - quan huyen - phuong xa
+    Route::post('province',[
+        'as' => 'province',
+        'uses' => 'AjaxController@province'
+    ]);
+    Route::post('district',[
+        'as' => 'district',
+        'uses' => 'AjaxController@district'
+    ]);
+
+    //--------thong bao
+    //-------------notification
+    Route::prefix('notification')->group(function () {
+        Route::get('/', [
+            'as' => 'client.notification.index',
+            'uses' => 'ClientController@indexNotification',
+        ]);
+        Route::get('update', [
+            'as' => 'client.notification.update',
+            'uses' => 'ClientController@updateNotification',
+        ]);
+        Route::get('update/all', [
+            'as' => 'client.notification.update.all',
+            'uses' => 'ClientController@updateAllNotification',
+        ]);
+    });
+
+    Route::post('review', [
+        'as' => 'review.store',
+        'uses' => 'ClientController@storeReview',
     ]);
 });

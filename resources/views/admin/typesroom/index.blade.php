@@ -43,7 +43,7 @@
 
 		        				<form action="{{ route('typesroom.destroy', $kv->id) }}" method="post">
 									@csrf
-									<button disabled="" type="submit" class="btn btn-outline-danger">
+									<button type="submit" class="btn btn-outline-danger" onclick="return confirm('Bạn chắc chứ?')">
 										<i class="fas fa-trash-alt"></i>
 									</button>            
 								</form>

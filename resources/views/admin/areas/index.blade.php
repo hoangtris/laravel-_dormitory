@@ -43,7 +43,7 @@
 
 		        				<form action="{{ route('areas.destroy', $kv->id) }}" method="post">
 									@csrf
-									<button type="submit" class="btn btn-outline-danger" onclick="return confirmDestroy()" disabled="">
+									<button type="submit" class="btn btn-outline-danger" onclick="return confirmDestroy()">
 										<i class="fas fa-trash-alt"></i>
 									</button>            
 								</form>

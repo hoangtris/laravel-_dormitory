@@ -18,7 +18,7 @@
 	<!-- Main content -->
 	<div class="content">
 		<div class="container-fluid">
-			<form action="{{ route('rooms.store') }}" method="post" enctype='multipart/form-data'>           
+			<form action="{{ route('rooms.store') }}" method="post" enctype='multipart/form-data'> 
 				<div class="row">
 					@csrf
 					<!-- /.col-md-6 -->

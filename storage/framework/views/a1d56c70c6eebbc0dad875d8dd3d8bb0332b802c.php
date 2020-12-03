@@ -102,9 +102,29 @@
 
 					</div>
 					<div id="menu3" class="container tab-pane fade"><br>
+						<?php if(Auth::check()): ?>
+						<form action="<?php echo e(route('review.store')); ?>" method="post">
+							<?php echo csrf_field(); ?>
+							<label for="addReview">Nhập đánh giá</label>
+							<textarea class="form-control" rows="5" name="content" required=""></textarea>
+							<input type="hidden" name="room_id" value="<?php echo e($room->id); ?>">
+							<input type="submit" name="addReview" value="Gửi đánh giá" class="btn btn-success mt-2">
+						</form>
+						<?php else: ?>
+							<p class="alert alert-warning">Vui lòng <a href="<?php echo e(route('login')); ?>" class="font-weight-bold alert-warning">đăng nhập</a> để đánh giá căn phòng này</p>
+						<?php endif; ?>
+
 						<?php $__empty_1 = true; $__currentLoopData = $reviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dg): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
 						<div class="media my-2">
-							<img src="<?php echo e($dg->user->avatar); ?>" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
+							<img src="
+							<?php if(strstr($dg->user->avatar,'https')): ?>
+								<?php echo e($dg->user->avatar); ?>
+
+							<?php else: ?>
+								<?php echo e(asset('upload/avatar/'.$dg->user->avatar)); ?>
+
+							<?php endif; ?>
+							" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
 							<div class="media-body">
 								<h5>
 									<?php echo e($dg->user->name); ?>

@@ -51,4 +51,47 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Role', 'id_role');
     }
+
+    public function nation()
+    {
+        return $this->belongsTo('App\Nation');
+    }
+
+    public function issuedAt()
+    {
+        return $this->belongsTo('App\Province', 'issued_at');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo('App\Province');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo('App\District');
+    }
+
+    public function ward()
+    {
+        return $this->belongsTo('App\Ward');
+    }
+
+    public function roomRequests()
+    {
+        return $this->hasMany('App\RoomRequest');
+    }
+
+    public function religious(){
+        return $this->belongsTo('App\Religious');
+    }
+
+    public function nationality(){
+        return $this->belongsTo('App\Nationality');
+    }
+
+    public function notifies()
+    {
+        return $this->hasMany('App\Notification');
+    }
 }

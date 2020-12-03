@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    //
+    //Hóa đơn
     protected $table = 'orders';
 
     public function user()

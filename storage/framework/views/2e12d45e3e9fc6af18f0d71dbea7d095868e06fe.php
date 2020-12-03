@@ -70,7 +70,7 @@
 				</p>
 			  </div>
 			  <div class="col-md-6 col-lg-6 d-flex justify-content-center mb-md-0 mb-5">
-				<img src="<?php echo e(asset('image/31lHuWahkBL.jpg')); ?>" width="100%"/> <!--logo (avatar/icon) tính năng-->
+				<img src="<?php echo e(asset('image/logoKTX.jpg')); ?>" width="100%"/> <!--logo (avatar/icon) tính năng-->
 			  </div>
 			</div>
 
