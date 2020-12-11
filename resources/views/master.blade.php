@@ -22,6 +22,7 @@
 
     {{-- CSS custom --}}
     <link href="{{ asset('css/css_custom.css') }}" rel="stylesheet" type="text/css" />
+  
 </head>
 <body>
 
@@ -58,7 +59,7 @@
 	<div class="container-fluid">
 		<div class="row bg-dark">
 			<div class="col-12 text-white h5 p-2 text-center">
-				TRANG WEB CHỈ PHỤC VỤ NHU CẦU HỌC TẬP NÊN ĐƠN HÀNG, DỮ LIỆU ĐỀU LÀ ẢO VÀ SẼ BỊ XÓA
+				TRANG WEB CHỈ PHỤC VỤ NHU CẦU HỌC TẬP.
 			</div>
 		</div>	
 	</div> {{-- Thông báo của website --}}

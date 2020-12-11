@@ -106,6 +106,13 @@ Route::post('register', [
 	'uses' => 'PageController@postregister',
 ]);
 
+//-----------AJAX kiem tra thong thin khi register
+Route::post('register/ajax', [
+    'as' => 'ajax.register',
+    'uses' => 'AjaxController@ajaxRegister',
+]);
+
+
 Route::get('logout' ,[
 	'as' => 'logout',
 	'uses' => 'PageController@logout'

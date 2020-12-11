@@ -54,11 +54,11 @@
 							@csrf
 							<div class="row mt-3 mb-4">
 								<div class="col-md-12 text-center text-md-left text-md-right">
-									@if(Auth::check())
+									@if($allow == 1)
 										<input type="hidden" name="id_phong" value="{{ $room->id }}">
 										<input type="submit" name="book" value=" Đặt phòng" class="btn btn-outline-primary">
 									@else
-										<a href="{{ route('login') }}" class="btn btn-secondary btn-rounded">Vui lòng đăng nhập để đặt phòng</a>
+										<a class="btn btn-secondary btn-rounded">{{ $message }}</a>
 									@endif
 								</div>
 							</div>

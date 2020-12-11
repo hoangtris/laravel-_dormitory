@@ -15,8 +15,11 @@ use App\Review;
 use App\Order;
 use App\OrderDetail;
 use App\Notification;
+use App\Province;
 
 use App\Http\Controllers\NL_Checkout;
+use Illuminate\Support\Facades\Validator;
+
 
 class PageController extends Controller
 {
@@ -36,7 +39,7 @@ class PageController extends Controller
     public function contact()
     {
     	# code...
-    	return view('pages.index');
+    	return view('pages.contact');
     }
 
     public function term() #điều khoản & dịch vụ
@@ -152,8 +155,32 @@ class PageController extends Controller
         # code...
         $room    = Room::find($id);
         $reviews = $room->reviews->sortByDesc('id');
+        $allow   = 0; # khong duoc dat phong
+        $message = 'Vui lòng đăng nhập để đặt phòng';
 
-        return view('pages.room', compact('room', 'reviews'));
+        if(Auth::check()){
+            $id   = Auth::id();
+            $user = User::find($id);
+            if($user->id_role != 4){
+                $message = $user->role->name.' không được phép đặt phòng';
+            }else{
+                $orderLastOfUser = $user->orders->sortByDesc('id')->first();
+                //dd($orderLastOfUser->orderDetails->first()->status);
+                if($orderLastOfUser == null){
+                    $allow = 1; #cho phép đặt phòng
+                }else{
+                    $status = $orderLastOfUser->orderDetails->first()->status; #lay hoa don cuoi de xem can phong do dang o hay da huy
+                    if ($status == 1 || $status == 2) {
+                        $message = 'Bạn đã có phòng, vui lòng hủy phòng để đặt phòng mới.';
+                    } elseif($status == 3) {
+                        $message = 'Bạn vừa hủy phòng, vui lòng chờ QLhong xác nhận';
+                    } else {
+                        $allow = 1;
+                    }
+                }          
+            }   
+        }
+        return view('pages.room', compact('room', 'reviews', 'allow', 'message'));
     }
 
     public function checkout(Request $request, $id)
@@ -349,18 +376,37 @@ class PageController extends Controller
     public function register()
     {
         # code...
-        return view('pages.register');
+        $provinces = Province::orderBy('name')->get();
+        return view('pages.register', compact('provinces'));
     }
 
     public function postregister(Request $request)
     {
-        # code...
+        $validator = Validator::make($request->all(), [
+            'phone' => 'unique:users',
+            'identity_card_number' => 'unique:users',
+            'email' => 'unique:users',
+            'username' => 'unique:users',
+        ],
+        [
+            'phone.unique' => 'Số điện thoại đã tồn tại trong hệ thống',
+            'identity_card_number.unique' => 'Số CMND đã tồn tại trong hệ thống',
+            'email.unique' => 'Email đã tồn tại trong hệ thống',
+            'username.unique' => 'Username đã tồn tại trong hệ thống',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $file = $request->file('avatar');
         $name = Str::random(5).'_'.$file->getClientOriginalName();
 
         if($user = User::create($request->all())){
             $insertedId = $user->id;
-
             $user = User::find($insertedId);
             $user->avatar = $name;
             $user->password = Hash::make($request->password);
@@ -369,7 +415,6 @@ class PageController extends Controller
             $file->move('upload/avatar/',$name);
             return redirect('login')->with(['flag'=>'success','message'=>'Đăng kí thành công, vui lòng đăng nhập lại.']);
         }else{
-            echo 'that bai';
             return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng kí thất bại']);
         }
     }
