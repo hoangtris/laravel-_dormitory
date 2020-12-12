@@ -8,6 +8,7 @@ use App\Role;
 use App\Review;
 use DB;
 use App\Notification;
+use App\Feedback;
 
 class AdminController extends Controller
 {
@@ -109,5 +110,23 @@ class AdminController extends Controller
 				return route('cancel.index');
 			}
 		}
+	}
+
+	public function indexFeedback()
+	{
+		$feedbacks = Feedback::all();
+		return view('admin.feedback', compact('feedbacks'));
+	}
+
+	public function truncateFeedback()
+	{
+		Feedback::truncate();
+		return redirect()->back()->with(['flag'=>'success','message'=>'Xóa hết phản hồi thành công']);
+	}
+
+	public function updateFeedback(Request $request)
+	{
+		$id = $request->get('id');
+		Feedback::where('id',$id)->update(['status' => 1]);
 	}
 }

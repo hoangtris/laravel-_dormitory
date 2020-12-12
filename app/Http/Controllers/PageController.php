@@ -16,6 +16,7 @@ use App\Order;
 use App\OrderDetail;
 use App\Notification;
 use App\Province;
+use App\Feedback;
 
 use App\Http\Controllers\NL_Checkout;
 use Illuminate\Support\Facades\Validator;
@@ -40,6 +41,13 @@ class PageController extends Controller
     {
     	# code...
     	return view('pages.contact');
+    }
+
+    public function postContact(Request $req)
+    {
+        # code...
+        Feedback::create($req->except('_token'));
+        return redirect()->back()->with(['flag'=>'success','message'=>'Gửi phản hồi thành công']);
     }
 
     public function term() #điều khoản & dịch vụ

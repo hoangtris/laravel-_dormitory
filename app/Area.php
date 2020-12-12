@@ -11,6 +11,6 @@ class Area extends Model
     
     public function rooms()
     {
-        return $this->hasMany('App\Room');
+        return $this->hasMany('App\Room','id_area');
     }
 }

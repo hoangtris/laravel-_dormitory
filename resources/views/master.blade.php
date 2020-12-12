@@ -55,7 +55,6 @@
    </div>
   </nav> {{-- navbar --}}
 
-
 	<div class="container-fluid">
 		<div class="row bg-dark">
 			<div class="col-12 text-white h5 p-2 text-center">
@@ -65,14 +64,10 @@
 	</div> {{-- Thông báo của website --}}
 
   @if(session()->get('flag'))
-    <div class="container-fluid">
-      <div class="row bg-{{ session()->get('flag') }}">
-        <div class="col-12 text-white h5 p-2 text-center">
-          {{ session()->get('message') }}        
-        </div>
-      </div>  
-    </div> {{-- Thông báo của khi đăng nhập/kí/xuất --}}
-  @endif
+    <div class="alert alert-{{ session()->get('flag') }} text-center">
+        {{ session()->get('message') }}
+    </div>
+  @endif {{-- Thông báo của website 2 --}}
 
   @yield('content')
 
@@ -129,6 +124,33 @@
     <!-- /.container -->
   </footer>
 
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        xfbml            : true,
+        version          : 'v9.0'
+      });
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Your Chat Plugin code -->
+    <div class="fb-customerchat"
+    attribution=setup_tool
+    page_id="110223287416081"
+    theme_color="#6699cc"
+    logged_in_greeting="Chào! Làm thế nào chúng tôi có thể giúp bạn?"
+    logged_out_greeting="Chào! Làm thế nào chúng tôi có thể giúp bạn?">
+  </div>
+  
 </body>
 </html>
 	

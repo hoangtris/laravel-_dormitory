@@ -4,24 +4,24 @@
   
 	    <div class="carousel-inner">
 	    	<div class="carousel-item active">
-				<img src="https://www.publicdomainpictures.net/pictures/320000/velka/background-image.png" width="100%" height="400px">
+				<img src="{{ asset('image/02072020_8-8.jpg') }}" width="100%" height="400px" style="object-fit: cover;">
 				<div class="carousel-caption">
-					<h3>he</h3>
-					<p>We had such a great time in LA!</p>
+					<h3>Ký túc xá</h3>
+					<p>Cung cấp nơi ở tập thể với giá rẻ vô cùng hợp lý và đầy đủ tiện nghi</p>
 				</div>   
 			</div>
 			<div class="carousel-item">
-				<img src="https://www.publicdomainpictures.net/pictures/320000/velka/background-image.png" width="100%" height="400px">
+				<img src="{{ asset('image/30062020_5-loai-chi-phi-khi-du-hoc-Singapore-du-hoc-sinh-phai-biet-2.jpg') }}" width="100%" height="400px" style="object-fit: cover;">
 				<div class="carousel-caption">
-					<h3>he</h3>
-					<p>aaaaaaaaaaaaaaaaaa</p>
+					<h3>Phòng Homestay</h3>
+					<p>Nơi ở đẹp, thân thiên với môi trường</p>
 				</div>   
 			</div>
 			<div class="carousel-item">
-				<img src="https://www.publicdomainpictures.net/pictures/320000/velka/background-image.png" width="100%" height="400px">
+				<img src="{{ asset('image/02072020_kinh-nghiem-tim-phong-tro-gia-re-top-xx-website-t-4.jpg') }}" width="100%" height="400px" style="object-fit: cover;">
 				<div class="carousel-caption">
-					<h3>he</h3>
-					<p>bbbbbbbbbbbbbbbb</p>
+					<h3>Phòng 4 người</h3>
+					<p>Phòng nhóm rộng rãi, thoáng mát, sạch sẽ</p>
 				</div>   
 			</div>
 	    </div>

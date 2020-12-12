@@ -10,13 +10,6 @@
               <div class="alert alert-success">{{ Session::get('flash_message') }}</div>
             @endif
 
-            {{-- Câu thông báo đăng nhập thành công/thất bại --}}
-			@if(session()->get('flag'))
-				<div class="alert alert-{{ session()->get('flag') }}">
-                    {{ session()->get('message') }}
-                </div>
-			@endif
-
             @if(!Auth::check())
 			<p class="h1 text-center text-primary text-uppercase mb-4">Đăng nhập</p>
 			<form action="login" method="post" accept-charset="utf-8">

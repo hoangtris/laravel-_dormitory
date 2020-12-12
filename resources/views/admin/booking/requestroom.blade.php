@@ -94,7 +94,7 @@
 									</tr>
 									@empty
 									<tr>
-										<td colspan="5" class="text-center">Ohhhh! Không có đơn hủy phòng nào cả.</td>
+										<td colspan="5" class="text-center">Ohhhh! Không có đơn yêu cầu nào cả.</td>
 									</tr>
 									@endforelse
 								</tbody>

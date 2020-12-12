@@ -109,7 +109,7 @@
 
 			 		<li class="nav-item">
 			 			<a href="{{ route('admin.dashboard') }}" class="nav-link active">
-			 				<i class="nav-icon fas fa-tachometer-alt"></i>
+			 				<i class="nav-icon fas fa-chart-pie"></i>
 			 				<p>
 			 					Dashboard
 			 				</p>
@@ -140,7 +140,7 @@
 			 				</li>
 			 				<li class="nav-item">
 			 					<a href="{{ route('rooms.index') }}" class="nav-link">
-			 						<i class="fas fa-list-ol nav-icon"></i>
+			 						<i class="fas fa-door-open nav-icon"></i>
 			 						<p>Quản lý phòng</p>
 			 					</a>
 			 				</li>
@@ -160,19 +160,19 @@
 			 			<ul class="nav nav-treeview">
 			 				<li class="nav-item">
 			 					<a href="{{ route('users.index') }}" class="nav-link">
-			 						<i class="fas fa-list-ul nav-icon"></i>
+			 						<i class="fas fa-address-book nav-icon"></i>
 			 						<p>Danh sách tài khoản</p>
 			 					</a>
 			 				</li>
 			 				<li class="nav-item">
 			 					<a href="{{ route('admin.role') }}" class="nav-link">
-			 						<i class="fas fa-id-badge nav-icon"></i>
+			 						<i class="fas fa-user-tag nav-icon"></i>
 			 						<p>Vai trò</p>
 			 					</a>
 			 				</li>
 			 				<li class="nav-item">
 			 					<a href="{{ route('admin.users.request') }}" class="nav-link">
-			 						<i class="fas fa-tasks nav-icon"></i>
+			 						<i class="fas fa-hand-sparkles nav-icon"></i>
 			 						<p>Yêu cầu</p>
 			 						<span class="right badge badge-danger">New</span>
 			 					</a>
@@ -193,13 +193,13 @@
 			 			<ul class="nav nav-treeview">
 			 				<li class="nav-item">
 			 					<a href="{{ route('booking.index') }}" class="nav-link">
-			 						<i class="fas fa-house-user nav-icon"></i>
+			 						<i class="fas fa-calendar-check nav-icon"></i>
 			 						<p>Đơn đặt phòng</p>
 			 					</a>
 			 				</li>
 			 				<li class="nav-item">
 			 					<a href="{{ route('cancel.index') }}" class="nav-link">
-			 						<i class="fas fa-house-damage nav-icon"></i>
+			 						<i class="fas fa-calendar-times nav-icon"></i>
 			 						<p>Đơn hủy phòng</p>
 			 					</a>
 			 				</li>
@@ -211,6 +211,15 @@
 			 					</a>
 			 				</li>
 			 			</ul>
+			 		</li>
+			 		@endif
+
+			 		@if(Gate::any(['Admin', 'Cashier']))
+			 		<li class="nav-item">
+			 			<a href="{{ route('admin.notification.index') }}" class="nav-link">
+			 				<i class="nav-icon fas fa-file-invoice"></i>
+			 				<p>Hóa đơn</p>
+			 			</a>
 			 		</li>
 			 		@endif
 
@@ -228,12 +237,24 @@
 
 			 		<li class="nav-item">
 			 			<a href="{{ route('admin.review.index') }}" class="nav-link">
-			 				<i class="nav-icon fas fa-comment"></i>
+			 				<i class="nav-icon fas fa-comment-alt"></i>
 			 				<p>
 			 					Đánh giá phòng
 			 				</p>
 			 			</a>
 			 		</li>
+
+			 		@if(Gate::any(['Admin', 'RoomManager']))
+			 		<li class="nav-item">
+			 			<a href="{{ route('admin.feedback.index') }}" class="nav-link">
+			 				<i class="nav-icon fas fa-comment"></i>
+			 				<p>Phản hồi</p>
+			 				@if(count($notifyFeedback) != 0)
+			 				<span class="right badge badge-warning">{{ count($notifyFeedback) }}</span>
+			 				@endif
+			 			</a>
+			 		</li>
+			 		@endif
 
 			 		<li class="nav-item">
 			 			<a href="{{ route('logout') }}" class="nav-link">

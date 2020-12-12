@@ -24,7 +24,27 @@ class ClientController extends Controller
 	//
 	public function dashboard()
 	{
-		return view('client.index');
+		$id = Auth::id();
+		$user = User::find($id);
+		$orderLast = $user->orders->sortByDesc('id')->first();
+		if($orderLast == null){
+			$od = null;
+		}else{
+			$od = OrderDetail::findOrFail($orderLast->id);
+			if($od->status == 4){
+				$od = null;
+			}
+		}
+		#tổng tiền
+		$total = Order::where('user_id',$id)
+							->groupBy('user_id')
+							->selectRaw('sum(total) as total')
+							->first();
+		#thông báo
+		$notify = Notification::where('status', 3)->where('user_id', Auth::id())->get();
+		#đơn yêu cầu
+		$req = RoomRequest::where('user_id', Auth::id())->get();
+		return view('client.index', compact('od', 'total', 'notify', 'req'));
 	}
  
 	public function information()

@@ -61,7 +61,13 @@ class TypeRoomController extends Controller
     public function destroy($id)
     {
         //
-        TypeRoom::where('id',$id)->delete();
-        return redirect()->route('typesroom.index')->with(['flag'=>'success','message'=>'Xóa loại phòng thành công.']);
+        $check = TypeRoom::find($id)->rooms;
+        if (count($check) == 0) {
+            TypeRoom::where('id',$id)->delete();
+            return redirect()->route('typesroom.index')->with(['flag'=>'success','message'=>'Xóa loại phòng thành công.']);
+        } else {
+            return redirect()->route('typesroom.index')->with(['flag'=>'error','message'=>'Xóa loại phòng thất bại.']);
+        }
+
     }
 }

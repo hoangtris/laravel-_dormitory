@@ -40,31 +40,34 @@
 				<!-- Form with header -->
 				<div class="card">
 					<div class="card-body">
-						<!-- Header -->
-						<div class="form-header accent-1">
-							<h3 class="mt-2"><i class="fa fa-envelope"></i> Write to us:</h3>
-						</div>
-						<p class="dark-grey-text">We'll write rarely, but only the best content.</p>
-						<!-- Body -->
-						<div class="md-form mb-3">
-							<i class="fa fa-user prefix grey-text"></i> <label for="form-name">Your name</label>
-							<input type="text" id="form-name" class="form-control">
-						</div>
-						<div class="md-form mb-3">
-							<i class="fa fa-envelope prefix grey-text"></i> <label for="form-email">Your email</label>
-							<input type="text" id="form-email" class="form-control">
-						</div>
-						<div class="md-form mb-3">
-							<i class="fa fa-tag prefix grey-text"></i> <label for="form-Subject">Subject</label>
-							<input type="text" id="form-Subject" class="form-control">
-						</div>
-						<div class="md-form mb-3">
-							<i class="fa fa-pencil prefix grey-text"></i> <label for="form-text">Send message</label>
-							<textarea id="form-text" class="form-control md-textarea" rows="3"></textarea>
-						</div>
-						<div class="text-center">
-							<button class="btn btn-outline-primary btn-block">Submit</button>
-						</div>
+						<form action="{{ route('contact.store') }}" method="post" accept-charset="utf-8">
+							@csrf
+							<!-- Header -->
+							<div class="form-header accent-1">
+								<h3 class="mt-2"><i class="fa fa-envelope"></i> Để lại lời nhắn:</h3>
+							</div>
+							<p class="dark-grey-text">Chúng tôi sẵn sàng và tiếp nhận lời nhắn từ bạn.</p>
+							<!-- Body -->
+							<div class="md-form mb-3">
+								<i class="fa fa-user prefix grey-text"></i> <label for="form-name">Họ tên</label>
+								<input type="text" id="form-name" class="form-control" name="name" required>
+							</div>
+							<div class="md-form mb-3">
+								<i class="fa fa-envelope prefix grey-text"></i> <label for="form-email">Email</label>
+								<input type="email" id="form-email" class="form-control" name="email" required>
+							</div>
+							<div class="md-form mb-3">
+								<i class="fa fa-tag prefix grey-text"></i> <label for="form-Subject">Tiêu đề</label>
+								<input type="text" id="form-Subject" class="form-control" name="subject" required>
+							</div>
+							<div class="md-form mb-3">
+								<i class="fa fa-pencil prefix grey-text"></i> <label for="form-text">Nội dung phản hồi</label>
+								<textarea id="form-text" class="form-control md-textarea" rows="5" name="content" required></textarea>
+							</div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-outline-primary btn-block">Gửi</button>
+							</div>
+						</form>
 					</div>
 				</div>
 				<!-- Form with header -->

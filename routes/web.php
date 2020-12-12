@@ -33,6 +33,11 @@ Route::get('contact', [
 	'uses' => 'PageController@contact',
 ]);
 
+Route::post('contact', [
+    'as' => 'contact.store',
+    'uses' => 'PageController@postContact',
+]);
+
 //----------------------------------
 Route::get('rooms/all', [
 	'as' => 'rooms.all',
@@ -345,6 +350,22 @@ Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
         Route::get('update', [
             'as' => 'admin.notification.update',
             'uses' => 'AdminController@updateNotification',
+        ]);
+    });
+
+    //-------------feedback
+    Route::middleware(['roommanager'])->prefix('feedback')->group(function () {
+        Route::get('/', [
+            'as' => 'admin.feedback.index',
+            'uses' => 'AdminController@indexFeedback',
+        ]);
+        Route::post('/', [
+            'as' => 'admin.feedback.truncate',
+            'uses' => 'AdminController@truncateFeedback',
+        ]);
+        Route::get('update', [
+            'as' => 'admin.feedback.update',
+            'uses' => 'AdminController@updateFeedback',
         ]);
     });
 });

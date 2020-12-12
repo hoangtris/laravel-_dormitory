@@ -57,7 +57,12 @@ class AreaController extends Controller
     public function destroy($id)
     {
         //
-        Area::where('id',$id)->delete();
-        return redirect()->route('areas.index')->with(['flag'=>'success','message'=>'Xóa khu vực thành công.']);
+        $check = Area::find($id)->rooms;
+        if (count($check) == 0) {
+            Area::where('id',$id)->delete();
+            return redirect()->route('areas.index')->with(['flag'=>'success','message'=>'Xóa khu vực thành công.']);
+        } else {
+            return redirect()->route('areas.index')->with(['flag'=>'error','message'=>'Xóa khu vực thất bại do khu vực có phòng.']);
+        }
     }
 }

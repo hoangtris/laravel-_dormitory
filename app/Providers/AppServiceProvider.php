@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\User;
 use App\Notification;
 use Auth;
+use App\Feedback;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,10 +36,12 @@ class AppServiceProvider extends ServiceProvider
             $notifyBooking = Notification::where('type', 'Đặt phòng')->where('status', 1)->get();
             $notifyCancel  = Notification::where('type', 'Trả phòng')->where('status', 1)->get();
             $notifyRequest = Notification::where('type', 'Yêu cầu')->where('status', 1)->get();
+            $notifyFeedback = Feedback::where('status', 0)->get();
             $view->with('notifyTotal',$notifyTotal);
             $view->with('notifyBooking',$notifyBooking);
             $view->with('notifyCancel',$notifyCancel);
             $view->with('notifyRequest',$notifyRequest);
+            $view->with('notifyFeedback',$notifyFeedback);
         });
 
         view()->composer('layouts.admin',function($view){
