@@ -9,6 +9,7 @@ use App\Role;
 use App\Province;
 use App\District;
 use App\Ward;
+use App\RoomRequest;
 
 class AjaxController extends Controller
 {
@@ -146,6 +147,16 @@ class AjaxController extends Controller
             return response()
                     ->json($wards);
             //return respond json;
+        }
+    }
+
+    public function showRequest(Request $request)
+    {
+        if($request->get('idRequest')){
+            $id = $request->get('idRequest');
+            $request = RoomRequest::find($id);
+            return response()
+                    ->json($request);
         }
     }
 }

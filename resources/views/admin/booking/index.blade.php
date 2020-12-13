@@ -87,10 +87,14 @@
 										</td>
 										<td>
 											@if($od->status == 1)
+												@if($od->order->status == 1)
+													<button class="btn btn-block btn-warning">Chưa thanh toán</button>
+												@else
 												<form action="{{ route('booking.update', $od->id) }}" method="post" accept-charset="utf-8">
 													@csrf
 													<button type="" class="btn btn-block btn-danger" onclick="return confirm('Bạn có muốn chuyển sang trạng thái ĐÃ CHẤP NHẬN')">Chờ chấp nhận</button>
 												</form>
+												@endif
 											@else
 												<button type="button" class="btn btn-block btn-success" disabled="">Đã chấp nhận</button>
 											@endif

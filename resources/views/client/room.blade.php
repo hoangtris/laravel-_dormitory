@@ -171,7 +171,9 @@
 									<tr>
 										<td class="align-middle">{{ date("d-m-Y H:i:s", strtotime($listReq->created_at)) }}</td>
 										<td class="align-middle">{{ $listReq->type }}</td>
-										<td class="align-middle"><a href="">Xem...</a></td>
+										<td class="align-middle">
+											<a href="" data-toggle="modal" data-target="#modal-lg" class="showRequest" id="{{ $listReq->id }}">Xem...</a>
+										</td>
 										<td class="align-middle">
 											@if($listReq->status == 1)
 											<label class="px-2 bg-danger color-palette">Chưa chấp nhận</label>
@@ -199,6 +201,29 @@
 	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+{{-- modal xem chi tiet don yeu cau --}}
+<div class="modal fade" id="modal-lg">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Nội dung đơn</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id="contentRequest">
+				
+			</div>
+			<div class="modal-footer justify-content-between">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 @if($od != null)
 <div class="modal fade" id="modal-lg">
@@ -233,5 +258,28 @@
 </div>
 <!-- /.modal -->
 @endif
+
+<script>
+    $(document).ready(function(){
+        $(".showRequest").click(function(){
+            var idRequest = $(this).attr("id");
+            //alert(idRequest);
+            $.ajax({
+                url:"{{ route('client.request.showRequest') }}", 
+                method:"GET", // phương thức gửi dữ liệu.
+                dataType: 'json',
+			    cache: false,
+                data:{
+                    idRequest
+                },
+                success:function(obj){ //dữ liệu nhận về 
+                	$('#contentRequest').html(obj.content);
+                    console.log(obj);
+                },
+                error: function(req, err){ console.log('my message ' + err); }
+            });
+        });
+    });
+</script>
 
 @endsection

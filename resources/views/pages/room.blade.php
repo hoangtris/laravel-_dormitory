@@ -99,7 +99,7 @@
 					</div>
 					<div id="menu3" class="container tab-pane fade"><br>
 						@if(Auth::check())
-						<form action="{{ route('review.store') }}" method="post">
+						<form action="{{ route('review.store') }}" method="post" class="mb-5">
 							@csrf
 							<label for="addReview">Nhập đánh giá</label>
 							<textarea class="form-control" rows="5" name="content" required=""></textarea>
@@ -111,14 +111,14 @@
 						@endif
 
 						@forelse($reviews as $dg)
-						<div class="media my-2">
+						<div class="media my-3">
 							<img src="
 							@if(strstr($dg->user->avatar,'https'))
 								{{ $dg->user->avatar }}
 							@else
 								{{ asset('upload/avatar/'.$dg->user->avatar) }}
 							@endif
-							" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px">
+							" alt="avatar" class="mr-3 mt-3 rounded-circle" width="70px" height="70px" style="object-fit: cover;">
 							<div class="media-body">
 								<h5>
 									{{ $dg->user->name }}

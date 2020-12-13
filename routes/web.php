@@ -247,6 +247,10 @@ Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
             'as' => 'users.destroy',
             'uses' => 'UserController@destroy',
         ]);
+        Route::post('{users}/resetpassword', [
+            'as' => 'users.resetpassword',
+            'uses' => 'UserController@resetpassword',
+        ]);
     });
 
     //-------Role
@@ -324,6 +328,26 @@ Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
         Route::post('{request}', [
             'as' => 'request.update',
             'uses' => 'BookingController@updateRequest',
+        ]);
+    });
+
+    //-----order - danh cho thu ngan
+    Route::middleware(['cashier'])->prefix('order')->group(function(){
+        Route::get('/', [
+            'as' => 'order.index',
+            'uses' => 'OrderController@index',
+        ]);
+        Route::get('{id}', [
+            'as' => 'order.show',
+            'uses' => 'OrderController@show',
+        ]);
+        Route::post('{id}/update', [
+            'as' => 'order.update',
+            'uses' => 'OrderController@update',
+        ]);
+        Route::post('{id}/destroy', [
+            'as' => 'order.destroy',
+            'uses' => 'OrderController@destroy',
         ]);
     });
 
@@ -422,9 +446,14 @@ Route::middleware('auth')->prefix('client')->group(function () {
         'uses' => 'ClientController@roomCancel',
     ]);
 
+    //------------request - yeu cau
     Route::post('request', [
         'as' => 'client.request',
         'uses' => 'ClientController@storeRequest',
+    ]);
+    Route::get('request', [
+        'as' => 'client.request.showRequest',
+        'uses' => 'AjaxController@showRequest',
     ]);
 
     /////////ajax tinh thanh - quan huyen - phuong xa

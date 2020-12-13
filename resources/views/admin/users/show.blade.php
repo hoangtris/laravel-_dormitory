@@ -63,6 +63,10 @@
 								</li>
 							</ul>
 
+							<form action="{{ route('users.resetpassword', $user->id) }}" method="post" accept-charset="utf-8" class="mb-2">
+								@csrf
+								<input type="submit" value="Khôi phục mật khẩu" class="btn btn-primary btn-block" onclick="return confirm('Mật khẩu mặc định là password\nBạn chắc chứ?')">
+							</form>
 							<form action="{{ route('users.destroy', $user->id) }}" method="post" accept-charset="utf-8">
 								@csrf
 								<input type="submit" name="deleteUser" value="Xóa tài khoản" class="btn btn-outline-danger btn-block" onclick="return confirmDestroy()" disabled="">

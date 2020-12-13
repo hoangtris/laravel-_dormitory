@@ -6,6 +6,7 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 
 	<title>Trang cá nhân | AdminLTE 3</title>
+	<link rel="shortcut icon" href="{{ asset('image/iconweb.png') }}">
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -43,7 +44,7 @@
 			<aside class="main-sidebar sidebar-dark-primary elevation-4">
 				<!-- Brand Logo -->
 				<a href="{{ route('admin.dashboard') }}" class="brand-link">
-					<img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+					<img src="{{ asset('image/icon2.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 					style="opacity: .8">
 					<span class="brand-text font-weight-light">Trang cá nhân</span>
 				</a>

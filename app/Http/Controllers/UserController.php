@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\OrderDetail;
 use App\Role;
+use Hash;
 
 class UserController extends Controller
 {
@@ -42,5 +43,12 @@ class UserController extends Controller
         //them xoa hinh, them status de an du lieu
         User::where('id',$id)->delete();
         return redirect()->route('users.index')->with(['flag'=>'success','message'=>'Xóa tài khoản thành công.']);
+    }
+
+    public function resetpassword($id)
+    {
+        $pw = Hash::make('password');
+        User::where('id',$id)->update(['password'=>$pw]);
+        return redirect()->back()->with(['flag'=>'success','message'=>'Khôi phục mật khẩu tài khoản thành công.']);
     }
 }

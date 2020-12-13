@@ -65,16 +65,9 @@ class BookingController extends Controller
         $orderDetail->status = 2;
         $orderDetail->save();
 
-        $order = Order::find($orderDetail->order_id);
-        if($order->status == 1){
-            $order->status = 2;
-            $order->note   = 'Đã thanh toán - QLPHONG xác nhận';
-            $order->save();
-            
-        }
         Notification::where('order_id',$orderDetail->order_id)->update(['status' => 3]);
 
-        return redirect()->back()->with(['flag'=>'success','message'=>'Thay trạng thái thành công. Đã thông báo đến khách hàng']);
+        return redirect()->back()->with(['flag'=>'success','message'=>'Đã chấp nhận. Đã thông báo đến khách hàng']);
     }
 
     public function indexCancel(Request $request)

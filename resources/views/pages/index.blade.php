@@ -39,10 +39,10 @@
 		<div class="container">
 			<p class="display-4 text-uppercase">BẠN ĐANG TÌM KIẾM MỘT NƠI LƯU TRÚ?</p>
 			<p class="font-italic py-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec varius enim. Integer felis nunc, placerat a ipsum eget, ullamcorper efficitur ipsum. Nulla leo ex, sodales nec placerat et, malesuada ut erat. Vestibulum non cursus ipsum. Suspendisse sagittis convallis cursus. Etiam odio mauris, accumsan ut lorem ac, fringilla ullamcorper augue. Aliquam erat volutpat. Vestibulum mollis, tellus non elementum consequat, lectus lorem maximus sapien, vitae dapibus orci felis id lorem. Integer vitae nunc eros. Donec vehicula id quam sit amet viverra. Fusce et eros magna. Duis consectetur quis ante sit amet hendrerit. Suspendisse interdum interdum aliquam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut vel vehicula justo. Aenean enim tellus, semper id tincidunt id, tempus vel odio. Ut vel vehicula justo. Aenean enim tellus, semper id tincidunt id, tempus vel odio.</p>
-			<hr class="pb-3">
-			<img src="{{ asset('image/31lHuWahkBL.jpg') }}" alt="" width="400px">
+			<hr class="">
+			<img src="{{ asset('image/logoKTX.jpg') }}" alt="" width="400px">
 			<p class="display-4 text-uppercase pt-3">BẠN đừng lo</p>
-			<p class="font-italic py-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec varius enim. Integer felis nunc, placerat a ipsum eget, ullamcorper efficitur ipsum. Nulla leo ex, sodales nec placerat et, malesuada ut erat. </p>
+			<p class="font-italic pb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec varius enim. Integer felis nunc, placerat a ipsum eget, ullamcorper efficitur ipsum. Nulla leo ex, sodales nec placerat et, malesuada ut erat. </p>
 
 			
 		</div>
@@ -112,7 +112,7 @@
 		</div> <!--end container-->
 
 		<div class="container-fluid" style="background-color: #f7f7c9"> 
-		  <div class="container my-5 py-5 z-depth-1"> 
+		  <div class="container py-5 z-depth-1"> 
 			<!--Section: Content-->
 			<section class="px-md-1 mx-md-1 light-grey-text text-center text-lg-left">
 			  <!--Grid row-->
