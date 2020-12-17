@@ -9,14 +9,44 @@ use App\Review;
 use DB;
 use App\Notification;
 use App\Feedback;
+use App\OrderDetail;
+use App\RoomRequest;
+use App\Order;
 
 class AdminController extends Controller
 {
 	 //
 	public function dashboard()
 	{
-		# code...
-		return view('admin.dashboard');
+		#hoa don qua han
+		$order = Order::where('status', 1)->get();
+		$countOrderExpired = 0;
+		foreach ($order as $o) {
+			if (date('Y-m-d') > $o->created_at->addDays(3)) {
+				$countOrderExpired++;
+			}
+		}
+		#hoa don trong ngay
+		$orderInDay = Order::whereDay('created_at', date('d'))->get();
+		#don dat phong
+		$booking = OrderDetail::where('status', 1)->get();
+		#don tra phong som
+		$cancel  = OrderDetail::where('status', 3)->get();
+		#don yeu cau
+		$request = RoomRequest::where('status', 1)->get();
+		#phan hoi
+		$feedback= Feedback::where('status', 0)->get();
+		#danh gia phong
+		$review  = Review::all();
+		#khu vuc moi - limit 3
+		$areas   = \App\Area::orderBy('id','desc')->limit(3)->get();
+		#loai phong moi - limit 3
+		$types   = \App\TypeRoom::orderBy('id','desc')->limit(3)->get();
+		#phong moi - limit 3
+		$rooms   = \App\Room::orderBy('id','desc')->limit(3)->get();
+		//dd($areas);
+		
+		return view('admin.dashboard', compact('booking', 'cancel', 'request', 'feedback', 'order', 'review', 'countOrderExpired', 'orderInDay', 'areas', 'types', 'rooms'));
 	}
 
 	public function role(Request $request)

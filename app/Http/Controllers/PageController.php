@@ -166,28 +166,41 @@ class PageController extends Controller
         $allow   = 0; # khong duoc dat phong
         $message = 'Vui lòng đăng nhập để đặt phòng';
 
-        if(Auth::check()){
-            $id   = Auth::id();
-            $user = User::find($id);
-            if($user->id_role != 4){
-                $message = $user->role->name.' không được phép đặt phòng';
-            }else{
-                $orderLastOfUser = $user->orders->sortByDesc('id')->first();
-                //dd($orderLastOfUser->orderDetails->first()->status);
-                if($orderLastOfUser == null){
-                    $allow = 1; #cho phép đặt phòng
-                }else{
-                    $status = $orderLastOfUser->orderDetails->first()->status; #lay hoa don cuoi de xem can phong do dang o hay da huy
-                    if ($status == 1 || $status == 2) {
-                        $message = 'Bạn đã có phòng, vui lòng hủy phòng để đặt phòng mới.';
-                    } elseif($status == 3) {
-                        $message = 'Bạn vừa hủy phòng, vui lòng chờ QLhong xác nhận';
-                    } else {
-                        $allow = 1;
-                    }
-                }          
-            }   
+
+
+        switch ($room->status) {
+            case 0:
+                $message = 'Phòng này tạm ngừng cho thuê';
+                break;
+            case 2:
+                $message = 'Phòng này đã được thuê';
+                break;
+            default:
+                if(Auth::check()){
+                    $id   = Auth::id();
+                    $user = User::find($id);
+                    if($user->id_role != 4){
+                        $message = $user->role->name.' không được phép đặt phòng';
+                    }else{
+                        $orderLastOfUser = $user->orders->sortByDesc('id')->first();
+                        //dd($orderLastOfUser->orderDetails->first()->status);
+                        if($orderLastOfUser == null){
+                            $allow = 1; #cho phép đặt phòng
+                        }else{
+                            $status = $orderLastOfUser->orderDetails->first()->status; #lay hoa don cuoi de xem can phong do dang o hay da huy
+                            if ($status == 1 || $status == 2) {
+                                $message = 'Bạn đã có phòng, vui lòng hủy phòng để đặt phòng mới.';
+                            } elseif($status == 3) {
+                                $message = 'Bạn vừa hủy phòng, vui lòng chờ QLhong xác nhận';
+                            } else {
+                                $allow = 1;
+                            }
+                        }          
+                    }   
+                }
+                break;
         }
+
         return view('pages.room', compact('room', 'reviews', 'allow', 'message'));
     }
 
