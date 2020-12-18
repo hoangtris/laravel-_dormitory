@@ -58,7 +58,11 @@
 										<input type="hidden" name="id_phong" value="{{ $room->id }}">
 										<input type="submit" name="book" value=" Đặt phòng" class="btn btn-outline-primary">
 									@else
+										@if($message == 'Vui lòng đăng nhập để đặt phòng')
+											<a href="{{ route('login') }}" class="btn btn-secondary btn-rounded">{{ $message }}</a>
+										@else
 										<a class="btn btn-secondary btn-rounded">{{ $message }}</a>
+										@endif
 									@endif
 								</div>
 							</div>
