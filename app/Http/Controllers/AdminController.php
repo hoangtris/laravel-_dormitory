@@ -45,8 +45,10 @@ class AdminController extends Controller
 		#phong moi - limit 3
 		$rooms   = \App\Room::orderBy('id','desc')->limit(3)->get();
 		//dd($areas);
+		#danh gia 
+		$reviews  = Review::orderBy('id','desc')->get();
 		
-		return view('admin.dashboard', compact('booking', 'cancel', 'request', 'feedback', 'order', 'review', 'countOrderExpired', 'orderInDay', 'areas', 'types', 'rooms'));
+		return view('admin.dashboard', compact('booking', 'cancel', 'request', 'feedback', 'order', 'review', 'countOrderExpired', 'orderInDay', 'areas', 'types', 'rooms', 'reviews'));
 	}
 
 	public function role(Request $request)
@@ -107,6 +109,14 @@ class AdminController extends Controller
 		$reviews = Review::paginate(25);
 		$users = User::all();
 		return view('admin.reviews.index', compact('reviews', 'users'));
+	}
+
+	//ajax
+	public function reviewShow(Request $request)
+	{
+		$id = $request->get('id');
+		$review = Review::find($id);
+		return response()->json($review);
 	}
 
 	public function reviewDestroy($id)

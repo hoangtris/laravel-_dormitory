@@ -28,9 +28,9 @@ class TypeRoomController extends Controller
             $type->description = $request->description;
             $type->save();
 
-            return redirect()->route('typesroom.index')->with(['flag'=>'success','message'=>'Thêm loại phòng '.$type->name.' thành công.']);
+            return redirect()->back()->with(['flag'=>'success','message'=>'Thêm loại phòng '.$type->name.' thành công.']);
         }else{
-            return redirect()->route('typesroom.index')->with(['flag'=>'error','message'=>'Thêm loại phòng '.$type->name.' thất bại.']);
+            return redirect()->back()->with(['flag'=>'error','message'=>'Thêm loại phòng '.$request->name.' thất bại.']);
         }
     }
 

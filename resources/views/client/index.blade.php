@@ -52,7 +52,7 @@
 
 						<div class="info-box-content">
 							<span class="info-box-text">Tổng tiền bạn đã chi tiêu</span>
-							<span class="info-box-number">{{ number_format($total->total) }} VNĐ</span>
+							<span class="info-box-number">@if($total == null) 0 @else {{ number_format($total->total) }} @endif VNĐ</span>
 						</div>
 						<!-- /.info-box-content -->
 					</div>

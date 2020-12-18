@@ -185,19 +185,19 @@ Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
             'as' => 'typesroom.index',
             'uses' => 'TypeRoomController@index',
         ]);
-        Route::post('typesroom', [
+        Route::post('', [
             'as' => 'typesroom.store',
             'uses' => 'TypeRoomController@store',
         ]);
-        Route::get('typesroom/{typesroom}/edit', [
+        Route::get('{typesroom}/edit', [
             'as' => 'typesroom.edit',
             'uses' => 'TypeRoomController@edit',
         ]);
-        Route::post('typesroom/{typesroom}', [
+        Route::post('{typesroom}', [
             'as' => 'typesroom.update',
             'uses' => 'TypeRoomController@update',
         ]);
-        Route::post('typesroom/{typesroom}/delete', [
+        Route::post('{typesroom}/delete', [
             'as' => 'typesroom.destroy',
             'uses' => 'TypeRoomController@destroy',
         ]);
@@ -361,6 +361,12 @@ Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
         Route::get('{id}/destroy', [
             'as' => 'admin.review.destroy',
             'uses' => 'AdminController@reviewDestroy',
+        ]);
+
+        //ajax
+        Route::get('showReview', [
+            'as' => 'admin.review.show',
+            'uses' => 'AdminController@reviewShow',
         ]);
     });
 

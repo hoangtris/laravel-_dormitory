@@ -55,7 +55,7 @@
 
 						<div class="info-box-content">
 							<span class="info-box-text">Tổng tiền bạn đã chi tiêu</span>
-							<span class="info-box-number"><?php echo e(number_format($total->total)); ?> VNĐ</span>
+							<span class="info-box-number"><?php if($total == null): ?> 0 <?php else: ?> <?php echo e(number_format($total->total)); ?> <?php endif; ?> VNĐ</span>
 						</div>
 						<!-- /.info-box-content -->
 					</div>

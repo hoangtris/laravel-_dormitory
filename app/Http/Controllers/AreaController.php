@@ -22,8 +22,8 @@ class AreaController extends Controller
         $areas = Area::where('slug', $slug)->first();
 
         if ($areas != null) {
-            return redirect()->route('areas.index')
-                   ->with(['flag'=>'error','message'=>'Thêm khu vực '.$area->name.' thất bại.']);
+            return redirect()->back()
+                   ->with(['flag'=>'error','message'=>'Thêm khu vực '.$request->name.' thất bại. \n Tên khu vực bị trùng']);
         } else {
             $area = new Area;
             $area->name = $request->name;
@@ -31,7 +31,7 @@ class AreaController extends Controller
             $area->description = $request->description;
             $area->save();
 
-            return redirect()->route('areas.index')
+            return redirect()->back()
                    ->with(['flag'=>'success','message'=>'Thêm khu vực '.$area->name.' thành công.']);
         }
     }
