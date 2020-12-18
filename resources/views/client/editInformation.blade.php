@@ -209,7 +209,7 @@
 <!-- /.content-wrapper -->
 <script>
     $(document).ready(function(){
-        $("#province").change(function(){
+        $("#province_id").change(function(){
             var province = $(this).val();
             var _token = $('input[name="_token"]').val();
             $.ajax({
@@ -230,11 +230,11 @@
                     $("#district").html(listItems);
                 },
                 error: function(req, err){ console.log('my message ' + err); }
-                
+
             });
         });
 
-        $("#district").change(function(){
+        $("#district_id").change(function(){
             var district = $(this).val();
             var _token = $('input[name="_token"]').val();
             $.ajax({
