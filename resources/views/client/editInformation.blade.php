@@ -228,7 +228,9 @@
                     	listItems += "<option value='" + obj.id + "'>" + obj.prefix + " " +obj.name + "</option>";
                     });
                     $("#district").html(listItems);
-                }
+                },
+                error: function(req, err){ console.log('my message ' + err); }
+                
             });
         });
 
@@ -251,7 +253,8 @@
                     	listItems += "<option value='" + obj.id + "'>" + obj.prefix + " " +obj.name + "</option>";
                     });
                     $("#ward").html(listItems);
-                }
+                },
+                error: function(req, err){ console.log('my message ' + err); }
             });
         });
     });
