@@ -212,6 +212,7 @@
         $("#province_id").change(function(){
             var province = $(this).val();
             var _token = $('input[name="_token"]').val();
+            //alert(province);
             $.ajax({
                 url:"{{ route('province') }}", 
                 method:"POST", // phương thức gửi dữ liệu.
@@ -227,7 +228,7 @@
                     obj.forEach(function(obj) { 
                     	listItems += "<option value='" + obj.id + "'>" + obj.prefix + " " +obj.name + "</option>";
                     });
-                    $("#district").html(listItems);
+                    $("#district_id").html(listItems);
                 },
                 error: function(req, err){ console.log('my message ' + err); }
 
@@ -237,6 +238,7 @@
         $("#district_id").change(function(){
             var district = $(this).val();
             var _token = $('input[name="_token"]').val();
+            //alert(district);
             $.ajax({
                 url:"{{ route('district') }}", 
                 method:"POST", // phương thức gửi dữ liệu.
@@ -252,7 +254,7 @@
                     obj.forEach(function(obj) { 
                     	listItems += "<option value='" + obj.id + "'>" + obj.prefix + " " +obj.name + "</option>";
                     });
-                    $("#ward").html(listItems);
+                    $("#ward_id").html(listItems);
                 },
                 error: function(req, err){ console.log('my message ' + err); }
             });
